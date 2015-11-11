@@ -1,0 +1,12 @@
+%section.container
+  - @projects.each do |p|
+
+    %a{ href: "#{p['slug']}" }
+      %h2= p['name']
+      %div{ class: "slider" }
+        %img{ src: "assets/images/#{p['slug']}/thumb.png" }
+        %div{ class: "caption-cover" }
+        %p{ class: "caption" } Short desc.: #{p['short_desc']}
+
+    %p Tags: #{p['tags']}
+    %p Tools: #{p['tools']}

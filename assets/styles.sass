@@ -1,0 +1,59 @@
+$content_width: 900px
+
+section.header
+  background-color: #eee
+  padding: 10px
+  width: $content_width
+  margin-left: auto
+  margin-right: auto
+
+  img.logo-circle
+    border-radius: 50%
+
+section.container
+  background-color: #ddd
+  padding: 10px
+  width: $content_width
+  margin-left: auto
+  margin-right: auto
+
+.article
+  padding: 15px
+
+.article img
+  display: block
+  margin-left: auto
+  margin-right: auto
+
+.slider
+  position: relative
+  overflow: hidden
+  width: 300px
+
+.slider > *
+  display: block
+
+$caption-start-top: 90%
+$caption-start-left: 110%
+$caption-end-top: 0%
+$caption-end-left: 90%
+
+.caption-cover
+  position: absolute
+  width: 200%
+  height: 200%
+  background: #fdc424
+  top: $caption-start-top
+  left: -$caption-start-left
+  transition: all 0.5s ease-out
+  transform: rotate(45deg)
+
+.slider:hover .caption-cover
+  top: $caption-end-top
+  left: -$caption-end-left
+  transition: all 0.25s ease-out
+
+.caption
+  position: absolute
+  top: 0
+

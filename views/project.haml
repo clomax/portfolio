@@ -1,0 +1,30 @@
+%section.container
+  %h1= @project['name']
+
+  %hr
+
+  -# Match all images that aren't the thumbnail
+  -# TODO: Give these images a lightbox
+  -#- Dir["assets/images/evosim/[^thumb]*"].each do |img|
+  -#  %img{ class: "gallery", src: img, width: "20%" }
+
+  - unless @project['source_code'].nil?
+    %a{ href: "#{@project['source_code']}" }
+      %p Source code
+
+  - unless @project['download_from'].nil?
+    %a{ href: "#{@project['download_from']}" }
+      %p Download
+
+  -@project['tools'].each do |t|
+    =t
+
+  %section{ class: "article" }
+    =markdown(@project_md)
+
+  %section{ id: "other-projects" }
+    %h4 Other projects
+    - @other_projects.each do |p|
+      %a{ href: "#{p['slug']}" }
+        %p= p['name']
+

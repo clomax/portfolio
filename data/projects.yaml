@@ -1,0 +1,50 @@
+projects:
+    - name: Evosim
+      slug: evosim
+      short_desc: Artificial life simulator
+      tags:
+        - artificial life
+        - simulation
+      tools:
+        - C#
+        - Unity3D
+      source_code: 'http://github.com/clomax/evosim'
+      download_from: 'http://rlomax.itch.io/evosim'
+
+#    - name: Raptor Dash
+#      slug: raptor_dash
+#      short_desc: A simple infinite runner game
+#                  made in collaboration with an illustrator
+#      tags:
+#        - game
+#      tools:
+#        - C#
+#        - Unity3D
+
+    - name: OCR w/ Neural Network
+      slug: ocr
+      short_desc: Training a neural network to read handwritten digits
+      tags:
+        - machine learning
+      tools:
+        - R
+
+    - name: Spree Flexible Variants
+      slug: flexible_variants
+      short_desc: An extension for Spree commerce
+      tags:
+          - e-commerce
+          - web
+      tools:
+        - Spree
+
+    - name: PUNG
+      slug: pung
+      short_desc: A Pong clone where the opponent can
+                  learn how to play from human data
+      tags:
+          - game
+          - machine learning
+      tools:
+        - C++
+        - R
