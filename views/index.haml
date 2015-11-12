@@ -1,12 +1,15 @@
 %section.container
-  - @projects.each do |p|
-
-    %a{ href: "#{p['slug']}" }
-      %h2= p['name']
-      %div{ class: "slider" }
-        %img{ src: "assets/images/#{p['slug']}/thumb.png" }
-        %div{ class: "caption-cover" }
-        %p{ class: "caption" } Short desc.: #{p['short_desc']}
-
-    %p Tags: #{p['tags']}
-    %p Tools: #{p['tools']}
+  %ul{ class: "projects" }
+    - @projects.each do |p|
+      %li{ class: "project", id: "project-#{p['slug']}" }
+        %a{ href: "#{p['slug']}" }
+          %div{ class: "slider" }
+            %div{ id: "caption"}
+              %h2{ class: "caption caption-name" }=           p['name']
+              %p{ class: "caption caption-short-desc" }     #{p['short_desc']}
+              %p{ class: "caption caption-tools" }          #{p['tools']}
+            %img{ src: "assets/images/#{p['slug']}/thumb.png" }
+            %div{ class: "caption-cover", style: "background-color: #{p['colour']}" }
+        %i
+          %p{ style: "font-size: 1em; margin-top: 2px"}= p['name']
+          %hr{ style: "margin-top: -15px" }

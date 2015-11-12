@@ -1,4 +1,24 @@
-$content_width: 900px
+$content_width: 1000px
+$content_height: 3000px
+
+#caption
+  background-color: #aaa
+  h2
+    font-size: 1em
+    font-weight: bold
+
+ul.projects
+  list-style: none
+  display: flex
+  justify-content: space-between
+  flex-wrap: wrap
+  padding-right: 40px
+  margin-top: 0
+  li.project
+    margin-top: 30px
+    width: auto
+    min-height: 150px
+    background-color: #ccc
 
 section.header
   background-color: #eee
@@ -12,7 +32,7 @@ section.header
 
 section.container
   background-color: #ddd
-  padding: 10px
+  padding: 0px 10px 10px 10px
   width: $content_width
   margin-left: auto
   margin-right: auto
@@ -29,6 +49,11 @@ section.container
   position: relative
   overflow: hidden
   width: 300px
+  height: 200px
+  img
+    display: block
+    width: 100%
+    height: 100%
 
 .slider > *
   display: block
@@ -36,7 +61,7 @@ section.container
 $caption-start-top: 90%
 $caption-start-left: 110%
 $caption-end-top: 0%
-$caption-end-left: 90%
+$caption-end-left: 65%
 
 .caption-cover
   position: absolute
@@ -45,15 +70,29 @@ $caption-end-left: 90%
   background: #fdc424
   top: $caption-start-top
   left: -$caption-start-left
-  transition: all 0.5s ease-out
+  transition: all 0.07s ease-out
   transform: rotate(45deg)
 
-.slider:hover .caption-cover
-  top: $caption-end-top
-  left: -$caption-end-left
-  transition: all 0.25s ease-out
-
 .caption
+  z-index: 1000
   position: absolute
-  top: 0
+  opacity: 0
+  transition: all 1.5 ease-in-out
 
+.slider:hover
+  .caption-cover
+    top: $caption-end-top
+    left: -$caption-end-left
+  .caption
+    opacity: 1
+
+$caption-margin-left: 20px
+.caption-name
+  top: 40px
+  left: $caption-margin-left
+.caption-short-desc
+  top: 95px
+  left: $caption-margin-left
+.caption-tools
+  top: 150px
+  left: $caption-margin-left

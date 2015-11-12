@@ -10,16 +10,8 @@ projects:
         - Unity3D
       source_code: 'http://github.com/clomax/evosim'
       download_from: 'http://rlomax.itch.io/evosim'
+      colour: "#FF974F"
 
-#    - name: Raptor Dash
-#      slug: raptor_dash
-#      short_desc: A simple infinite runner game
-#                  made in collaboration with an illustrator
-#      tags:
-#        - game
-#      tools:
-#        - C#
-#        - Unity3D
 
     - name: OCR w/ Neural Network
       slug: ocr
@@ -28,6 +20,20 @@ projects:
         - machine learning
       tools:
         - R
+      colour: "#468966"
+
+
+    - name: Raptor Dash
+      slug: raptor_dash
+      short_desc: A simple infinite runner game
+                  made in collaboration with an illustrator
+      tags:
+        - game
+      tools:
+        - C#
+        - Unity3D
+      colour: "#7E8AA2"
+
 
     - name: Spree Flexible Variants
       slug: flexible_variants
@@ -37,6 +43,8 @@ projects:
           - web
       tools:
         - Spree
+      colour: "#B64926"
+
 
     - name: PUNG
       slug: pung
@@ -48,3 +56,4 @@ projects:
       tools:
         - C++
         - R
+      colour: "#009393"
