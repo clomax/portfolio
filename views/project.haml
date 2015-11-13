@@ -23,8 +23,20 @@
     =markdown(@project_md)
 
   %section{ id: "other-projects" }
-    %h4 Other projects
-    - @other_projects.each do |p|
-      %a{ href: "#{p['slug']}" }
-        %p= p['name']
-
+    %ul{ class: "projects" }
+      - @other_projects.each do |p|
+        %li{ class: "project", id: "project-#{p['slug']}" }
+          %a{ href: "#{p['slug']}" }
+            %div{ class: "slider" }
+              %div{ id: "caption"}
+              %img{ src: "assets/images/#{p['slug']}/thumb.png" }
+              %div{ class: "caption-cover", style: "background-color: #{p['colour']}" }
+              %div{ class: "caption-container" }
+                %h2{ class: "caption caption-name" }=           p['name']
+                %p{ class: "caption caption-short-desc" }     #{p['short_desc']}
+                %div{ class: "tools" }
+                  - p['tools'].each do |t|
+                    %a{ class: "caption caption-tools", href: "#" } #{t}
+          %i
+            %p{ style: "font-size: 1em; margin-top: 2px"}= p['name']
+            %hr{ style: "margin-top: -15px" }

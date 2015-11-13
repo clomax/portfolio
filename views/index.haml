@@ -12,7 +12,7 @@
               %p{ class: "caption caption-short-desc" }     #{p['short_desc']}
               %div{ class: "tools" }
                 - p['tools'].each do |t|
-                  %p{ class: "caption caption-tools" } #{t}
+                  %a{ class: "caption caption-tools", href: "#" } #{t}
         %i
           %p{ style: "font-size: 1em; margin-top: 2px"}= p['name']
           %hr{ style: "margin-top: -15px" }
