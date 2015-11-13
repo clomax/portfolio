@@ -10,10 +10,13 @@ $content_height: 3000px
 ul.projects
   list-style: none
   display: flex
-  justify-content: space-between
+  justify-content: center
   flex-wrap: wrap
-  padding-right: 40px
+  padding-right: 20px
+  padding-left: 20px
   margin-top: 0
+  li.project:not(:first-child)
+    margin-left: 20px
   li.project
     margin-top: 30px
     width: auto
@@ -78,6 +81,8 @@ $caption-end-left: 65%
   position: absolute
   opacity: 0
   transition: all 1.5 ease-in-out
+  color: white
+  text-decoration: none
 
 .slider:hover
   .caption-cover
@@ -86,13 +91,28 @@ $caption-end-left: 65%
   .caption
     opacity: 1
 
-$caption-margin-left: 20px
+$caption-margin: 15px
+
+.tools
+  position: relative
+  display: flex
+  justify-content: flex-start
+  flex-wrap: wrap
+  margin-top: -50px
+  margin-left: 15px
+  .caption:not(:first-child)
+    margin-left: 10px
+
 .caption-name
   top: 40px
-  left: $caption-margin-left
+  left: $caption-margin
+  right: $caption-margin + $caption-margin
+  font-size: 1em
 .caption-short-desc
-  top: 95px
-  left: $caption-margin-left
+  top: 75px
+  left: $caption-margin
+  right: $caption-margin + $caption-margin
+
 .caption-tools
-  top: 150px
-  left: $caption-margin-left
+  position: initial
+  text-decoration: none
