@@ -43,6 +43,9 @@ projects:
           - web
       tools:
         - Spree
+        - Ruby
+        - HTML/CSS/JS
+        - psql
       colour: "#B64926"
 
 
