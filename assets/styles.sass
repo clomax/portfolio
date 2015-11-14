@@ -1,6 +1,9 @@
 $content_width: 1000px
 $content_height: 3000px
 
+ul
+  list-style: none
+
 #caption
   background-color: #aaa
   h2
@@ -106,14 +109,21 @@ $caption-margin: 15px
     text-decoration: none
 
 .caption-name
-  top: 40px
+  top: 5px
   left: $caption-margin
-  right: $caption-margin + $caption-margin
+  width: 200px
   font-size: 1em
 .caption-short-desc
-  top: 75px
+  top: 45px
   left: $caption-margin
-  right: $caption-margin + $caption-margin
+  width: 220px
 
 .caption-tools
   position: initial
+  margin-left: 0 !important
+
+ul.tools
+  margin-left: -25px
+  li
+    margin-right: 10px
+
