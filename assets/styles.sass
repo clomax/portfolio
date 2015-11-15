@@ -1,8 +1,17 @@
 $content_width: 1000px
 $content_height: 3000px
 
+*
+  font-family: sans-serif
+
 ul
   list-style: none
+
+.menu
+  float: right
+
+.article ul
+  list-style-type: disc
 
 #caption
   background-color: #aaa
@@ -18,11 +27,9 @@ ul.projects
   padding-right: 20px
   padding-left: 20px
   margin-top: 0
-  li.project:not(:first-child)
-    margin-left: 20px
   li.project
+    width: 300px
     margin-top: 30px
-    width: auto
     min-height: 150px
     background-color: #ccc
 
@@ -54,7 +61,6 @@ section.container
 .slider
   position: relative
   overflow: hidden
-  width: 300px
   height: 200px
   img
     display: block

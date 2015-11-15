@@ -18,3 +18,7 @@
         %i
           %p{ style: "font-size: 1em; margin-top: 2px"}= p['name']
           %hr{ style: "margin-top: -15px" }
+
+    - if @projects.size % 3 != 0
+      %li{ class: "project" }
+
