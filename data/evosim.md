@@ -6,6 +6,10 @@ This project, being a prototype, doesn't have any interactive elements, however
 this is an aspect that I would like to explore in the future.
 -->
 
+[Source code](https://github.com/clomax/evosim)
+
+[Download](https://rlomax.itch.io/evosim)
+
 Evosim is a highly experimental, prototype 3D artificial life simulator in
 which creatures know of nothing but eating and mating. They evolve through the
 process of natural selection and, over time, become more able to move around,

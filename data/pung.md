@@ -5,44 +5,20 @@ similar style to how a human would play; this is my attempt to answer that
 question.
 
 It works by collecting data from a human player, training a neural network on
-that data, and importing it back into the game.
+that data, and importing it back into the game. Each training example records
+the position and velocity of the ball, and the position that the human controlled
+paddle, at a given time.
 
-If you just want to see it play with an already trained network, run:
+![](assets/images/pung/pung.png =500x)
 
-  `pung -p 1 -f goalkeeper-100.csv -n 100`
+Through experimentation I found that it takes approximately 100,000 training
+examples, together with 50 to 100 hidden nodes, to produce acceptable
+behaviour.
 
-You should see the paddle stay in the middle and *"dive"* for the ball when
-it goes to his side of the court, hence *goalkeeper*.
-
-If you want to train the network with your own data -
-first, you will need data. Run:
-
-  `pung -p 0 -f <filename>`
-
-to start PUNG in data-collection mode and collect ~3MB of data, which should take
-around half an hour. Only give it the name of the file; it writes to
-`data/human/<filename>`. It appends to the file so you don't have to collect
-all of the data in one run; you can stop and start it as you wish with the same
-file name.
-
-Secondly, you'll need R to train the neural network. The script is in `src/learning/`:
-
-  `nnet.R [-i <in_file> -o <out_file> -t <training_set_size> -h <hidden_nodes> -a <learning rate> -e <number_of_epochs>]`
-
-The training set size is any number up to the number of lines in the `<in_file>`. You should experiment with the other values
-but here's the starting point:
-
-- 50 hidden nodes
-- 0.2 learning rate
-- 1000 epochs
-
-Once training is done, look at the image saved in `img/` and confirm that the error with respect to epochs trends downwards.
-The result of training is saved to `data/ai/<out_file>`
-
-Thirdly, run PUNG again with mode 1, that filename in `data/ai/`, and the number of hidden nodes used for training:
-
-  `pung -p 1 -f <filename> -n 100`
-
-If everything went well, you should see the red paddle play in a similar style to how you played when recording that data.
-
-
+The neural network is a standard feed-forward network trained by the
+[backpropagation](https://en.wikipedia.org/wiki/Backpropagation#Summary)
+algorithm. Even though this works surprisingly well I believe it isn't the
+best solution because each feed-forward cycle doesn't consider previous
+datapoints. A [recurrant neural network](https://en.wikipedia.org/wiki/Recurrent_neural_network)
+may produce a better result since they have an internal state that behaves like short-term
+memory.

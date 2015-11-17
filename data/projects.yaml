@@ -8,9 +8,7 @@ projects:
       tools:
         - C#
         - Unity3D
-      source_code: 'http://github.com/clomax/evosim'
-      download_from: 'http://rlomax.itch.io/evosim'
-      colour: "#FF974F"
+      colour: "#911146"
 
 
     - name: OCR w/ Neural Network
@@ -32,7 +30,19 @@ projects:
       tools:
         - C#
         - Unity3D
-      colour: "#7E8AA2"
+      colour: "#413659"
+
+
+    - name: shop.cwilt.co.uk
+      slug: cwilt
+      short_desc: An online quilting shop using Spree commerce
+      tags:
+          - e-commerce
+          - web
+      tools:
+        - Spree
+        - Ruby
+      colour: "#445878"
 
 
     - name: Spree Flexible Variants
@@ -51,7 +61,7 @@ projects:
 
     - name: PUNG
       slug: pung
-      short_desc: A Pong clone where the opponent can
+      short_desc: A Pong clone where the opponent uses a neural network to
                   learn how to play from human data
       tags:
           - game
@@ -59,5 +69,7 @@ projects:
       tools:
         - C++
         - R
+        - SFML
+        - Box2D
       colour: "#009393"
 

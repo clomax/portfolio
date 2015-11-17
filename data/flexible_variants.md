@@ -17,8 +17,6 @@ Each product has the option, *Flexible Variants*, to sell variants at different
 sized cuts. The number of flexible units is the total number of the smallest
 size you can sell.
 
-##### Example:
-
 From a 10m bolt of fabric:
 
 | Size | Units |
