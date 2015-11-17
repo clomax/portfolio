@@ -1,0 +1,135 @@
+* {
+  font-family: sans-serif; }
+
+ul {
+  list-style: none; }
+
+.menu {
+  float: right; }
+
+.article ul {
+  list-style-type: disc; }
+
+#caption {
+  background-color: #aaa; }
+  #caption h2 {
+    font-size: 1em;
+    font-weight: bold; }
+
+ul.projects {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin-top: 0; }
+  ul.projects li.project {
+    width: 300px;
+    margin-top: 30px;
+    min-height: 150px;
+    background-color: #ccc; }
+
+section.header {
+  background-color: #eee;
+  padding: 10px;
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto; }
+  section.header img.logo-circle {
+    border-radius: 50%; }
+
+section.container {
+  background-color: #ddd;
+  padding: 1px 10px 10px 10px;
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto; }
+
+.article {
+  padding: 15px; }
+
+.article img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto; }
+
+.slider {
+  position: relative;
+  overflow: hidden;
+  height: 200px; }
+  .slider img {
+    display: block;
+    width: 100%;
+    height: 100%; }
+
+.slider > * {
+  display: block; }
+
+.caption-cover {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: #fdc424;
+  top: 90%;
+  left: -110%;
+  transition: all 0.07s ease-out;
+  transform: rotate(45deg); }
+
+.caption {
+  z-index: 1000;
+  position: absolute;
+  opacity: 0;
+  transition: all 1.5 ease-in-out;
+  color: white;
+  text-decoration: none; }
+
+.slider:hover .caption-cover {
+  top: 0%;
+  left: -65%; }
+.slider:hover .caption {
+  opacity: 1; }
+
+.tools {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: -30px;
+  margin-left: 15px; }
+  .tools .caption:not(:first-child) {
+    margin-left: 10px; }
+  .tools a:link, .tools a:visited {
+    text-decoration: none; }
+
+.caption-name {
+  top: 5px;
+  left: 15px;
+  width: 200px;
+  font-size: 1em; }
+
+.caption-short-desc {
+  top: 45px;
+  left: 15px;
+  width: 220px; }
+
+.caption-tools {
+  position: initial;
+  margin-left: 0 !important; }
+
+ul.tools {
+  margin-left: -25px; }
+  ul.tools li {
+    margin-right: 10px; }
+
+.tool {
+  text-align: center;
+  line-height: 35px;
+  width: 90px;
+  height: 35px;
+  font-size: 1.1em;
+  float: left;
+  color: white;
+  display: block;
+  margin-right: 10px;
+  border-radius: 5px; }
