@@ -4,6 +4,7 @@ require 'rdiscount'
 require 'yaml'
 
 projects = YAML.load_file('data/projects.yaml')['projects']
+tool_colours = YAML.load_file('data/tools.yaml')
 
 get '/' do
     @projects = projects
@@ -11,6 +12,7 @@ get '/' do
 end
 
 get '/:slug' do
+    @tool_colours = tool_colours
     @project = projects.select {|p| p['slug'] == params['slug']}.first
     halt(404) unless !@project.nil?
 
