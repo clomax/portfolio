@@ -6,7 +6,7 @@
     - simulation
   tools:
     - C#
-    - Unity3D
+    - Unity
   colour: "#911146"
 
 
@@ -17,6 +17,7 @@
     - machine learning
   tools:
     - R
+    - ggplot2
   colour: "#468966"
 
 
@@ -28,7 +29,7 @@
     - game
   tools:
     - C#
-    - Unity3D
+    - Unity
   colour: "#413659"
 
 
