@@ -28,3 +28,12 @@ From a 10m bolt of fabric:
 
 There are forty quarter metres in ten metres, therefore the total number of
 units is 40.
+
+![Product page showing what happens when there's not enough stock to proceed with an order](assets/images/flexible_variants/not_enough_stock.png)
+
+The extension also affects the customer facing front-end. The total number of
+units remaining, and the unit amount for each variant, is shown. When the
+customer tries to enter a combination of variant and quantity that is higher
+than the total number of units the button is disabled, turns red, and reads
+*"Not Enough Stock"*.
+

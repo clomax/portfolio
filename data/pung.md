@@ -8,9 +8,9 @@ are common in games, such as an
 to understand them more clearly.
 
 It works by collecting data from a human player, training a neural network on
-that data, and using the result to control the opponent. Each training example
-records the position and velocity of the ball, and the position that the human
-controlled paddle, at a given time.
+that data with a separate program, and using the result to control the
+opponent. Each training example records the position and velocity of the ball,
+and the position that the human controlled paddle, at a given time.
 
 ![](assets/images/pung/pung.png =500x)
 
@@ -35,8 +35,8 @@ going.
 
 Through this project I learnt:
 
-* how to use libraries such as SFML and Box2D in the same project while
-  maintaining clean separation of both of their functionality
+* how to use libraries such as SFML and Box2D together, and how physics engines
+  are used in general
 
 * how to implement an *entity-component-system* that I kept hearing about,
   together with its pros and cons

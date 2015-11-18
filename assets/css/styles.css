@@ -10,11 +10,9 @@ ul {
 .article ul {
   list-style-type: disc; }
 
-#caption {
-  background-color: #aaa; }
-  #caption h2 {
-    font-size: 1em;
-    font-weight: bold; }
+#caption h2 {
+  font-size: 1em;
+  font-weight: bold; }
 
 ul.projects {
   list-style: none;
@@ -27,11 +25,9 @@ ul.projects {
   ul.projects li.project {
     width: 300px;
     margin-top: 30px;
-    min-height: 150px;
-    background-color: #ccc; }
+    min-height: 150px; }
 
 section.header {
-  background-color: #eee;
   padding: 10px;
   width: 1000px;
   margin-left: auto;
@@ -40,7 +36,6 @@ section.header {
     border-radius: 50%; }
 
 section.container {
-  background-color: #ddd;
   padding: 1px 10px 10px 10px;
   width: 1000px;
   margin-left: auto;
@@ -71,7 +66,6 @@ section.container {
   position: absolute;
   width: 200%;
   height: 200%;
-  background: #fdc424;
   top: 90%;
   left: -110%;
   transition: all 0.07s ease-out;
