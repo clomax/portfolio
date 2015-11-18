@@ -3,7 +3,7 @@ require 'haml'
 require 'rdiscount'
 require 'yaml'
 
-projects = YAML.load_file('data/projects.yaml')['projects']
+projects = YAML.load_file('data/projects.yaml')
 tool_colours = YAML.load_file('data/tools.yaml')
 
 get '/' do
