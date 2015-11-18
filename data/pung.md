@@ -2,12 +2,15 @@
 
 I was asked if it was possible to train a neural network to play a game in a
 similar style to how a human would play; this is my attempt to answer that
-question.
+question. I also wanted to experiment with implementing certain subsystems that
+are common in games, such as an
+[entity-component-system](https://en.wikipedia.org/wiki/Entity_component_system),
+to understand them more clearly.
 
 It works by collecting data from a human player, training a neural network on
-that data, and importing it back into the game. Each training example records
-the position and velocity of the ball, and the position that the human controlled
-paddle, at a given time.
+that data, and using the result to control the opponent. Each training example
+records the position and velocity of the ball, and the position that the human
+controlled paddle, at a given time.
 
 ![](assets/images/pung/pung.png =500x)
 
@@ -17,8 +20,21 @@ behaviour.
 
 The neural network is a standard feed-forward network trained by the
 [backpropagation](https://en.wikipedia.org/wiki/Backpropagation#Summary)
-algorithm. Even though this works surprisingly well I believe it isn't the
-best solution because each feed-forward cycle doesn't consider previous
-datapoints. A [recurrant neural network](https://en.wikipedia.org/wiki/Recurrent_neural_network)
-may produce a better result since they have an internal state that behaves like short-term
+algorithm. Even though this works surprisingly well I believe it isn't the best
+solution because each feed-forward cycle doesn't consider previous datapoints.
+A [recurrant neural
+network](https://en.wikipedia.org/wiki/Recurrent_neural_network) may produce a
+better result since they have an internal state that behaves like short-term
 memory.
+
+Through this project I learnt:
+
+* how to use libraries such as SFML and Box2D in the same project while
+  maintaining clean separation of both
+
+* how to implement an *entity-component-system* that I kept hearing about,
+  together with its pros and cons
+
+* that performing
+  [BLAS](https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms)
+  operations in C++ has been made much easier by the Boost library
