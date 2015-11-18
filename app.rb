@@ -27,12 +27,8 @@ get '/assets/css/:name' do
     send_file('assets/css/'+params[:name])
 end
 
-get '/assets/images/:project/:name' do
-    send_file('assets/images/'+params[:project]+'/'+params[:name])
-end
-
-get '/assets/images/:name' do
-    send_file('assets/images/'+params[:name])
+get '/assets/images/:slug/:file' do
+    send_file('assets/images/'+params[:slug]+'/'+params[:file])
 end
 
 not_found do
