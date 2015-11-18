@@ -21,16 +21,22 @@ behaviour.
 The neural network is a standard feed-forward network trained by the
 [backpropagation](https://en.wikipedia.org/wiki/Backpropagation#Summary)
 algorithm. Even though this works surprisingly well I believe it isn't the best
-solution because each feed-forward cycle doesn't consider previous datapoints.
-A [recurrant neural
-network](https://en.wikipedia.org/wiki/Recurrent_neural_network) may produce a
-better result since they have an internal state that behaves like short-term
-memory.
+solution since each feed-forward cycle doesn't consider previous datapoints.
+A [recurrant neural network](https://en.wikipedia.org/wiki/Recurrent_neural_network)
+may produce a better result since they have an internal state that behaves like
+short-term memory.
+
+RNNs are good at tasks such as predicting the next word in a sentence given all
+of the previous words, so my intuition tells me that it could also be good at
+predicting where the paddle should be given where the ball is and where it's
+going.
+
+<!-- Write about entity-component-system? -->
 
 Through this project I learnt:
 
 * how to use libraries such as SFML and Box2D in the same project while
-  maintaining clean separation of both
+  maintaining clean separation of both of their functionality
 
 * how to implement an *entity-component-system* that I kept hearing about,
   together with its pros and cons
