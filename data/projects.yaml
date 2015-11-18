@@ -21,6 +21,21 @@
   colour: "#468966"
 
 
+- name: PUNG
+  slug: pung
+  short_desc: A Pong clone where the opponent uses a neural network to
+    learn how to play from human data
+  tags:
+    - game
+    - machine learning
+  tools:
+    - C++
+    - R
+    - SFML
+    - Box2D
+  colour: "#009393"
+
+
 - name: Raptor Dash
   slug: raptor_dash
   short_desc: A simple infinite runner game
@@ -45,6 +60,15 @@
   colour: "#445878"
 
 
+- name: Drone
+  slug: drone
+  short_desc: Self-built UAV for an aerial photography business
+  tags:
+    - hardware
+    - robotics
+  colour: "#709C11"
+
+
 - name: Spree Flexible Variants
   slug: flexible_variants
   short_desc: An extension for Spree commerce
@@ -58,17 +82,4 @@
   colour: "#B64926"
 
 
-- name: PUNG
-  slug: pung
-  short_desc: A Pong clone where the opponent uses a neural network to
-    learn how to play from human data
-  tags:
-    - game
-    - machine learning
-  tools:
-    - C++
-    - R
-    - SFML
-    - Box2D
-  colour: "#009393"
 

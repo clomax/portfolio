@@ -12,9 +12,10 @@
               %h2{ class: "caption caption-name" }=           p['name']
               %p{ class: "caption caption-short-desc" }     #{p['short_desc']}
               %ul{ class: "tools" }
-                - p['tools'].each do |t|
-                  %a{ href: "#{p['slug']}" }
-                    %li{ class: "caption caption-tools" } #{t}
+                - unless p['tools'].nil?
+                  - p['tools'].each do |t|
+                    %a{ href: "#{p['slug']}" }
+                      %li{ class: "caption caption-tools" } #{t}
         %i
           %p{ style: "font-size: 1em; margin-top: 2px"}= p['name']
           %hr{ style: "margin-top: -15px" }
