@@ -55,8 +55,9 @@
     - e-commerce
     - web
   tools:
-    - Spree
     - Ruby
+    - Heroku
+    - Spree
   colour: "#445878"
 
 

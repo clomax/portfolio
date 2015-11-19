@@ -1,47 +1,31 @@
-<!--
-Evosim is an experimental model of an artificial genepool. The idea came to me
-through a combination of finding similar projects that caught my attention
-and reading what others say that they want to see: interactive artificial life.
-This project, being a prototype, doesn't have any interactive elements, however
-this is an aspect that I would like to explore in the future.
--->
-
 [Source code](https://github.com/clomax/evosim)
 
 [Download](https://rlomax.itch.io/evosim)
 
-Evosim is a highly experimental, prototype 3D artificial life simulator in
-which creatures know of nothing but eating and mating. They evolve through the
-process of natural selection and, over time, become more able to move around,
-find food and find mates.
+Evosim is an experimental model of an artificial genepool. The main idea is to
+simulate co-evolution where creatures are competing for food and mates
+simultaneously and directly.
 
-Either that or they completely die out. Tough cheese, that's nature.
+The idea for this project came to me through a combination of finding similar
+projects that caught my attention and reading what others say that they want to
+see: interactive artificial life.
 
-You only control the camera with the mouse.
+This project doesn't have any interactive elements currently, since it's a
+prototype of the core elements of the simulation, however this is an aspect
+that I intend to explore in the future.
 
 ![](assets/images/evosim/1.gif =500x)
 
-####Serving suggestions
-
-  * Turn it on, do something else, come back in ~30 minutes to see the results
-        of evolution.
-
-  * Watch evolution unfold in real time. Have you ever caught yourself staring
-        at a fish tank for hours? It's kind of like that.
-
-  * Use it as a screensaver.
-
-![](assets/images/evosim/2.gif =500x)
-
-####Note
-
-If you are running this on a laptop or an older machine I highly recommend you
-go into the settings file and bring the total energy parameter down; this puts
-a soft limit on how many creatures can exist simultaneously. The default figure
-is the right amount for running this on an i5 or equivalent.
-
-<!--
 The simulation starts with a number of randomly generated creatures who evolve
 through the process of natural selection, thereby becoming more able swimmers
 and making it easier for them to find food and find mates.
--->
+
+Every feature of a creature is determined by its genetic model: a container of
+attributes that decide its size, colour, limb structure, and movement pattern.
+
+![](assets/images/evosim/2.gif =500x)
+
+I used [Unity]() for this prototype because it made it easy to start the
+project and see results quickly. In the future I intend to expand on this
+prototype with the possibility of using the [Bullet]() physics engine
+
