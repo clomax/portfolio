@@ -7,9 +7,10 @@
 
 %body
   %section.header
-    %a{ href: "/" }
-      %img.logo-circle{ src: "assets/images/icons/logo.png", width: "10%", height: "10%" }
+    %a{ class: "logo", href: "/" }
+      %img.logo-circle{ alt: "Logo", title: "Home", src: "assets/images/icons/logo.png", width: "10%", height: "10%" }
     %ul.menu
       %li
-        %a{ href: "https://github.com/clomax" }Github
+        %a{ href: "https://github.com/clomax" }
+          %img{ alt: "github", title: "My Github Profile", src: "assets/images/icons/github.png" }
   = yield

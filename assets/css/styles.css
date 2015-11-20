@@ -4,7 +4,11 @@
 ul {
   list-style: none; }
 
+a.logo {
+  margin-left: 20px; }
+
 .menu {
+  margin-right: 20px;
   float: right; }
 
 .article ul {
@@ -85,6 +89,20 @@ section.container {
 .slider:hover .caption {
   opacity: 1; }
 
+.project-header {
+  display: block; }
+  .project-header h1 {
+    display: inline-block;
+    float: left; }
+  .project-header div {
+    float: right; }
+
+.project-name {
+  display: inline-block; }
+
+.tool-list {
+  float: right; }
+
 .tools {
   position: relative;
   display: flex;
@@ -123,7 +141,7 @@ ul.tools {
   width: 90px;
   height: 35px;
   font-size: 1.1em;
-  float: left;
+  float: right;
   color: white;
   display: block;
   margin-right: 10px;

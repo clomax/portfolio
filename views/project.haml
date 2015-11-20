@@ -1,21 +1,21 @@
 %section.container
-  %h1= @project['name']
+  %h1{ class: "project-name" }= @project['name']
 
-  %hr
 
   -# Match all images that aren't the thumbnail
   -# TODO: Give these images a lightbox
   -#- Dir["assets/images/evosim/[^thumb]*"].each do |img|
   -#  %img{ class: "gallery", src: img, width: "20%" }
 
-  %section{ id: "tools", style: "height: 50px; display:flex; align-items:center" }
-    %ul{ style: "padding-left:0" }
-      -unless @project['tools'].nil?
-        -@project['tools'].each do |t|
-          -@tool_colours.each do |c|
-            -unless c[t].nil?
-              %li{ class: "tool", style: "background-color: #{c[t]}" }
-                =t
+  -#%div{ id: "tools", style: "height: 50px; display:flex; align-items:center" }
+  %ul{ class: "tool-list", style: "padding-left:0" }
+    -unless @project['tools'].nil?
+      -@project['tools'].each do |t|
+        -@tool_colours.each do |c|
+          -unless c[t].nil?
+            %li{ class: "tool", style: "background-color: #{c[t]}" }
+              =t
+  %hr
 
   %section{ class: "article" }
     =markdown(@project_md)
