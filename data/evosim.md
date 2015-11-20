@@ -27,5 +27,5 @@ attributes that decide its size, colour, limb structure, and movement pattern.
 
 I used [Unity]() for this prototype because it made it easy to start the
 project and see results quickly. In the future I intend to expand on this
-prototype with the possibility of using the [Bullet]() physics engine
+prototype with the possibility of using the Bullet physics engine.
 
