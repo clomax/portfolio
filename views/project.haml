@@ -1,24 +1,26 @@
+-# Match all images that aren't the thumbnail
+-# TODO: Give these images a lightbox
+-#- Dir["assets/images/evosim/[^thumb]*"].each do |img|
+-#  %img{ class: "gallery", src: img, width: "20%" }
+
 %section.container
-  %h1{ class: "project-name" }= @project['name']
+  %h1{ class: "project-name", style: "margin-bottom: 10px" }= @project['name']
 
-
-  -# Match all images that aren't the thumbnail
-  -# TODO: Give these images a lightbox
-  -#- Dir["assets/images/evosim/[^thumb]*"].each do |img|
-  -#  %img{ class: "gallery", src: img, width: "20%" }
-
-  -#%div{ id: "tools", style: "height: 50px; display:flex; align-items:center" }
-  %ul{ class: "tool-list", style: "padding-left:0" }
+  %ul{ class: "tool-list", style: "padding-left:0; margin-bottom: 10px" }
     -unless @project['tools'].nil?
       -@project['tools'].each do |t|
         -@tool_colours.each do |c|
           -unless c[t].nil?
             %li{ class: "tool", style: "background-color: #{c[t]}" }
               =t
+
+  %p{ style: "margin: 0" }= @project['short_desc']
   %hr
 
   %section{ class: "article" }
     =markdown(@project_md)
+
+  %p{ style: "margin-left: 20px; margin-bottom: -20px" } Other Projects
 
   %ul{ class: "projects" }
     - @other_projects.each do |p|

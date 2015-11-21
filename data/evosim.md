@@ -1,12 +1,10 @@
 [Source code](https://github.com/clomax/evosim)
 
-[Download](https://rlomax.itch.io/evosim)
-
 Evosim is an experimental model of an artificial genepool. The main idea is to
 simulate co-evolution where creatures are competing for food and mates
 simultaneously and directly.
 
-The idea for this project came to me through a combination of finding similar
+The idea for this project came to me when I started finding similar
 projects that caught my attention and reading what others say that they want to
 see: interactive artificial life.
 
@@ -29,3 +27,4 @@ I used [Unity]() for this prototype because it made it easy to start the
 project and see results quickly. In the future I intend to expand on this
 prototype with the possibility of using the Bullet physics engine.
 
+<iframe style="margin-left: auto; margin-right: auto; display: block" src="//itch.io/embed/17096?linkback=true" width="552" height="167" frameborder="0"></iframe>

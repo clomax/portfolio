@@ -46,7 +46,8 @@ section.container {
   margin-right: auto; }
 
 .article {
-  padding: 15px; }
+  padding: 15px;
+  margin-bottom: 50px; }
 
 .article img {
   display: block;
