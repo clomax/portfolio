@@ -20,8 +20,11 @@ important parts to consider are:
 
 * the camera's settings (ISO, framerate)
 
-![](assets/images/drone/P3190510.jpg =700x)
+[Example of smooth video](https://gfycat.com/DirtyFabulousHaddock).
 
-![](assets/images/drone/P3070502.jpg =700x)
+![](assets/images/drone/s_P3070502.jpg =700x)
 
-[![](assets/images/drone/P4030576.jpg =700x)](https://gfycat.com/DirtyFabulousHaddock)
+![](assets/images/drone/s_P3190510.jpg =700x)
+
+![](assets/images/drone/s_P4040589.jpg =700x)
+
