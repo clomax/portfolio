@@ -2,9 +2,9 @@
 business and found that there are almost no custom UAV builders that -->
 
 I built this quadcopter for my aerial photography business which was to be
-called *Sunbird Aerial*, with which I was going to make aerial imagery
-available to smaller businesses with smaller marketing budgets; this was to be
-made possible by eliminating as many overheads as possble.
+called *Sunbird Aerial*. I intended to make aerial imagery available to smaller
+businesses with smaller marketing budgets; this was to be made possible by
+eliminating as many overheads as possble.
 
 The aim, specific to building the quadcopter, was to build and tune the
 aircraft in order to produce video that was as smooth as possible. The most
