@@ -8,7 +8,7 @@
 
   %ul{ class: "tool-list", style: "padding-left:0; margin-bottom: 10px" }
     -unless @project['tools'].nil?
-      -@project['tools'].each do |t|
+      -@project['tools'].reverse.each do |t|
         -@tool_colours.each do |c|
           -unless c[t].nil?
             %li{ class: "tool", style: "background-color: #{c[t]}" }
