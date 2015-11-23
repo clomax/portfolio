@@ -1,9 +1,9 @@
 [Code](https://github.com/clomax/pong_neural_net)
 
 I was asked if it was possible to train a neural network to play a game in a
-similar style to how a human would play; this is my attempt to answer that
-question. I also wanted to experiment with implementing certain subsystems that
-are common in games, such as an
+similar style to how a human would play; this is my answer to that question. I
+also wanted to experiment with implementing certain subsystems that are common
+in games, such as
 [entity-component-system](https://en.wikipedia.org/wiki/Entity_component_system),
 to understand them more clearly.
 
