@@ -23,8 +23,13 @@ attributes that decide its size, colour, limb structure, and movement pattern.
 
 ![](assets/images/evosim/s_2.gif =500x)
 
+In this prototype I am currently able to run a simulation of approximately 200
+creatures which is far more than I expected when I started; I would have
+considered myself lucky to be able to have 50.
+
 I used [Unity]() for this prototype because it made it easy to start the
-project and see results quickly. In the future I intend to expand on this
-prototype with the possibility of using the Bullet physics engine.
+project and see results quickly. I am very happy with the results and would
+like to take this further in the future.
 
 <iframe style="margin-left: auto; margin-right: auto; display: block" src="//itch.io/embed/17096?linkback=true" width="552" height="167" frameborder="0"></iframe>
+
