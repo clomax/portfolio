@@ -20,6 +20,10 @@ data.
 
 ![](assets/images/ocr/1-mnist_learning_curve-hi_variance.png)
 
+When your learning curves show that the gap between the error on training and test data is receeding you know that your parameters are balanced correctly.
+
+![](assets/images/ocr/4-mnist_learning_curves-balance.png)
+
 Below is photo of a whiteboard I was using to check my understanding of the
 steps involved in training a neural network.
 
