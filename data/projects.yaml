@@ -77,8 +77,8 @@
     - e-commerce
     - web
   tools:
-    - Spree
     - Ruby
+    - Spree
     - psql
   colour: "#B64926"
 
