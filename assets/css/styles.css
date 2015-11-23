@@ -1,6 +1,23 @@
 * {
   font-family: sans-serif; }
 
+body {
+  background-color: #ddd; }
+
+.intro-text {
+  margin-left: 20px; }
+  .intro-text hr {
+    margin-top: -10px; }
+
+.projects-header {
+  margin-top: 30px;
+  margin-left: 20px;
+  margin-bottom: -20px; }
+  .projects-header h2 {
+    font-size: 1.1em; }
+  .projects-header hr {
+    margin-top: -15px; }
+
 ul {
   list-style: none; }
 
@@ -32,14 +49,17 @@ ul.projects {
     min-height: 150px; }
 
 section.header {
+  background-color: white;
   padding: 10px;
   width: 1000px;
   margin-left: auto;
   margin-right: auto; }
   section.header img.logo-circle {
+    background-color: #ddd;
     border-radius: 50%; }
 
 section.container {
+  background-color: white;
   padding: 1px 10px 10px 10px;
   width: 1000px;
   margin-left: auto;

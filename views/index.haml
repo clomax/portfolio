@@ -1,5 +1,11 @@
 -# TODO: Replace this with a partial
 %section.container
+  %div{ class: "intro-text" }
+    %p Introductory sentence for shits'n'giggles innit blud
+    %hr
+  %div{ class: "projects-header" }
+    %h1 Projects
+    %hr
   %ul{ class: "projects" }
     - @projects.each do |p|
       %li{ class: "project", id: "project-#{p['slug']}" }
