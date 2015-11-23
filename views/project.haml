@@ -4,7 +4,7 @@
 -#  %img{ class: "gallery", src: img, width: "20%" }
 
 %section.container
-  %h1{ class: "project-name", style: "margin-bottom: 10px" }= @project['name']
+  %h1{ class: "project-name" }= @project['name']
 
   %ul{ class: "tool-list", style: "padding-left:0; margin-bottom: 10px" }
     -unless @project['tools'].nil?
@@ -14,13 +14,13 @@
             %li{ class: "tool", style: "background-color: #{c[t]}" }
               =t
 
-  %p{ style: "margin: 0; width: 450px" }= @project['short_desc']
+  %p{ class: "subtitle" }= @project['short_desc']
   %hr
 
   %section{ class: "article" }
     =markdown(@project_md)
 
-  %p{ style: "margin-left: 20px; margin-bottom: -20px" } Other Projects
+  %p{ class: "other_projects" } Other Projects
 
   %ul{ class: "projects" }
     - @other_projects.each do |p|
@@ -39,7 +39,7 @@
                     %a{ href: "#{p['slug']}" }
                       %li{ class: "caption caption-tools" } #{t}
         %i
-          %p{ style: "font-size: 1em; margin-top: 2px"}= p['name']
+          %p{ class: "project_name" }= p['name']
           %hr{ style: "margin-top: -15px" }
 
     - if @other_projects.size % 3 != 0

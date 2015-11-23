@@ -99,7 +99,8 @@ section.container {
     float: right; }
 
 .project-name {
-  display: inline-block; }
+  display: inline-block;
+  margin-bottom: 10px; }
 
 .tool-list {
   float: right; }
@@ -147,3 +148,16 @@ ul.tools {
   display: block;
   margin-right: 10px;
   border-radius: 5px; }
+
+p.subtitle {
+  font-size: 0.9em;
+  margin: 0;
+  width: 450px; }
+
+p.other_projects {
+  margin-left: 20px;
+  margin-bottom: -20px; }
+
+p.project_name {
+  font-size: 1em;
+  margin-top: 2px; }
