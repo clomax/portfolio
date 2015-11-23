@@ -4,9 +4,9 @@ Evosim is an experimental model of an artificial genepool. The main idea is to
 simulate co-evolution where creatures are competing for food and mates
 simultaneously and directly.
 
-The idea for this project came to me when I started finding similar
-projects that caught my attention and reading what others say that they want to
-see: interactive artificial life.
+The idea for this project came to me when I started finding similar projects
+that caught my attention and reading what others say that they want to see:
+interactive artificial life.
 
 This project doesn't have any interactive elements currently, since it's a
 prototype of the core elements of the simulation, however this is an aspect
@@ -20,6 +20,8 @@ and making it easier for them to find food and find mates.
 
 Every feature of a creature is determined by its genetic model: a container of
 attributes that decide its size, colour, limb structure, and movement pattern.
+All of these attributes are subject to change via mutation and crossover when
+creatures produce offspring.
 
 ![](assets/images/evosim/s_2.gif =500x)
 
