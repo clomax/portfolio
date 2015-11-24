@@ -3,37 +3,42 @@ require 'haml'
 require 'rdiscount'
 require 'yaml'
 
-site_data = YAML.load_file('data/site.yaml')
-projects = YAML.load_file('data/projects.yaml')
-tool_colours = YAML.load_file('data/tools.yaml')
 
-get '/' do
-    @site = site_data
-    @projects = projects
-    haml :index
-end
+class App < Sinatra::Base
 
-get '/:slug' do
-    @tool_colours = tool_colours
-    @project = projects.select {|p| p['slug'] == params['slug']}.first
-    halt(404) unless !@project.nil?
+  site_data = YAML.load_file('data/site.yaml')
+  projects = YAML.load_file('data/projects.yaml')
+  tool_colours = YAML.load_file('data/tools.yaml')
 
-    @other_projects = projects.sample(3)
-    @other_projects.delete_if { |x| x == @project }
+  get '/' do
+      @site = site_data
+      @projects = projects
+      haml :index
+  end
 
-    @project_md = File.open("data/#{@project['slug']}.md").read
-    haml :project
-end
+  get '/:slug' do
+      @tool_colours = tool_colours
+      @project = projects.select {|p| p['slug'] == params['slug']}.first
+      halt(404) unless !@project.nil?
 
-get '/assets/css/:name' do
-    send_file('assets/css/'+params[:name])
-end
+      @other_projects = projects.sample(3)
+      @other_projects.delete_if { |x| x == @project }
 
-get '/assets/images/:slug/:file' do
-    send_file('assets/images/'+params[:slug]+'/'+params[:file])
-end
+      @project_md = File.open("data/#{@project['slug']}.md").read
+      haml :project
+  end
 
-not_found do
-    "Oops!"
+  get '/assets/css/:name' do
+      send_file('assets/css/'+params[:name])
+  end
+
+  get '/assets/images/:slug/:file' do
+      send_file('assets/images/'+params[:slug]+'/'+params[:file])
+  end
+
+  not_found do
+      "Oops!"
+  end
+
 end
 
