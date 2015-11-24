@@ -3,7 +3,7 @@
 -#- Dir["assets/images/evosim/[^thumb]*"].each do |img|
 -#  %img{ class: "gallery", src: img, width: "20%" }
 
-%section.container
+%div{ class: "project-title" }
   %h1{ class: "project-name" }= @project['name']
 
   %ul{ class: "tool-list", style: "padding-left:0; margin-bottom: 10px" }
@@ -15,33 +15,33 @@
               =t
 
   %p{ class: "subtitle" }= @project['short_desc']
-  %hr{ class: "line" }
+  %hr
 
-  %section{ class: "article" }
-    =markdown(@project_md)
+%section{ class: "article" }
+  =markdown(@project_md)
 
-  %p{ class: "other_projects" } Other Projects
+%p{ class: "other_projects" } Other Projects
 
-  %ul{ class: "projects" }
-    - @other_projects.each do |p|
-      %li{ class: "project", id: "project-#{p['slug']}" }
-        %a{ href: "#{p['slug']}" }
-          %div{ class: "slider" }
-            %div{ id: "caption"}
-            %img{ src: "assets/images/#{p['slug']}/thumb.png" }
-            %div{ class: "caption-cover", style: "background-color: #{p['colour']}" }
-            %div{ class: "caption-container" }
-              %h2{ class: "caption caption-name" }=           p['name']
-              %p{ class: "caption caption-short-desc" }     #{p['short_desc']}
-              %ul{ class: "tools" }
-                - unless p['tools'].nil?
-                  - p['tools'].each do |t|
-                    %a{ href: "#{p['slug']}" }
-                      %li{ class: "caption caption-tools" } #{t}
-        %i
-          %p{ class: "project_name" }= p['name']
-          %hr{ style: "margin-top: -15px" }
+%ul{ class: "projects" }
+  - @other_projects.each do |p|
+    %li{ class: "project", id: "project-#{p['slug']}" }
+      %a{ href: "#{p['slug']}" }
+        %div{ class: "slider" }
+          %div{ id: "caption"}
+          %img{ src: "assets/images/#{p['slug']}/thumb.png" }
+          %div{ class: "caption-cover", style: "background-color: #{p['colour']}" }
+          %div{ class: "caption-container" }
+            %h2{ class: "caption caption-name" }=           p['name']
+            %p{ class: "caption caption-short-desc" }     #{p['short_desc']}
+            %ul{ class: "tools" }
+              - unless p['tools'].nil?
+                - p['tools'].each do |t|
+                  %a{ href: "#{p['slug']}" }
+                    %li{ class: "caption caption-tools" } #{t}
+      %i
+        %p{ class: "project_name" }= p['name']
+        %hr{ style: "margin-top: -15px" }
 
-    - if @other_projects.size % 3 != 0
-      %li{ class: "project" }
+  - if @other_projects.size % 3 != 0
+    %li{ class: "project" }
 

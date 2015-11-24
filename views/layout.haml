@@ -4,11 +4,13 @@
     %meta{ charset: "utf-8" }
     %title= "#{@project['name'] + " | " unless @project.nil?}Craig Lomax"
     %link{ href: "assets/css/styles.css", rel: "stylesheet" }
+    %link{ href: 'https://fonts.googleapis.com/css?family=Noto+Sans', rel: 'stylesheet', type: 'text/css' }
 
 %body
   %section.header
     %a{ class: "logo", href: "/" }
       %img.logo-circle{ alt: "Logo", title: "Home", src: "assets/images/icons/logo2.png", width: "10%", height: "10%" }
+
     %ul.menu
       %li
         %a{ href: "https://github.com/clomax" }

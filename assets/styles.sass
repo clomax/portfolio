@@ -2,7 +2,7 @@ $content_width: 1000px
 $content_height: 3000px
 
 *
-  font-family: sans-serif
+  font-family: 'Noto Sans', sans-serif
 
 body
   background-color: #ddd
@@ -11,10 +11,12 @@ body
   margin-left: 20px
   hr
     margin-top: -10px
+    margin-right: 20px
 
 .projects-header
   margin-top: 30px
   margin-left: 20px
+  margin-right: 20px
   margin-bottom: -20px
   h2
     font-size: 1.1em
@@ -67,10 +69,10 @@ section.header
 
 section.container
   background-color: white
-  padding: 1px 10px 10px 10px
-  width: $content_width
+  width: $content_width+20
   margin-left: auto
   margin-right: auto
+  margin-top: -16px
 
 section.footer
   margin-top: -20px
@@ -86,6 +88,8 @@ section.footer
 .article
   padding: 15px
   margin-bottom: 50px
+  margin-left: 25px
+  margin-right: 25px
 
 .article img
   display: block
@@ -144,13 +148,19 @@ $caption-margin: 15px
   div
     float: right
 
+$project-title-margin: 40px
+.project-title
+  margin-left: $project-title-margin
+  margin-right: $project-title-margin
+
 .project-name
   display: inline-block
   margin-bottom: 10px
-  margin-left: 15px
 
-.tool-list
+ul.tool-list
   float: right
+  .tool:not(:last-child)
+    margin-right: 0
 
 .tools
   position: relative
@@ -196,13 +206,9 @@ $tool-height: 35px
   margin-right: 10px
   border-radius: 5px
 
-.line
-  margin-left: 15px
-
 p.subtitle
   font-size: 0.9em
   margin: 0
-  margin-left: 15px
   width: 450px
 
 p.other_projects

@@ -1,5 +1,5 @@
 * {
-  font-family: sans-serif; }
+  font-family: "Noto Sans", sans-serif; }
 
 body {
   background-color: #ddd; }
@@ -7,11 +7,13 @@ body {
 .intro-text {
   margin-left: 20px; }
   .intro-text hr {
-    margin-top: -10px; }
+    margin-top: -10px;
+    margin-right: 20px; }
 
 .projects-header {
   margin-top: 30px;
   margin-left: 20px;
+  margin-right: 20px;
   margin-bottom: -20px; }
   .projects-header h2 {
     font-size: 1.1em; }
@@ -62,10 +64,10 @@ section.header {
 
 section.container {
   background-color: white;
-  padding: 1px 10px 10px 10px;
-  width: 1000px;
+  width: 1020px;
   margin-left: auto;
-  margin-right: auto; }
+  margin-right: auto;
+  margin-top: -16px; }
 
 section.footer {
   margin-top: -20px;
@@ -80,7 +82,9 @@ section.footer {
 
 .article {
   padding: 15px;
-  margin-bottom: 50px; }
+  margin-bottom: 50px;
+  margin-left: 25px;
+  margin-right: 25px; }
 
 .article img {
   display: block;
@@ -131,13 +135,18 @@ section.footer {
   .project-header div {
     float: right; }
 
+.project-title {
+  margin-left: 40px;
+  margin-right: 40px; }
+
 .project-name {
   display: inline-block;
-  margin-bottom: 10px;
-  margin-left: 15px; }
+  margin-bottom: 10px; }
 
-.tool-list {
+ul.tool-list {
   float: right; }
+  ul.tool-list .tool:not(:last-child) {
+    margin-right: 0; }
 
 .tools {
   position: relative;
@@ -183,13 +192,9 @@ ul.tools {
   margin-right: 10px;
   border-radius: 5px; }
 
-.line {
-  margin-left: 15px; }
-
 p.subtitle {
   font-size: 0.9em;
   margin: 0;
-  margin-left: 15px;
   width: 450px; }
 
 p.other_projects {
