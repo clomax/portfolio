@@ -13,4 +13,8 @@
       %li
         %a{ href: "https://github.com/clomax" }
           %img{ alt: "github", title: "My Github Profile", src: "assets/images/icons/github.png" }
-  = yield
+  %section.container
+    = yield
+
+  %section.footer
+    %p.copyright= "&#169; Craig Lomax #{Time.now.year}"

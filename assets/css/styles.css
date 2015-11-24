@@ -67,6 +67,17 @@ section.container {
   margin-left: auto;
   margin-right: auto; }
 
+section.footer {
+  margin-top: -20px;
+  padding: 10px;
+  padding-top: 50px;
+  background-color: white;
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto; }
+  section.footer p {
+    text-align: center; }
+
 .article {
   padding: 15px;
   margin-bottom: 50px; }
