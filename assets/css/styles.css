@@ -145,7 +145,7 @@ section.footer {
 
 ul.tool-list {
   float: right; }
-  ul.tool-list .tool:not(:last-child) {
+  ul.tool-list .tool:first-child {
     margin-right: 0; }
 
 .tools {
