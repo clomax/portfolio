@@ -5,7 +5,10 @@ body {
   background-color: #ddd; }
 
 .intro-text {
-  margin-left: 20px; }
+  margin-left: 20px;
+  width: 550px; }
+  .intro-text p {
+    text-align: left; }
   .intro-text hr {
     margin-top: -10px;
     margin-right: 20px; }
