@@ -10,7 +10,7 @@
   colour: "#911146"
 
 
-- name: OCR w/ Neural Network
+- name: Reading Handwriting
   slug: ocr
   short_desc: Training a neural network to read handwritten digits
   tags:
@@ -23,8 +23,7 @@
 
 - name: PUNG
   slug: pung
-  short_desc: A Pong clone where the opponent uses a neural network to
-    learn how to play from human data
+  short_desc: A neural network learns how to play Pong from human data
   tags:
     - game
     - machine learning
@@ -70,16 +69,16 @@
   colour: "#709C11"
 
 
-- name: Spree Flexible Variants
+- name: Flexible Variants
   slug: flexible_variants
-  short_desc: An extension for Spree commerce
+  short_desc: An extension for Spree to include products that are cut to order
   tags:
     - e-commerce
     - web
   tools:
     - Ruby
-    - Spree
     - psql
+    - Spree
   colour: "#B64926"
 
 

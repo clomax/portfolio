@@ -18,6 +18,11 @@ Through experimentation I found that it takes approximately 100,000 training
 examples, together with 50 to 100 hidden nodes, to produce acceptable
 behaviour.
 
+The included trained neural network weights, *goalkeeper-100.csv*, is an
+example of the result of training. It behaves in a similar way to a goalkeeper
+by waiting in the middle and diving to meet the ball when it comes onto its
+side of the court.
+
 The neural network is a standard feed-forward network trained by the
 [backpropagation](https://en.wikipedia.org/wiki/Backpropagation#Summary)
 algorithm. Even though this works surprisingly well I believe it isn't the best
