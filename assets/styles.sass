@@ -1,4 +1,4 @@
-$content_width: 1000px
+$content_width: 1100px
 $content_height: 3000px
 
 *
@@ -7,20 +7,33 @@ $content_height: 3000px
 body
   background-color: #ddd
 
+$hr-colour: #666
+hr
+  display: block
+  height: 1px
+  border: 0
+  border-top: 1px solid $hr-colour
+  margin: 1em 0
+  padding: 0
+  margin-left: 30px
+  margin-right: 30px
+
 .intro-text
   margin-left: 20px
-  width: 550px
   p
-    text-align: left
+    margin-left: auto
+    margin-right: auto
+    font-size: 0.9em
+    text-align: center
   hr
-    margin-top: -10px
-    margin-right: 20px
+    margin-right: 50px
 
 .projects-header
   margin-top: 30px
   margin-left: 20px
   margin-right: 20px
   margin-bottom: -20px
+  text-align: center
   h2
     font-size: 1.1em
   hr
@@ -29,11 +42,19 @@ body
 ul
   list-style: none
 
-a.logo
-  margin-left: 20px
+.logo
+  margin-left: auto
+  margin-right: auto
+  display: block
+
+.header table
+  width: 100%
+  td
+    width: 33%
 
 .menu
-  margin-right: 20px
+  margin-top: 140px
+  margin-right: 10px
   float: right
 
 .article ul
@@ -44,13 +65,14 @@ a.logo
     font-size: 1em
     font-weight: bold
 
+$projects-padding: 50px
 ul.projects
   list-style: none
   display: flex
   justify-content: space-between
   flex-wrap: wrap
-  padding-right: 20px
-  padding-left: 20px
+  padding-right: $projects-padding
+  padding-left: $projects-padding
   margin-top: 0
   li.project
     width: 300px
@@ -65,10 +87,6 @@ section.header
   width: $content_width
   margin-left: auto
   margin-right: auto
-
-  img.logo-circle
-    background-color: #ddd
-    border-radius: 50%
 
 section.container
   background-color: white
