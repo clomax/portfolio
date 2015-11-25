@@ -1,6 +1,6 @@
 require 'sinatra'
-require 'haml'
-require 'rdiscount'
+require 'tilt/haml'
+require 'tilt/rdiscount'
 require 'yaml'
 
 
