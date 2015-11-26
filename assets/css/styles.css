@@ -15,6 +15,10 @@ hr {
   margin-left: 30px;
   margin-right: 30px; }
 
+.project i p {
+  margin-top: 2px;
+  font-size: 13pt; }
+
 .project hr {
   margin-left: 0;
   margin-right: 0; }
