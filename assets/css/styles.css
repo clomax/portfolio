@@ -171,6 +171,8 @@ section.footer {
 .project-title {
   margin-left: 40px;
   margin-right: 40px; }
+  .project-title .project-name {
+    font-family: Arial; }
   .project-title hr {
     margin-left: 0;
     margin-right: 0; }
