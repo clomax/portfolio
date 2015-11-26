@@ -7,7 +7,7 @@
   tools:
     - C#
     - Unity
-  colour: "#1A72A6"
+  colour: "#CC1E2C"
 
 
 - name: Reading Handwriting
@@ -44,7 +44,7 @@
   tools:
     - C#
     - Unity
-  colour: "#CC1E2C"
+  colour: "#E80C7A"
 
 
 - name: Cwilt
@@ -57,7 +57,7 @@
     - Ruby
     - Heroku
     - Spree
-  colour: "#FF5434"
+  colour: "rgb(41, 176, 53)"
 
 
 - name: Drone
@@ -66,7 +66,7 @@
   tags:
     - hardware
     - robotics
-  colour: "rgb(41, 176, 53)"
+  colour: "#FF5434"
 
 
 - name: Flexible Variants
