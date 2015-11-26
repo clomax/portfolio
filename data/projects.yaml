@@ -7,7 +7,7 @@
   tools:
     - C#
     - Unity
-  colour: "#911146"
+  colour: "#1A72A6"
 
 
 - name: Reading Handwriting
@@ -18,7 +18,7 @@
   tools:
     - R
     - ggplot2
-  colour: "#468966"
+  colour: "#F29F05"
 
 
 - name: PUNG
@@ -32,7 +32,7 @@
     - R
     - SFML
     - Box2D
-  colour: "#009393"
+  colour: "#3498DB"
 
 
 - name: Raptor Dash
@@ -44,7 +44,7 @@
   tools:
     - C#
     - Unity
-  colour: "#413659"
+  colour: "#CC1E2C"
 
 
 - name: Cwilt
@@ -57,7 +57,7 @@
     - Ruby
     - Heroku
     - Spree
-  colour: "#445878"
+  colour: "#FF5434"
 
 
 - name: Drone
@@ -66,7 +66,7 @@
   tags:
     - hardware
     - robotics
-  colour: "#709C11"
+  colour: "rgb(41, 176, 53)"
 
 
 - name: Flexible Variants
@@ -79,7 +79,7 @@
     - Ruby
     - psql
     - Spree
-  colour: "#B64926"
+  colour: "rgb(0, 165, 222)"
 
 
 
