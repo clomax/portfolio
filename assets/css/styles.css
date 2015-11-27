@@ -238,7 +238,8 @@ p.subtitle {
 
 p.other_projects {
   margin-left: 20px;
-  margin-bottom: -20px; }
+  margin-bottom: -20px;
+  margin-left: 50px; }
 
 p.project_name {
   font-size: 1em;
