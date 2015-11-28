@@ -183,7 +183,8 @@ section.footer {
   font-family: georgia; }
 
 ul.tool-list {
-  float: right; }
+  float: right;
+  margin-top: -30px; }
   ul.tool-list .tool:first-child {
     margin-right: 0; }
 

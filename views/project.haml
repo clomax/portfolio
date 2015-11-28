@@ -6,6 +6,8 @@
 %div{ class: "project-title" }
   %h1{ class: "project-name" }= @project['name']
 
+  %p{ class: "subtitle" }= @project['short_desc']
+
   %ul{ class: "tool-list", style: "padding-left:0; margin-bottom: 10px" }
     -unless @project['tools'].nil?
       -@project['tools'].reverse.each do |t|
@@ -14,7 +16,6 @@
             %li{ class: "tool", style: "background-color: #{c[t]}" }
               =t
 
-  %p{ class: "subtitle" }= @project['short_desc']
   %hr
 
 %section{ class: "article" }
