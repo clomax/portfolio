@@ -27,6 +27,10 @@ create a more complex run cycle.
 
 [![](assets/images/raptor_dash/smash.png =600x)](https://gfycat.com/ReadyPracticalAfricanpiedkingfisher)
 
+<!-- TODO: another video of dino smashing to pieces -->
+
 In the above video the player knocks the obstacles over without
 breaking apart if they are hit from the side, but does break apart,
 if the player runs into an obstacle head-on.
+
+<iframe style="margin-left: auto; margin-right: auto; display: block" src="https://itch.io/embed/45389?linkback=true" width="552" height="167" frameborder="0"></iframe>
