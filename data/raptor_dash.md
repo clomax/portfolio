@@ -25,7 +25,7 @@ create a more complex run cycle.
 
 [![](assets/images/raptor_dash/leg.png =600x)](https://gfycat.com/ThoroughJauntyInchworm)
 
-[![](assets/images/raptor_dash/smash.png =600x)](https://gfycat.com/ReadyPracticalAfricanpiedkingfisher)
+[![](assets/images/raptor_dash/smash.png =600x)](https://gfycat.com/ImpeccableBlondHanumanmonkey)
 
 <!-- TODO: another video of dino smashing to pieces -->
 
