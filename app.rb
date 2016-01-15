@@ -37,7 +37,7 @@ class App < Sinatra::Base
   end
 
   not_found do
-      "Oops!"
+      haml :four_oh_four
   end
 
 end

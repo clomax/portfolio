@@ -1,5 +1,5 @@
 Raptor Dash is an infinite runner game featuring the
-skeletons of a velociraptor that has come to life running
+skeleton of a velociraptor that has come to life running
 through a museum. The aim of the project is to work with an
 illustrator to produce a complete game.
 
@@ -15,22 +15,18 @@ into in obstacle it will fall to pieces.
 
 [![](assets/images/raptor_dash/ConsiderateGoodnaturedIndianhare.png =600x)](https://gfycat.com/ConsiderateGoodnaturedIndianhare)
 
-Once I had practiced a workflow for animating I started working on
-animating the final velociraptor, which had more joints in its legs,
-neck, and tail. I also brought in the other assets and created the
-environment with scrolling textures for the barriers and windows, and
-animated dust motes with particle systems. The video below shows that I
-can manipulate IK targets, combined with Unity's animation system, to
-create a more complex run cycle.
+Once I had practiced a workflow for animating I started working on animating
+the final velociraptor, which had more joints in its legs, neck, and tail. The
+video below shows that I can manipulate IK targets, combined with Unity's
+animation system, to create a more complex run cycle.
 
 [![](assets/images/raptor_dash/leg.png =600x)](https://gfycat.com/ThoroughJauntyInchworm)
 
-[![](assets/images/raptor_dash/smash.png =600x)](https://gfycat.com/ImpeccableBlondHanumanmonkey)
+After further development we ended up with audio, camera shake, lives, slow motion
+crashing, and an animated game over menu showing high scores.
 
-<!-- TODO: another video of dino smashing to pieces -->
+[![](assets/images/raptor_dash/menu_lives.png =600x)](http://gfycat.com/SnappyDefensiveGoral)
 
-In the above video the player knocks the obstacles over without
-breaking apart if they are hit from the side, but does break apart,
-if the player runs into an obstacle head-on.
+
 
 <iframe style="margin-left: auto; margin-right: auto; display: block" src="https://itch.io/embed/45389?linkback=true" width="552" height="167" frameborder="0"></iframe>
