@@ -2,14 +2,14 @@
   font-family: Arial, sans-serif; }
 
 body {
-  background-color: #ddd;
+  background-color: #dddddd;
   margin-bottom: 0; }
 
 hr {
   display: block;
   height: 1px;
   border: 0;
-  border-top: 1px solid #666;
+  border-top: 1px solid #666666;
   margin: 1em 0;
   padding: 0;
   margin-left: 30px;
@@ -31,7 +31,7 @@ hr {
 .intro-text p {
   margin-left: auto;
   margin-right: auto;
-  font-size: 13pt;
+  font-size: 12.5pt;
   text-align: center; }
 .intro-text hr {
   margin-left: 50px;
