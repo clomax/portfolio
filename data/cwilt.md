@@ -1,4 +1,4 @@
-[Cwilt](http://shop.cwilt.co.uk), colloquial Welsh for *"quilt"*, is an online
+Cwilt, colloquial Welsh for *"quilt"*, is an online
 quilting fabrics and haberdashery shop which is built on
 [Spree](https://spreecommerce.com/) and hosted on the
 [Heroku](http://heroku.com) cloud platform.

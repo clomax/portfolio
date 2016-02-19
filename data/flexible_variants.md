@@ -1,5 +1,3 @@
-[Code](https://github.com/clomax/spree_flexible_variants)
-
 This is an extension for Spree commerce that enables inventory management of
 products that are cut to order (e.g. fabric).
 

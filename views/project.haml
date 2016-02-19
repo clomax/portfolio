@@ -15,10 +15,19 @@
           -unless c[t].nil?
             %li{ class: "tool", style: "background-color: #{c[t]}" }
               =t
-
   %hr
 
 %section{ class: "article" }
+  %ul{ class: "link-list" }
+    -unless @links.nil?
+      -@links.each do |l|
+        %li{ class: "link" }
+          %a{ href: l['url'], target: "_blank" }
+            %span{ class: "fa-stack fa-lg" }
+              %i{ class: "fa fa-circle fa-stack-1x fa-inverse" }
+              %i{ class: "fa #{l['icon']} fa-stack-1x" }
+            %p= l['text']
+
   =markdown(@project_md)
 
 %p{ class: "other_projects" } Other Projects

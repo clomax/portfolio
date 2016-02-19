@@ -117,7 +117,7 @@ section.footer {
     text-align: center; }
 
 .article {
-  padding: 15px;
+  padding: 0px 15px 15px 15px;
   margin-bottom: 50px;
   margin-left: 25px;
   margin-right: 25px;
@@ -250,3 +250,38 @@ p.other_projects {
 p.project_name {
   font-size: 1em;
   margin-top: 2px; }
+
+.link-list {
+  padding: 0;
+  width: -moz-fit-content;
+  width: -webkit-fit-content; }
+
+.link-list:last-child {
+  margin-right: 0; }
+
+.link {
+  margin-right: 20px;
+  border-radius: 15px;
+  background-color: #e3e3e3;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  height: 20px;
+  display: inline-block;
+  padding: 8px 8px 8px 8px; }
+  .link a {
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: none;
+    color: black;
+    vertical-align: middle; }
+  .link span {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    float: left; }
+  .link i {
+    line-height: 20px; }
+  .link p {
+    float: left;
+    line-height: 20px;
+    margin: 0; }

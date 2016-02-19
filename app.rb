@@ -5,7 +5,6 @@ require 'yaml'
 
 
 class App < Sinatra::Base
-
   site_data = YAML.load_file('data/site.yaml')
   projects = YAML.load_file('data/projects.yaml')
   tool_colours = YAML.load_file('data/tools.yaml')
@@ -20,6 +19,8 @@ class App < Sinatra::Base
       @tool_colours = tool_colours
       @project = projects.select {|p| p['slug'] == params['slug']}.first
       halt(404) unless !@project.nil?
+
+      @links = @project['links']
 
       @other_projects = projects.sample(3)
       @other_projects.delete_if { |x| x == @project }

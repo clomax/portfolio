@@ -1,5 +1,3 @@
-[Source code](https://github.com/clomax/neuralnet-digit-reader)
-
 This was the final major project for my BSc AI & Robotics. The task was to
 produce a standard feed-forward neural network that can learn to distinguish
 between handwritten digits 0 to 9 and recognise digits that it had never
