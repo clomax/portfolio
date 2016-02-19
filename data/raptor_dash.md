@@ -20,6 +20,8 @@ the final velociraptor, which had more joints in its legs, neck, and tail. The
 video below shows that I can manipulate IK targets, combined with Unity's
 animation system, to create a more complex run cycle.
 
+![](assets/images/raptor_dash/run_cycle.gif)
+
 [![](assets/images/raptor_dash/leg.png =600x)](https://gfycat.com/ThoroughJauntyInchworm)
 
 After further development we ended up with audio, camera shake, lives, slow motion
