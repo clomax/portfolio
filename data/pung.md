@@ -10,7 +10,16 @@ that data with a separate program, and using the result to control the
 opponent. Each training example records the position and velocity of the ball,
 and the position that the human controlled paddle, at a given time.
 
-![](assets/images/pung/pung.png =500x)
+<!--![](assets/images/pung/pung.png =500x)-->
+
+<!--<div style='position:relative'><iframe src='https://gfycat.com/ifr/BrokenLonelyBangeltiger' frameborder='0' scrolling='no' width='40%' height='40%' style='position:absolute;top:0;left:0' allowfullscreen></iframe></div>-->
+
+
+<div style='position:relative;padding-bottom:54%'>
+        <iframe src='https://gfycat.com/ifr/BrokenLonelyBangeltiger' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0' allowfullscreen></iframe>
+</div>
+
+<p style="text-align:center; font-style: italic; margin-bottom:40px">"Human player (yellow) and Goalkeeper" AI trained with 100 hidden neurons (red)</p>
 
 Through experimentation I found that it takes approximately 100,000 training
 examples, together with 50 to 100 hidden nodes, to produce acceptable
