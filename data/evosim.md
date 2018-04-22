@@ -39,5 +39,5 @@ I would also like to remake this project more fully using the Bullet physics
 engine which, from what I understand, is more suitable for this application
 than the physics engine that Unity uses - PhysX.
 
-<iframe style="margin-left: auto; margin-right: auto; display: block" src="//itch.io/embed/17096?linkback=true" width="552" height="167" frameborder="0"></iframe>
+<iframe style="margin-left: auto; margin-right: auto; display: block" src="https://itch.io/embed/17096?linkback=true" width="552" height="167" frameborder="0"></iframe>
 
