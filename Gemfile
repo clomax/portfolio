@@ -1,7 +1,7 @@
 source "http://rubygems.org"
-ruby "2.3.0"
+ruby "2.5.1"
 
-gem "unicorn"
+gem "unicorn-rails"
 gem "sinatra"
 gem "haml"
 gem "rdiscount"
