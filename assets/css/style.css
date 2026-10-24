@@ -1,8 +1,8 @@
 /* Portfolio home page */
 
 /* Base palette from the ALT-1 site; each project card borrows its accent
-   from that project's own site (Luno dusk orange, Evosim teal, ALT-1 blue,
-   Digit Reader ink blue). */
+   from that project's own site (Luno dusk orange, Starchitect magenta,
+   Evosim teal, ALT-1 blue, Digit Reader ink blue). */
 
 :root {
   --bg: #f7f7f5;
@@ -14,6 +14,7 @@
   --accent-text: #ffffff;
   --code-bg: #eeeeea;
   --luno: #b9503b;
+  --starchitect: #a3007c;
   --alt1: #1f6feb;
   --evosim: #0e7077;
   --digits: #2446c7;
@@ -32,6 +33,7 @@
     --accent-text: #0b0d10;
     --code-bg: #24282d;
     --luno: #ff9040;
+    --starchitect: #ff5cbf;
     --alt1: #4c8dff;
     --evosim: #3fdc8a;
     --digits: #8aa4ff;
@@ -129,6 +131,7 @@ h2 { font-size: 1.6rem; margin: 0 0 1rem; }
   .project { --surface-hover: #262a2f; }
 }
 .project-luno { --project: var(--luno); }
+.project-starchitect { --project: var(--starchitect); }
 .project-alt1 { --project: var(--alt1); }
 .project-evosim { --project: var(--evosim); }
 .project-digits { --project: var(--digits); }
