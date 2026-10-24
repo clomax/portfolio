@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Craig Lomax · Projects</title>
+  <meta name="description" content="Projects by Craig Lomax, from PLC control of a simulated assembly and leak test machine to a 3D artificial life simulator.">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top">Craig Lomax</a>
+    <nav aria-label="Sections">
+      <a href="#projects">Projects</a>
+      <a href="https://github.com/clomax">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Portfolio</p>
+      <h1>Projects</h1>
+      <p class="lede">
+        Things I have built, from industrial control software running on a soft PLC
+        to a real time simulation of evolution.
+      </p>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <ul class="projects">
+
+        <li class="project project-luno">
+          <a class="thumb" href="https://clomax.github.io/luno-demo/" tabindex="-1" aria-hidden="true">
+            <img src="assets/img/luno-phones.png" width="1024" height="640"
+                 alt="Three Luno screens for London: a nearly full moon rising at dusk under a purple and orange sky, a full moon high in a starry midnight sky, and a waning crescent in a blue morning sky above the Houses of Parliament and the London Eye.">
+          </a>
+          <div class="project-body">
+            <h2><a href="https://clomax.github.io/luno-demo/">Luno</a></h2>
+            <ul class="pills" aria-label="Tech stack">
+              <li>Flutter</li>
+              <li>Dart</li>
+              <li>SQLite</li>
+            </ul>
+            <p>
+              A moon tracking app for planning night photography, still in development. Pick a
+              place, then drag through time to see where the moon will be, how much of it will be
+              lit, and what the sky will look like around it. All the astronomy is calculated on
+              the device, in a background isolate, and cached in SQLite.
+            </p>
+          </div>
+        </li>
+
+        <li class="project project-evosim">
+          <a class="thumb" href="https://clomax.github.io/evosim-prototype/" tabindex="-1" aria-hidden="true">
+            <img src="assets/img/evosim-hero.png" width="992" height="608"
+                 alt="Pink block creatures in teal water, with green lines from their mouths to the foodbits they are chasing.">
+          </a>
+          <div class="project-body">
+            <h2><a href="https://clomax.github.io/evosim-prototype/">Evosim</a></h2>
+            <ul class="pills" aria-label="Tech stack">
+              <li>Unity</li>
+              <li>C#</li>
+              <li>Genetic algorithms</li>
+              <li>JSON</li>
+            </ul>
+            <p>
+              A three-dimensional, real time artificial life simulator. Creatures built from
+              jointed physics blocks swim, eat and mate in a closed energy system. Each child's
+              genes are crossed over from its two parents and then mutated, so the population
+              evolves by natural selection.
+            </p>
+          </div>
+        </li>
+
+        <li class="project project-alt1">
+          <a class="thumb" href="https://clomax.github.io/alt1/" tabindex="-1" aria-hidden="true">
+            <img src="assets/img/alt1-panel.png" width="1024" height="662" loading="lazy"
+                 alt="The ALT-1 plant simulator panel mid-cycle: PLC connected, machine running, cap press extended, and the event log showing the latest signal changes.">
+          </a>
+          <div class="project-body">
+            <h2><a href="https://clomax.github.io/alt1/">ALT-1 Assembly &amp; Leak Test Machine</a></h2>
+            <ul class="pills" aria-label="Tech stack">
+              <li>IEC 61131-3</li>
+              <li>Ladder</li>
+              <li>Structured Text</li>
+              <li>OpenPLC</li>
+              <li>Modbus TCP</li>
+              <li>Python</li>
+            </ul>
+            <p>
+              A simulated special purpose machine that presses a cap onto a valve body and simulates leak
+              testing the assembly. A ladder and Structured Text program on the OpenPLC soft PLC
+              controls it over Modbus TCP, with a Python plant simulator standing in for the
+              machine. It was checked against a 30-test factory acceptance test, using the
+              simulator's fault injection to produce jams and stuck sensors.
+            </p>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Craig Lomax · <a href="https://github.com/clomax">GitHub</a></p>
+  </div>
+</footer>
+
+<script>
+  // Pan the zoomed thumbnail to follow the cursor
+  for (const thumb of document.querySelectorAll(".thumb")) {
+    thumb.addEventListener("pointermove", (e) => {
+      if (e.pointerType !== "mouse") return;
+      const r = thumb.getBoundingClientRect();
+      thumb.style.setProperty("--pan-x", `${((e.clientX - r.left) / r.width) * 100}%`);
+      thumb.style.setProperty("--pan-y", `${((e.clientY - r.top) / r.height) * 100}%`);
+    });
+  }
+</script>
+
+</body>
+</html>
