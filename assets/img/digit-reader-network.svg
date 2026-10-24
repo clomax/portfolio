@@ -1,0 +1,224 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -65 960 600" width="960" height="600">
+  <!-- Thumbnail of the "How it works" diagram from the Neural Net Digit Reader site,
+       reframed to 16:10. Colours and styles are copied from that site's stylesheet. -->
+  <style>
+    svg {
+      --bg: #f4f6fb; --surface: #ffffff; --text: #0e1430; --muted: #4e5674;
+      --accent: #2446c7; --accent-text: #ffffff;
+      --paper: #000000; --stroke: #ffffff; --signal: #0e1430;
+    }
+    @media (prefers-color-scheme: dark) {
+      svg {
+        --bg: #0a0d1a; --surface: #111632; --text: #e6e9f6; --muted: #9aa3c4;
+        --accent: #8aa4ff; --accent-text: #0a0d1a; --signal: #ffffff;
+      }
+    }
+    text { fill: var(--text); font: 13px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .d-bg { fill: var(--bg); }
+    .d-head { font-size: 14px; font-weight: 600; }
+    .d-small { font-size: 12px; }
+    .d-muted { fill: var(--muted); font-weight: 400; }
+    .d-dots { font-size: 22px; fill: var(--muted); }
+    .d-flow { stroke: var(--accent); stroke-width: 2; fill: none; }
+    .d-arrowhead { fill: var(--accent); }
+    .d-paper { fill: var(--paper); }
+    .d-ink { fill: var(--stroke); }
+    .d-wire { stroke: var(--signal); stroke-linecap: round; }
+    .d-node { fill: var(--surface); stroke: var(--muted); stroke-width: 1.5; }
+    .d-node-top { fill: var(--accent); stroke: var(--accent); }
+    .d-sigmoid { fill: none; stroke: var(--accent); stroke-width: 1.75; stroke-linecap: round; }
+    .d-on-accent { fill: var(--accent-text); }
+    .d-bar { fill: var(--muted); }
+    .d-bar-top { fill: var(--accent); }
+  </style>
+  <rect class="d-bg" x="0" y="-65" width="960" height="600"/>
+  <defs>
+    <marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path class="d-arrowhead" d="M0,0 L10,5 L0,10 z"/>
+    </marker>
+  </defs>
+
+  <!-- Column headings -->
+  <text class="d-head" x="124" y="26" text-anchor="middle">Image</text>
+  <text class="d-head" x="330" y="26" text-anchor="middle">Input layer</text>
+  <text class="d-head" x="510" y="26" text-anchor="middle">Hidden layer</text>
+  <text class="d-head" x="700" y="26" text-anchor="middle">Output layer</text>
+
+  <!-- The digit -->
+  <rect class="d-paper" x="40" y="166" width="168" height="168"/>
+  <rect class="d-ink" x="68" y="180" width="14" height="14"/>
+  <rect class="d-ink" x="82" y="180" width="14" height="14"/>
+  <rect class="d-ink" x="96" y="180" width="14" height="14"/>
+  <rect class="d-ink" x="110" y="180" width="14" height="14"/>
+  <rect class="d-ink" x="124" y="180" width="14" height="14"/>
+  <rect class="d-ink" x="138" y="180" width="14" height="14"/>
+  <rect class="d-ink" x="152" y="180" width="14" height="14"/>
+  <rect class="d-ink" x="166" y="180" width="14" height="14"/>
+  <rect class="d-ink" x="68" y="194" width="14" height="14"/>
+  <rect class="d-ink" x="82" y="194" width="14" height="14"/>
+  <rect class="d-ink" x="96" y="194" width="14" height="14"/>
+  <rect class="d-ink" x="110" y="194" width="14" height="14"/>
+  <rect class="d-ink" x="124" y="194" width="14" height="14"/>
+  <rect class="d-ink" x="138" y="194" width="14" height="14"/>
+  <rect class="d-ink" x="152" y="194" width="14" height="14"/>
+  <rect class="d-ink" x="166" y="194" width="14" height="14"/>
+  <rect class="d-ink" x="180" y="194" width="14" height="14"/>
+  <rect class="d-ink" x="166" y="208" width="14" height="14"/>
+  <rect class="d-ink" x="180" y="208" width="14" height="14"/>
+  <rect class="d-ink" x="152" y="222" width="14" height="14"/>
+  <rect class="d-ink" x="166" y="222" width="14" height="14"/>
+  <rect class="d-ink" x="152" y="236" width="14" height="14"/>
+  <rect class="d-ink" x="166" y="236" width="14" height="14"/>
+  <rect class="d-ink" x="138" y="250" width="14" height="14"/>
+  <rect class="d-ink" x="152" y="250" width="14" height="14"/>
+  <rect class="d-ink" x="124" y="264" width="14" height="14"/>
+  <rect class="d-ink" x="138" y="264" width="14" height="14"/>
+  <rect class="d-ink" x="124" y="278" width="14" height="14"/>
+  <rect class="d-ink" x="138" y="278" width="14" height="14"/>
+  <rect class="d-ink" x="110" y="292" width="14" height="14"/>
+  <rect class="d-ink" x="124" y="292" width="14" height="14"/>
+  <rect class="d-ink" x="110" y="306" width="14" height="14"/>
+  <rect class="d-ink" x="124" y="306" width="14" height="14"/>
+
+  <!-- Image to inputs -->
+  <line class="d-flow" x1="216" y1="250" x2="310" y2="250" marker-end="url(#arrowhead)"/>
+  <text class="d-small d-muted" x="263" y="224" text-anchor="middle">one input</text>
+  <text class="d-small d-muted" x="263" y="239" text-anchor="middle">per pixel</text>
+
+  <!-- Inputs to hidden units: the signal along each connection is the pixel's
+       brightness times the connection's weight, so black pixels send nothing -->
+  <line class="d-wire" x1="340" y1="150" x2="498" y2="130" stroke-width="0.75" stroke-opacity="0.10"/>
+  <line class="d-wire" x1="340" y1="150" x2="498" y2="190" stroke-width="0.75" stroke-opacity="0.10"/>
+  <line class="d-wire" x1="340" y1="150" x2="498" y2="310" stroke-width="0.75" stroke-opacity="0.10"/>
+  <line class="d-wire" x1="340" y1="150" x2="498" y2="370" stroke-width="0.75" stroke-opacity="0.10"/>
+  <line class="d-wire" x1="340" y1="300" x2="498" y2="130" stroke-width="0.75" stroke-opacity="0.10"/>
+  <line class="d-wire" x1="340" y1="300" x2="498" y2="190" stroke-width="0.75" stroke-opacity="0.10"/>
+  <line class="d-wire" x1="340" y1="300" x2="498" y2="310" stroke-width="0.75" stroke-opacity="0.10"/>
+  <line class="d-wire" x1="340" y1="300" x2="498" y2="370" stroke-width="0.75" stroke-opacity="0.10"/>
+  <line class="d-wire" x1="340" y1="400" x2="498" y2="310" stroke-width="0.87" stroke-opacity="0.14"/>
+  <line class="d-wire" x1="340" y1="400" x2="498" y2="370" stroke-width="0.92" stroke-opacity="0.15"/>
+  <line class="d-wire" x1="340" y1="400" x2="498" y2="130" stroke-width="0.96" stroke-opacity="0.16"/>
+  <line class="d-wire" x1="340" y1="200" x2="498" y2="190" stroke-width="0.98" stroke-opacity="0.17"/>
+  <line class="d-wire" x1="340" y1="400" x2="498" y2="190" stroke-width="1.00" stroke-opacity="0.17"/>
+  <line class="d-wire" x1="340" y1="350" x2="498" y2="370" stroke-width="1.02" stroke-opacity="0.18"/>
+  <line class="d-wire" x1="340" y1="100" x2="498" y2="370" stroke-width="1.30" stroke-opacity="0.26"/>
+  <line class="d-wire" x1="340" y1="200" x2="498" y2="370" stroke-width="1.45" stroke-opacity="0.30"/>
+  <line class="d-wire" x1="340" y1="100" x2="498" y2="190" stroke-width="1.57" stroke-opacity="0.34"/>
+  <line class="d-wire" x1="340" y1="350" x2="498" y2="190" stroke-width="1.85" stroke-opacity="0.42"/>
+  <line class="d-wire" x1="340" y1="350" x2="498" y2="310" stroke-width="2.12" stroke-opacity="0.50"/>
+  <line class="d-wire" x1="340" y1="200" x2="498" y2="130" stroke-width="2.39" stroke-opacity="0.58"/>
+  <line class="d-wire" x1="340" y1="100" x2="498" y2="310" stroke-width="2.40" stroke-opacity="0.58"/>
+  <line class="d-wire" x1="340" y1="200" x2="498" y2="310" stroke-width="2.85" stroke-opacity="0.71"/>
+  <line class="d-wire" x1="340" y1="350" x2="498" y2="130" stroke-width="2.95" stroke-opacity="0.74"/>
+  <line class="d-wire" x1="340" y1="100" x2="498" y2="130" stroke-width="3.23" stroke-opacity="0.82"/>
+
+  <!-- Hidden units to outputs: the signal into each output is in proportion to its score -->
+  <line class="d-wire" x1="522" y1="130" x2="686" y2="300" stroke-width="0.75" stroke-opacity="0.10"/>
+  <line class="d-wire" x1="522" y1="190" x2="686" y2="300" stroke-width="0.75" stroke-opacity="0.10"/>
+  <line class="d-wire" x1="522" y1="310" x2="686" y2="300" stroke-width="0.75" stroke-opacity="0.10"/>
+  <line class="d-wire" x1="522" y1="370" x2="686" y2="300" stroke-width="0.75" stroke-opacity="0.10"/>
+  <line class="d-wire" x1="522" y1="370" x2="686" y2="60" stroke-width="0.76" stroke-opacity="0.10"/>
+  <line class="d-wire" x1="522" y1="370" x2="686" y2="260" stroke-width="0.76" stroke-opacity="0.10"/>
+  <line class="d-wire" x1="522" y1="190" x2="686" y2="60" stroke-width="0.76" stroke-opacity="0.10"/>
+  <line class="d-wire" x1="522" y1="190" x2="686" y2="260" stroke-width="0.76" stroke-opacity="0.10"/>
+  <line class="d-wire" x1="522" y1="310" x2="686" y2="60" stroke-width="0.77" stroke-opacity="0.11"/>
+  <line class="d-wire" x1="522" y1="310" x2="686" y2="260" stroke-width="0.77" stroke-opacity="0.11"/>
+  <line class="d-wire" x1="522" y1="370" x2="686" y2="180" stroke-width="0.78" stroke-opacity="0.11"/>
+  <line class="d-wire" x1="522" y1="370" x2="686" y2="380" stroke-width="0.78" stroke-opacity="0.11"/>
+  <line class="d-wire" x1="522" y1="130" x2="686" y2="60" stroke-width="0.78" stroke-opacity="0.11"/>
+  <line class="d-wire" x1="522" y1="130" x2="686" y2="260" stroke-width="0.78" stroke-opacity="0.11"/>
+  <line class="d-wire" x1="522" y1="190" x2="686" y2="180" stroke-width="0.78" stroke-opacity="0.11"/>
+  <line class="d-wire" x1="522" y1="190" x2="686" y2="380" stroke-width="0.78" stroke-opacity="0.11"/>
+  <line class="d-wire" x1="522" y1="370" x2="686" y2="100" stroke-width="0.79" stroke-opacity="0.11"/>
+  <line class="d-wire" x1="522" y1="190" x2="686" y2="100" stroke-width="0.79" stroke-opacity="0.11"/>
+  <line class="d-wire" x1="522" y1="310" x2="686" y2="180" stroke-width="0.80" stroke-opacity="0.11"/>
+  <line class="d-wire" x1="522" y1="310" x2="686" y2="380" stroke-width="0.80" stroke-opacity="0.11"/>
+  <line class="d-wire" x1="522" y1="370" x2="686" y2="140" stroke-width="0.80" stroke-opacity="0.11"/>
+  <line class="d-wire" x1="522" y1="130" x2="686" y2="180" stroke-width="0.80" stroke-opacity="0.12"/>
+  <line class="d-wire" x1="522" y1="130" x2="686" y2="380" stroke-width="0.80" stroke-opacity="0.12"/>
+  <line class="d-wire" x1="522" y1="190" x2="686" y2="140" stroke-width="0.81" stroke-opacity="0.12"/>
+  <line class="d-wire" x1="522" y1="370" x2="686" y2="220" stroke-width="0.81" stroke-opacity="0.12"/>
+  <line class="d-wire" x1="522" y1="310" x2="686" y2="100" stroke-width="0.82" stroke-opacity="0.12"/>
+  <line class="d-wire" x1="522" y1="190" x2="686" y2="220" stroke-width="0.82" stroke-opacity="0.12"/>
+  <line class="d-wire" x1="522" y1="130" x2="686" y2="100" stroke-width="0.83" stroke-opacity="0.12"/>
+  <line class="d-wire" x1="522" y1="310" x2="686" y2="140" stroke-width="0.84" stroke-opacity="0.13"/>
+  <line class="d-wire" x1="522" y1="130" x2="686" y2="140" stroke-width="0.85" stroke-opacity="0.13"/>
+  <line class="d-wire" x1="522" y1="370" x2="686" y2="420" stroke-width="0.86" stroke-opacity="0.13"/>
+  <line class="d-wire" x1="522" y1="310" x2="686" y2="220" stroke-width="0.87" stroke-opacity="0.13"/>
+  <line class="d-wire" x1="522" y1="190" x2="686" y2="420" stroke-width="0.88" stroke-opacity="0.14"/>
+  <line class="d-wire" x1="522" y1="130" x2="686" y2="220" stroke-width="0.88" stroke-opacity="0.14"/>
+  <line class="d-wire" x1="522" y1="310" x2="686" y2="420" stroke-width="0.96" stroke-opacity="0.16"/>
+  <line class="d-wire" x1="522" y1="130" x2="686" y2="420" stroke-width="0.98" stroke-opacity="0.17"/>
+  <line class="d-wire" x1="522" y1="370" x2="686" y2="340" stroke-width="1.93" stroke-opacity="0.44"/>
+  <line class="d-wire" x1="522" y1="190" x2="686" y2="340" stroke-width="2.08" stroke-opacity="0.49"/>
+  <line class="d-wire" x1="522" y1="310" x2="686" y2="340" stroke-width="2.92" stroke-opacity="0.73"/>
+  <line class="d-wire" x1="522" y1="130" x2="686" y2="340" stroke-width="3.15" stroke-opacity="0.80"/>
+
+  <!-- Input units -->
+  <circle class="d-node" cx="330" cy="100" r="10"/>
+  <circle class="d-node" cx="330" cy="150" r="10"/>
+  <circle class="d-node" cx="330" cy="200" r="10"/>
+  <text class="d-dots" x="330" y="258" text-anchor="middle">⋮</text>
+  <circle class="d-node" cx="330" cy="300" r="10"/>
+  <circle class="d-node" cx="330" cy="350" r="10"/>
+  <circle class="d-node" cx="330" cy="400" r="10"/>
+
+  <!-- Hidden units: each squashes its total through the sigmoid -->
+  <circle class="d-node" cx="510" cy="130" r="24"/>
+  <path class="d-sigmoid" d="M494,138 Q510,138 510,130 Q510,122 526,122"/>
+  <circle class="d-node" cx="510" cy="190" r="24"/>
+  <path class="d-sigmoid" d="M494,198 Q510,198 510,190 Q510,182 526,182"/>
+  <text class="d-dots" x="510" y="258" text-anchor="middle">⋮</text>
+  <circle class="d-node" cx="510" cy="310" r="24"/>
+  <path class="d-sigmoid" d="M494,318 Q510,318 510,310 Q510,302 526,302"/>
+  <circle class="d-node" cx="510" cy="370" r="24"/>
+  <path class="d-sigmoid" d="M494,378 Q510,378 510,370 Q510,362 526,362"/>
+
+  <!-- Outputs and their scores -->
+  <circle class="d-node" cx="700" cy="60" r="14"/>
+  <text class="d-head" x="700" y="65" text-anchor="middle">0</text>
+  <rect class="d-bar" x="726" y="53" width="2" height="14" rx="1"/>
+  <text class="d-small d-muted" x="736" y="64">0.01</text>
+  <circle class="d-node" cx="700" cy="100" r="14"/>
+  <text class="d-head" x="700" y="105" text-anchor="middle">1</text>
+  <rect class="d-bar" x="726" y="93" width="5" height="14" rx="2"/>
+  <text class="d-small d-muted" x="739" y="104">0.03</text>
+  <circle class="d-node" cx="700" cy="140" r="14"/>
+  <text class="d-head" x="700" y="145" text-anchor="middle">2</text>
+  <rect class="d-bar" x="726" y="133" width="7" height="14" rx="2"/>
+  <text class="d-small d-muted" x="741" y="144">0.04</text>
+  <circle class="d-node" cx="700" cy="180" r="14"/>
+  <text class="d-head" x="700" y="185" text-anchor="middle">3</text>
+  <rect class="d-bar" x="726" y="173" width="3" height="14" rx="1.5"/>
+  <text class="d-small d-muted" x="737" y="184">0.02</text>
+  <circle class="d-node" cx="700" cy="220" r="14"/>
+  <text class="d-head" x="700" y="225" text-anchor="middle">4</text>
+  <rect class="d-bar" x="726" y="213" width="8" height="14" rx="2"/>
+  <text class="d-small d-muted" x="742" y="224">0.05</text>
+  <circle class="d-node" cx="700" cy="260" r="14"/>
+  <text class="d-head" x="700" y="265" text-anchor="middle">5</text>
+  <rect class="d-bar" x="726" y="253" width="2" height="14" rx="1"/>
+  <text class="d-small d-muted" x="736" y="264">0.01</text>
+  <circle class="d-node" cx="700" cy="300" r="14"/>
+  <text class="d-head" x="700" y="305" text-anchor="middle">6</text>
+  <rect class="d-bar" x="726" y="293" width="2" height="14" rx="1"/>
+  <text class="d-small d-muted" x="736" y="304">0.00</text>
+  <circle class="d-node d-node-top" cx="700" cy="340" r="14"/>
+  <text class="d-head d-on-accent" x="700" y="345" text-anchor="middle">7</text>
+  <rect class="d-bar-top" x="726" y="333" width="158" height="14" rx="2"/>
+  <text class="d-small d-head" x="892" y="344">0.93</text>
+  <circle class="d-node" cx="700" cy="380" r="14"/>
+  <text class="d-head" x="700" y="385" text-anchor="middle">8</text>
+  <rect class="d-bar" x="726" y="373" width="3" height="14" rx="1.5"/>
+  <text class="d-small d-muted" x="737" y="384">0.02</text>
+  <circle class="d-node" cx="700" cy="420" r="14"/>
+  <text class="d-head" x="700" y="425" text-anchor="middle">9</text>
+  <rect class="d-bar" x="726" y="413" width="15" height="14" rx="2"/>
+  <text class="d-small d-muted" x="749" y="424">0.09</text>
+
+  <!-- Sizes -->
+  <text class="d-small d-muted" x="124" y="460" text-anchor="middle">28 × 28 pixels</text>
+  <text class="d-small d-muted" x="330" y="460" text-anchor="middle">784 units</text>
+  <text class="d-small d-muted" x="510" y="460" text-anchor="middle">60 units</text>
+  <text class="d-small d-muted" x="700" y="460" text-anchor="middle">10 units, one per digit</text>
+</svg>
