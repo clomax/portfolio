@@ -1,0 +1,447 @@
+/* Luno project site */
+
+/* Colours are taken from the app's skybox (lib/props/skybox.dart) as the sun
+   sets: the deep purples of twilight, the orange glow at the horizon, and the
+   indigo of the night that follows. */
+
+:root {
+  --bg: #f6f4fa;
+  --surface: #ffffff;
+  --text: #1a0e3c;
+  --muted: #5b5478;
+  --border: #ddd8ea;
+  --accent: #b9503b;
+  --accent-text: #ffffff;
+  --code-bg: #eeebf5;
+  --glow: #e8622a;
+  --warm: #ff9040;
+  --dusk: #8a3e4c;
+  --twilight: #2c1b6e;
+  --sky-top: #1a0e3c;
+  --sky-mid: #2c1b6e;
+  --sky-horizon: #b9503b;
+  --hero-text: #ffffff;
+  --hero-muted: #e4dcf2;
+  --logo-disc: #2d2874;
+  --max: 64rem;
+  --gutter: 1rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0d0f27;
+    --surface: #160c3c;
+    --text: #ece8f7;
+    --muted: #a8a1c8;
+    --border: #2c1b6e;
+    --accent: #ff9040;
+    --accent-text: #1a0e3c;
+    --code-bg: #1a0e3c;
+    --glow: #e8622a;
+    --warm: #ff9040;
+    --dusk: #b9503b;
+    --twilight: #5b2d5d;
+    --sky-top: #0d0f27;
+    --sky-mid: #2c1b6e;
+    --sky-horizon: #8a3e4c;
+    --hero-text: #f4f0fb;
+    --hero-muted: #cfc6e6;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 4rem; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 1rem/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+a { color: var(--accent); }
+
+code, pre {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+code { background: var(--code-bg); padding: 0.1em 0.3em; border-radius: 3px; }
+pre {
+  background: var(--code-bg);
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+pre code { background: none; padding: 0; }
+
+/* Header */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+/* The wordmark and the links share a baseline, whatever the two fonts' metrics */
+.site-header .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+.brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1.15rem;
+}
+.brand .wordmark { font-weight: 300; letter-spacing: 0.3em; }
+
+/* The app's logo: a crescent on a disc a shade darker than the sky behind it */
+.logo { width: 1.75rem; height: 1.75rem; flex: none; align-self: center; }
+.logo-disc { fill: var(--logo-disc); }
+.logo-lit { fill: #fdfaf6; }
+
+/* The lowercase, widely spaced wordmark from the app's logo */
+.wordmark {
+  font-family: "Montserrat", system-ui, sans-serif;
+  font-weight: 200;
+  text-transform: lowercase;
+  letter-spacing: 0.45em;
+}
+.site-header nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; }
+.site-header nav a { color: var(--muted); text-decoration: none; font-size: 0.95rem; }
+.site-header nav a:hover { color: var(--text); }
+
+/* Sections */
+
+section { padding: 3rem 0; border-bottom: 1px solid var(--border); }
+section:last-of-type { border-bottom: none; }
+
+h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); line-height: 1.15; margin: 0.25rem 0 1rem; }
+h2 { font-size: 1.6rem; margin: 0 0 1rem; }
+h3 { font-size: 1.15rem; margin: 2rem 0 0.75rem; }
+h4 { font-size: 1rem; margin: 1.5rem 0 0.5rem; color: var(--muted); }
+
+.eyebrow {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.lede { font-size: 1.15rem; color: var(--muted); max-width: 44rem; }
+
+/* Hero: the app's sky with the sun 1.5° below the horizon, a few stars
+   coming out, and three layers of hills as in the app's landscape */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(1px 1px at 12% 18%, rgba(255, 255, 255, 0.55), transparent),
+    radial-gradient(1px 1px at 27% 8%, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(1px 1px at 41% 30%, rgba(255, 255, 255, 0.35), transparent),
+    radial-gradient(1px 1px at 58% 12%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 73% 24%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 88% 6%, rgba(255, 255, 255, 0.45), transparent),
+    radial-gradient(1px 1px at 94% 34%, rgba(255, 255, 255, 0.25), transparent),
+    linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 50%, var(--sky-horizon) 100%);
+  color: var(--hero-text);
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.hero .eyebrow,
+.hero .lede { color: var(--hero-muted); }
+.hero h1.wordmark { font-size: clamp(2.6rem, 9vw, 4.25rem); margin: 0.5rem 0 0.25rem; }
+
+/* Says the first letter is an L, which is easy to misread in the thin wordmark */
+.pronunciation {
+  margin: 0 0 1.25rem;
+  color: var(--hero-text);
+  opacity: 0.6;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}.hero .wrap { position: relative; z-index: 1; }
+.hero .screenshot figcaption { color: var(--hero-muted); }
+.hero .placeholder {
+  border-color: rgba(255, 255, 255, 0.45);
+  color: var(--hero-muted);
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.hero-grid { display: grid; gap: 1rem 3rem; align-items: center; }
+@media (min-width: 52rem) {
+  .hero-grid { grid-template-columns: minmax(0, 1fr) 19rem; }
+}
+
+/* The timeline toy: a working model of the app's main screen, in a phone */
+.toy-figure { max-width: 19rem; }
+.phone-frame {
+  position: relative;
+  padding: 0.45rem;
+  border-radius: 2.4rem;
+  background: #0b0918;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12), 0 1.5rem 3rem rgba(5, 5, 16, 0.5);
+}
+/* Camera notch, hanging from the top of the frame, with its lens */
+.phone-frame::before,
+.phone-frame::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  pointer-events: none;
+}
+.phone-frame::before {
+  top: 0.45rem;
+  width: 36%;
+  height: 1.35rem;
+  transform: translateX(-50%);
+  border-radius: 0 0 0.95rem 0.95rem;
+  background: #0b0918;
+}
+.phone-frame::after {
+  top: calc(0.45rem + 0.4rem);
+  width: 0.5rem;
+  height: 0.5rem;
+  transform: translateX(1.6rem);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #3b3a66, #12111f 60%);
+}
+.toy {
+  display: block;
+  width: 100%;
+  aspect-ratio: 9 / 20;
+  border-radius: 1.95rem;
+  background: #0d0f27;
+  touch-action: pan-y;
+  cursor: grab;
+}
+.toy:active { cursor: grabbing; }
+/* The demo plays by itself, so it leaves the pointer and page scrolling alone */
+.toy-demo,
+.toy-demo:active { cursor: default; touch-action: auto; }
+.toy:focus-visible { outline: 2px solid var(--warm); outline-offset: 0.6rem; }
+.toy-noscript { margin: 0.5rem 0 0; color: var(--hero-muted); font-size: 0.9rem; }
+/* The frame is positioned for its notch, so the text below needs to be too,
+   or the frame's shadow would be painted over it */
+.toy-figure figcaption,
+.toy-noscript { position: relative; }
+
+.hills {
+  display: block;
+  width: 100%;
+  height: 7rem;
+  margin-top: -4.5rem;
+}
+.hill { stroke: none; }
+.hill-back { fill: rgba(0, 0, 0, 0.12); }
+.hill-mid { fill: rgba(0, 0, 0, 0.26); }
+.hill-front {
+  fill: rgba(0, 0, 0, 0.54);
+  stroke: rgba(255, 255, 255, 0.18);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Buttons and the store links, which stay disabled until release */
+
+.actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.5rem 0 0.75rem; }
+.button {
+  display: inline-block;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  background: var(--accent);
+  color: var(--accent-text);
+  text-decoration: none;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+.button.store {
+  display: inline-flex;
+  flex-direction: column;
+  line-height: 1.2;
+  padding: 0.5rem 1.1rem;
+  background: var(--hero-text);
+  color: var(--sky-top);
+}
+.button.store small {
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.button[aria-disabled="true"] {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--hero-muted);
+  border: 1px dashed rgba(255, 255, 255, 0.45);
+  cursor: not-allowed;
+}
+
+.status { margin: 0 0 1.5rem; color: var(--hero-muted); font-size: 0.95rem; }
+.status::before {
+  content: "";
+  display: inline-block;
+  width: 0.55em;
+  height: 0.55em;
+  margin-right: 0.5em;
+  border-radius: 50%;
+  background: var(--warm);
+  vertical-align: 0.05em;
+}
+
+/* Cards */
+
+.cards {
+  list-style: none;
+  counter-reset: card;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 1rem;
+}
+.cards li {
+  counter-increment: card;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--warm);
+  border-radius: 8px;
+  padding: 1rem;
+}
+/* Top borders darken left to right, like the sky after sunset */
+.cards li:nth-child(2) { border-top-color: var(--glow); }
+.cards li:nth-child(3) { border-top-color: var(--dusk); }
+.cards li:nth-child(4) { border-top-color: var(--twilight); }
+.cards li strong { display: block; margin-bottom: 0.25rem; }
+.cards li strong::before { content: counter(card) ". "; color: var(--muted); }
+
+/* Key facts */
+
+.facts {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.4rem 1.5rem;
+}
+.facts dt { font-weight: 600; }
+.facts dd { margin: 0; color: var(--muted); }
+
+@media (max-width: 30rem) {
+  .facts { grid-template-columns: 1fr; }
+  .facts dd { margin-bottom: 0.5rem; }
+}
+
+/* Tables */
+
+.table-scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; background: var(--surface); }
+th, td { text-align: left; padding: 0.5rem 0.75rem; border: 1px solid var(--border); vertical-align: top; }
+th { background: var(--code-bg); }
+
+/* Formulas */
+
+.formula { margin: 0.75rem 0 1rem; }
+.formula code { font-size: 0.95em; line-height: 1.7; }
+
+/* Screenshots and videos: portrait phone captures */
+
+.screenshot { margin: 1.5rem 0; }
+.screenshot img,
+.screenshot video {
+  display: block;
+  width: 100%;
+  max-width: 1024px;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.screenshot figcaption { margin-top: 0.5rem; color: var(--muted); font-size: 0.9rem; }
+
+.phone { max-width: 17rem; margin-left: auto; margin-right: auto; }
+.phone img,
+.phone video { border-radius: 1.25rem; }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 0 1.5rem;
+}
+.gallery .phone { margin: 1.5rem 0; max-width: none; }
+
+/* Embedded YouTube video, 16:9 */
+.video { margin: 1.5rem 0; max-width: 48rem; }
+.video-frame {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #050510;
+}
+.video-frame iframe { display: block; width: 100%; height: 100%; border: 0; }
+.video figcaption { margin-top: 0.5rem; color: var(--muted); font-size: 0.9rem; }
+
+/* Text and a portrait figure side by side on wide screens */
+.media-layout { display: grid; gap: 0 2.5rem; align-items: start; }
+.media-layout .phone { margin-top: 0; }
+@media (min-width: 52rem) {
+  .media-layout { grid-template-columns: minmax(0, 1fr) 17rem; }
+}
+
+/* Diagrams: inline SVG, coloured from the theme tokens */
+
+.diagram { margin: 1.5rem 0; }
+.diagram-scroll { overflow-x: auto; }
+.diagram svg { display: block; width: 100%; min-width: 720px; height: auto; }
+.diagram figcaption { margin-top: 0.5rem; color: var(--muted); font-size: 0.9rem; }
+
+.diagram text { fill: var(--text); font-size: 13px; }
+.diagram .d-title { font-size: 15px; font-weight: 700; }
+.diagram .d-head { font-size: 14px; font-weight: 600; }
+.diagram .d-small { font-size: 12px; }
+.diagram .d-muted { fill: var(--muted); font-weight: 400; }
+.diagram .d-mono { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; }
+
+.diagram .d-zone { fill: none; stroke: var(--muted); stroke-width: 1; stroke-dasharray: 6 4; }
+.diagram .d-box { fill: var(--surface); stroke: var(--border); stroke-width: 1.5; }
+.diagram .d-box-accent { stroke: var(--accent); }
+.diagram .d-flow { stroke: var(--accent); stroke-width: 2; fill: none; }
+.diagram .d-arrowhead { fill: var(--accent); }
+.diagram .d-bracket { stroke: var(--muted); stroke-width: 1.5; fill: none; }
+
+/* The moon is drawn as in the app: a dim disc with a white lit part, on the night sky */
+.diagram .d-night { fill: #0d0f27; stroke: var(--border); stroke-width: 1; }
+.diagram .d-moon-dark { fill: rgba(255, 255, 255, 0.1); }
+.diagram .d-moon-lit { fill: #ffffff; }
+
+/* Stand-ins for screenshots and videos still to be added */
+
+.placeholder {
+  margin: 0;
+  aspect-ratio: 9 / 19.5;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 0.5rem;
+  border: 2px dashed var(--border);
+  border-radius: 1.25rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  text-align: center;
+  padding: 1rem;
+}
+.placeholder code { background: none; padding: 0; font-size: 0.8rem; word-break: break-all; }
+
+/* Footer */
+
+.site-footer { padding: 2rem 0; color: var(--muted); font-size: 0.9rem; }

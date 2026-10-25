@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Digit Reader</title>
+  <meta name="description" content="A neural network written from scratch in R that learns to read handwritten digits, reaching 95% accuracy on digits it has never seen.">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top">Digit Reader</a>
+    <nav aria-label="Sections">
+      <a href="#overview">Overview</a>
+      <a href="#problem">The problem</a>
+      <a href="#how">How it works</a>
+      <a href="#learning">Learning</a>
+      <a href="#overfitting">Overfitting</a>
+      <a href="#results">Results</a>
+      <a href="#looking-back">Looking back</a>
+      <a href="#code">Code</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap hero-layout">
+      <div>
+        <p class="eyebrow">BSc AI &amp; Robotics final project</p>
+        <h1>Neural Net Digit Reader</h1>
+        <p class="lede">
+          A neural network, written from scratch in R, that teaches itself to read handwritten
+          digits. Shown tens of thousands of examples, it reads digits it has never seen
+          before with 95% accuracy. Humans manage 96% on the same images.
+        </p>
+        <p class="actions">
+          <a class="button" href="https://github.com/clomax/neuralnet-digit-reader">View source on GitHub</a>
+          <a class="button secondary" href="#how">How it works</a>
+        </p>
+      </div>
+      <figure class="screenshot">
+        <img src="assets/img/mnist.png" width="494" height="494"
+             alt="A ten by ten grid of handwritten digits, white on black, in many different handwriting styles. Some sevens have a crossbar and some don't, and some fours are open at the top and others closed.">
+        <figcaption>One hundred digits from the MNIST dataset.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="overview">
+    <div class="wrap">
+      <h2>Overview</h2>
+      <p>
+        This was the final major project of my BSc in Artificial Intelligence and Robotics. The
+        task was to build a standard neural network that could learn to tell the handwritten
+        digits 0 to 9 apart, and then recognise digits it had never seen before.
+      </p>
+      <p>
+        I didn't use a machine learning library. Every part of the network, from making a guess
+        to learning from its mistakes, is written by hand using R's matrix maths. That meant
+        understanding each step well enough to make it work, not just calling a function that
+        does it.
+      </p>
+      <h3>What the network does</h3>
+      <ol class="cards">
+        <li><strong>Look</strong> Each image is 28 by 28 pixels. The network reads it as a list of 784 numbers, one for how bright each pixel is.</li>
+        <li><strong>Weigh up</strong> A layer of 60 hidden units each look for their own combination of pixels, such as a curve or a stroke in a certain place.</li>
+        <li><strong>Answer</strong> Ten outputs, one per digit, each give a score for how likely the image is to be that digit. The highest score wins.</li>
+        <li><strong>Learn</strong> In training, the answer is compared with the right one and every connection is nudged so it does a little better next time.</li>
+      </ol>
+      <dl class="facts">
+        <dt>Language</dt><dd>R</dd>
+        <dt>Libraries</dt><dd>None for the network itself; RUnit for the unit tests</dd>
+        <dt>Data</dt><dd>The <a href="http://yann.lecun.com/exdb/mnist/">MNIST</a> handwritten digits: 60,000 training images and 10,000 test images</dd>
+        <dt>Network</dt><dd>784 inputs, 60 hidden units, 10 outputs</dd>
+        <dt>Training</dt><dd>1,500 rounds of gradient descent with a learning rate of 0.3</dd>
+        <dt>Accuracy</dt><dd>95% on digits it had never seen (people: 96%)</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section id="problem">
+    <div class="wrap">
+      <h2>The problem</h2>
+      <p>
+        Reading a digit is easy for a person and surprisingly hard to write a program for. Try
+        writing down the rules for what makes a 7: a horizontal line at the top, then a diagonal
+        down to the left. But some people cross their sevens, some curve the stroke, some write it
+        so it looks like a 1, and some slant the whole thing. Every rule needs exceptions, and
+        the exceptions need exceptions.
+      </p>
+      <p>
+        Machine learning turns the problem around. Instead of writing the rules, you collect a
+        large number of examples with the right answers attached, and write a program that works
+        out the rules for itself.
+      </p>
+      <h3>The dataset</h3>
+      <p>
+        MNIST is a standard set of handwritten digits used to test this kind of program. It was
+        put together from forms filled in by US Census Bureau staff and secondary school students.
+        Each image is a single digit, centred in a 28 by 28 pixel square, stored as white strokes
+        on a black background. The people who wrote the 10,000 test digits are different from those
+        who wrote the 60,000 training digits, so doing well on the test set means the network can
+        read handwriting it has never come across.
+      </p>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <h2>How it works</h2>
+      <p>
+        A neural network is loosely modelled on how neurons in the brain connect. It's made of
+        simple units arranged in layers, where every unit in one layer is connected to every
+        unit in the next. Each connection has a <em>weight</em>: a number that says how much
+        one unit's output should count towards the next unit's input, and whether it pushes
+        it up or down.
+      </p>
+      <figure class="diagram">
+        <div class="diagram-scroll">
+          <svg viewBox="0 0 960 470" role="img" aria-labelledby="net-title net-desc">
+            <title id="net-title">The network reading a 7</title>
+            <desc id="net-desc">A handwritten 7, made of white pixels on black, feeds one input per pixel into the input layer of 784 units. Every input connects to every one of the 60 hidden units, each of which squashes its total through an S-shaped sigmoid curve. Every hidden unit connects to each of the 10 output units, labelled 0 to 9. Brighter, thicker connections carry a stronger signal: those from black pixels are faint, and the connections into each output are as strong as its score. Each output gives a score between 0 and 1. The output for 7 scores 0.93; the next highest, 9, scores 0.09, and the rest score 0.05 or less.</desc>
+            <defs>
+              <marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path class="d-arrowhead" d="M0,0 L10,5 L0,10 z"/>
+              </marker>
+            </defs>
+
+            <!-- Column headings -->
+            <text class="d-head" x="124" y="26" text-anchor="middle">Image</text>
+            <text class="d-head" x="330" y="26" text-anchor="middle">Input layer</text>
+            <text class="d-head" x="510" y="26" text-anchor="middle">Hidden layer</text>
+            <text class="d-head" x="700" y="26" text-anchor="middle">Output layer</text>
+
+            <!-- The digit -->
+            <rect class="d-paper" x="40" y="166" width="168" height="168"/>
+            <rect class="d-ink" x="68" y="180" width="14" height="14"/>
+            <rect class="d-ink" x="82" y="180" width="14" height="14"/>
+            <rect class="d-ink" x="96" y="180" width="14" height="14"/>
+            <rect class="d-ink" x="110" y="180" width="14" height="14"/>
+            <rect class="d-ink" x="124" y="180" width="14" height="14"/>
+            <rect class="d-ink" x="138" y="180" width="14" height="14"/>
+            <rect class="d-ink" x="152" y="180" width="14" height="14"/>
+            <rect class="d-ink" x="166" y="180" width="14" height="14"/>
+            <rect class="d-ink" x="68" y="194" width="14" height="14"/>
+            <rect class="d-ink" x="82" y="194" width="14" height="14"/>
+            <rect class="d-ink" x="96" y="194" width="14" height="14"/>
+            <rect class="d-ink" x="110" y="194" width="14" height="14"/>
+            <rect class="d-ink" x="124" y="194" width="14" height="14"/>
+            <rect class="d-ink" x="138" y="194" width="14" height="14"/>
+            <rect class="d-ink" x="152" y="194" width="14" height="14"/>
+            <rect class="d-ink" x="166" y="194" width="14" height="14"/>
+            <rect class="d-ink" x="180" y="194" width="14" height="14"/>
+            <rect class="d-ink" x="166" y="208" width="14" height="14"/>
+            <rect class="d-ink" x="180" y="208" width="14" height="14"/>
+            <rect class="d-ink" x="152" y="222" width="14" height="14"/>
+            <rect class="d-ink" x="166" y="222" width="14" height="14"/>
+            <rect class="d-ink" x="152" y="236" width="14" height="14"/>
+            <rect class="d-ink" x="166" y="236" width="14" height="14"/>
+            <rect class="d-ink" x="138" y="250" width="14" height="14"/>
+            <rect class="d-ink" x="152" y="250" width="14" height="14"/>
+            <rect class="d-ink" x="124" y="264" width="14" height="14"/>
+            <rect class="d-ink" x="138" y="264" width="14" height="14"/>
+            <rect class="d-ink" x="124" y="278" width="14" height="14"/>
+            <rect class="d-ink" x="138" y="278" width="14" height="14"/>
+            <rect class="d-ink" x="110" y="292" width="14" height="14"/>
+            <rect class="d-ink" x="124" y="292" width="14" height="14"/>
+            <rect class="d-ink" x="110" y="306" width="14" height="14"/>
+            <rect class="d-ink" x="124" y="306" width="14" height="14"/>
+
+            <!-- Image to inputs -->
+            <line class="d-flow" x1="216" y1="250" x2="310" y2="250" marker-end="url(#arrowhead)"/>
+            <text class="d-small d-muted" x="263" y="224" text-anchor="middle">one input</text>
+            <text class="d-small d-muted" x="263" y="239" text-anchor="middle">per pixel</text>
+
+            <!-- Inputs to hidden units: the signal along each connection is the pixel's
+                 brightness times the connection's weight, so black pixels send nothing -->
+            <line class="d-wire" x1="340" y1="150" x2="498" y2="130" stroke-width="0.75" stroke-opacity="0.10"/>
+            <line class="d-wire" x1="340" y1="150" x2="498" y2="190" stroke-width="0.75" stroke-opacity="0.10"/>
+            <line class="d-wire" x1="340" y1="150" x2="498" y2="310" stroke-width="0.75" stroke-opacity="0.10"/>
+            <line class="d-wire" x1="340" y1="150" x2="498" y2="370" stroke-width="0.75" stroke-opacity="0.10"/>
+            <line class="d-wire" x1="340" y1="300" x2="498" y2="130" stroke-width="0.75" stroke-opacity="0.10"/>
+            <line class="d-wire" x1="340" y1="300" x2="498" y2="190" stroke-width="0.75" stroke-opacity="0.10"/>
+            <line class="d-wire" x1="340" y1="300" x2="498" y2="310" stroke-width="0.75" stroke-opacity="0.10"/>
+            <line class="d-wire" x1="340" y1="300" x2="498" y2="370" stroke-width="0.75" stroke-opacity="0.10"/>
+            <line class="d-wire" x1="340" y1="400" x2="498" y2="310" stroke-width="0.87" stroke-opacity="0.14"/>
+            <line class="d-wire" x1="340" y1="400" x2="498" y2="370" stroke-width="0.92" stroke-opacity="0.15"/>
+            <line class="d-wire" x1="340" y1="400" x2="498" y2="130" stroke-width="0.96" stroke-opacity="0.16"/>
+            <line class="d-wire" x1="340" y1="200" x2="498" y2="190" stroke-width="0.98" stroke-opacity="0.17"/>
+            <line class="d-wire" x1="340" y1="400" x2="498" y2="190" stroke-width="1.00" stroke-opacity="0.17"/>
+            <line class="d-wire" x1="340" y1="350" x2="498" y2="370" stroke-width="1.02" stroke-opacity="0.18"/>
+            <line class="d-wire" x1="340" y1="100" x2="498" y2="370" stroke-width="1.30" stroke-opacity="0.26"/>
+            <line class="d-wire" x1="340" y1="200" x2="498" y2="370" stroke-width="1.45" stroke-opacity="0.30"/>
+            <line class="d-wire" x1="340" y1="100" x2="498" y2="190" stroke-width="1.57" stroke-opacity="0.34"/>
+            <line class="d-wire" x1="340" y1="350" x2="498" y2="190" stroke-width="1.85" stroke-opacity="0.42"/>
+            <line class="d-wire" x1="340" y1="350" x2="498" y2="310" stroke-width="2.12" stroke-opacity="0.50"/>
+            <line class="d-wire" x1="340" y1="200" x2="498" y2="130" stroke-width="2.39" stroke-opacity="0.58"/>
+            <line class="d-wire" x1="340" y1="100" x2="498" y2="310" stroke-width="2.40" stroke-opacity="0.58"/>
+            <line class="d-wire" x1="340" y1="200" x2="498" y2="310" stroke-width="2.85" stroke-opacity="0.71"/>
+            <line class="d-wire" x1="340" y1="350" x2="498" y2="130" stroke-width="2.95" stroke-opacity="0.74"/>
+            <line class="d-wire" x1="340" y1="100" x2="498" y2="130" stroke-width="3.23" stroke-opacity="0.82"/>
+
+            <!-- Hidden units to outputs: the signal into each output is in proportion to its score -->
+            <line class="d-wire" x1="522" y1="130" x2="686" y2="300" stroke-width="0.75" stroke-opacity="0.10"/>
+            <line class="d-wire" x1="522" y1="190" x2="686" y2="300" stroke-width="0.75" stroke-opacity="0.10"/>
+            <line class="d-wire" x1="522" y1="310" x2="686" y2="300" stroke-width="0.75" stroke-opacity="0.10"/>
+            <line class="d-wire" x1="522" y1="370" x2="686" y2="300" stroke-width="0.75" stroke-opacity="0.10"/>
+            <line class="d-wire" x1="522" y1="370" x2="686" y2="60" stroke-width="0.76" stroke-opacity="0.10"/>
+            <line class="d-wire" x1="522" y1="370" x2="686" y2="260" stroke-width="0.76" stroke-opacity="0.10"/>
+            <line class="d-wire" x1="522" y1="190" x2="686" y2="60" stroke-width="0.76" stroke-opacity="0.10"/>
+            <line class="d-wire" x1="522" y1="190" x2="686" y2="260" stroke-width="0.76" stroke-opacity="0.10"/>
+            <line class="d-wire" x1="522" y1="310" x2="686" y2="60" stroke-width="0.77" stroke-opacity="0.11"/>
+            <line class="d-wire" x1="522" y1="310" x2="686" y2="260" stroke-width="0.77" stroke-opacity="0.11"/>
+            <line class="d-wire" x1="522" y1="370" x2="686" y2="180" stroke-width="0.78" stroke-opacity="0.11"/>
+            <line class="d-wire" x1="522" y1="370" x2="686" y2="380" stroke-width="0.78" stroke-opacity="0.11"/>
+            <line class="d-wire" x1="522" y1="130" x2="686" y2="60" stroke-width="0.78" stroke-opacity="0.11"/>
+            <line class="d-wire" x1="522" y1="130" x2="686" y2="260" stroke-width="0.78" stroke-opacity="0.11"/>
+            <line class="d-wire" x1="522" y1="190" x2="686" y2="180" stroke-width="0.78" stroke-opacity="0.11"/>
+            <line class="d-wire" x1="522" y1="190" x2="686" y2="380" stroke-width="0.78" stroke-opacity="0.11"/>
+            <line class="d-wire" x1="522" y1="370" x2="686" y2="100" stroke-width="0.79" stroke-opacity="0.11"/>
+            <line class="d-wire" x1="522" y1="190" x2="686" y2="100" stroke-width="0.79" stroke-opacity="0.11"/>
+            <line class="d-wire" x1="522" y1="310" x2="686" y2="180" stroke-width="0.80" stroke-opacity="0.11"/>
+            <line class="d-wire" x1="522" y1="310" x2="686" y2="380" stroke-width="0.80" stroke-opacity="0.11"/>
+            <line class="d-wire" x1="522" y1="370" x2="686" y2="140" stroke-width="0.80" stroke-opacity="0.11"/>
+            <line class="d-wire" x1="522" y1="130" x2="686" y2="180" stroke-width="0.80" stroke-opacity="0.12"/>
+            <line class="d-wire" x1="522" y1="130" x2="686" y2="380" stroke-width="0.80" stroke-opacity="0.12"/>
+            <line class="d-wire" x1="522" y1="190" x2="686" y2="140" stroke-width="0.81" stroke-opacity="0.12"/>
+            <line class="d-wire" x1="522" y1="370" x2="686" y2="220" stroke-width="0.81" stroke-opacity="0.12"/>
+            <line class="d-wire" x1="522" y1="310" x2="686" y2="100" stroke-width="0.82" stroke-opacity="0.12"/>
+            <line class="d-wire" x1="522" y1="190" x2="686" y2="220" stroke-width="0.82" stroke-opacity="0.12"/>
+            <line class="d-wire" x1="522" y1="130" x2="686" y2="100" stroke-width="0.83" stroke-opacity="0.12"/>
+            <line class="d-wire" x1="522" y1="310" x2="686" y2="140" stroke-width="0.84" stroke-opacity="0.13"/>
+            <line class="d-wire" x1="522" y1="130" x2="686" y2="140" stroke-width="0.85" stroke-opacity="0.13"/>
+            <line class="d-wire" x1="522" y1="370" x2="686" y2="420" stroke-width="0.86" stroke-opacity="0.13"/>
+            <line class="d-wire" x1="522" y1="310" x2="686" y2="220" stroke-width="0.87" stroke-opacity="0.13"/>
+            <line class="d-wire" x1="522" y1="190" x2="686" y2="420" stroke-width="0.88" stroke-opacity="0.14"/>
+            <line class="d-wire" x1="522" y1="130" x2="686" y2="220" stroke-width="0.88" stroke-opacity="0.14"/>
+            <line class="d-wire" x1="522" y1="310" x2="686" y2="420" stroke-width="0.96" stroke-opacity="0.16"/>
+            <line class="d-wire" x1="522" y1="130" x2="686" y2="420" stroke-width="0.98" stroke-opacity="0.17"/>
+            <line class="d-wire" x1="522" y1="370" x2="686" y2="340" stroke-width="1.93" stroke-opacity="0.44"/>
+            <line class="d-wire" x1="522" y1="190" x2="686" y2="340" stroke-width="2.08" stroke-opacity="0.49"/>
+            <line class="d-wire" x1="522" y1="310" x2="686" y2="340" stroke-width="2.92" stroke-opacity="0.73"/>
+            <line class="d-wire" x1="522" y1="130" x2="686" y2="340" stroke-width="3.15" stroke-opacity="0.80"/>
+
+            <!-- Input units -->
+            <circle class="d-node" cx="330" cy="100" r="10"/>
+            <circle class="d-node" cx="330" cy="150" r="10"/>
+            <circle class="d-node" cx="330" cy="200" r="10"/>
+            <text class="d-dots" x="330" y="258" text-anchor="middle">⋮</text>
+            <circle class="d-node" cx="330" cy="300" r="10"/>
+            <circle class="d-node" cx="330" cy="350" r="10"/>
+            <circle class="d-node" cx="330" cy="400" r="10"/>
+
+            <!-- Hidden units: each squashes its total through the sigmoid -->
+            <circle class="d-node" cx="510" cy="130" r="24"/>
+            <path class="d-sigmoid" d="M494,138 Q510,138 510,130 Q510,122 526,122"/>
+            <circle class="d-node" cx="510" cy="190" r="24"/>
+            <path class="d-sigmoid" d="M494,198 Q510,198 510,190 Q510,182 526,182"/>
+            <text class="d-dots" x="510" y="258" text-anchor="middle">⋮</text>
+            <circle class="d-node" cx="510" cy="310" r="24"/>
+            <path class="d-sigmoid" d="M494,318 Q510,318 510,310 Q510,302 526,302"/>
+            <circle class="d-node" cx="510" cy="370" r="24"/>
+            <path class="d-sigmoid" d="M494,378 Q510,378 510,370 Q510,362 526,362"/>
+
+            <!-- Outputs and their scores -->
+            <circle class="d-node" cx="700" cy="60" r="14"/>
+            <text class="d-head" x="700" y="65" text-anchor="middle">0</text>
+            <rect class="d-bar" x="726" y="53" width="2" height="14" rx="1"/>
+            <text class="d-small d-muted" x="736" y="64">0.01</text>
+            <circle class="d-node" cx="700" cy="100" r="14"/>
+            <text class="d-head" x="700" y="105" text-anchor="middle">1</text>
+            <rect class="d-bar" x="726" y="93" width="5" height="14" rx="2"/>
+            <text class="d-small d-muted" x="739" y="104">0.03</text>
+            <circle class="d-node" cx="700" cy="140" r="14"/>
+            <text class="d-head" x="700" y="145" text-anchor="middle">2</text>
+            <rect class="d-bar" x="726" y="133" width="7" height="14" rx="2"/>
+            <text class="d-small d-muted" x="741" y="144">0.04</text>
+            <circle class="d-node" cx="700" cy="180" r="14"/>
+            <text class="d-head" x="700" y="185" text-anchor="middle">3</text>
+            <rect class="d-bar" x="726" y="173" width="3" height="14" rx="1.5"/>
+            <text class="d-small d-muted" x="737" y="184">0.02</text>
+            <circle class="d-node" cx="700" cy="220" r="14"/>
+            <text class="d-head" x="700" y="225" text-anchor="middle">4</text>
+            <rect class="d-bar" x="726" y="213" width="8" height="14" rx="2"/>
+            <text class="d-small d-muted" x="742" y="224">0.05</text>
+            <circle class="d-node" cx="700" cy="260" r="14"/>
+            <text class="d-head" x="700" y="265" text-anchor="middle">5</text>
+            <rect class="d-bar" x="726" y="253" width="2" height="14" rx="1"/>
+            <text class="d-small d-muted" x="736" y="264">0.01</text>
+            <circle class="d-node" cx="700" cy="300" r="14"/>
+            <text class="d-head" x="700" y="305" text-anchor="middle">6</text>
+            <rect class="d-bar" x="726" y="293" width="2" height="14" rx="1"/>
+            <text class="d-small d-muted" x="736" y="304">0.00</text>
+            <circle class="d-node d-node-top" cx="700" cy="340" r="14"/>
+            <text class="d-head d-on-accent" x="700" y="345" text-anchor="middle">7</text>
+            <rect class="d-bar-top" x="726" y="333" width="158" height="14" rx="2"/>
+            <text class="d-small d-head" x="892" y="344">0.93</text>
+            <circle class="d-node" cx="700" cy="380" r="14"/>
+            <text class="d-head" x="700" y="385" text-anchor="middle">8</text>
+            <rect class="d-bar" x="726" y="373" width="3" height="14" rx="1.5"/>
+            <text class="d-small d-muted" x="737" y="384">0.02</text>
+            <circle class="d-node" cx="700" cy="420" r="14"/>
+            <text class="d-head" x="700" y="425" text-anchor="middle">9</text>
+            <rect class="d-bar" x="726" y="413" width="15" height="14" rx="2"/>
+            <text class="d-small d-muted" x="749" y="424">0.09</text>
+
+            <!-- Sizes -->
+            <text class="d-small d-muted" x="124" y="460" text-anchor="middle">28 × 28 pixels</text>
+            <text class="d-small d-muted" x="330" y="460" text-anchor="middle">784 units</text>
+            <text class="d-small d-muted" x="510" y="460" text-anchor="middle">60 units</text>
+            <text class="d-small d-muted" x="700" y="460" text-anchor="middle">10 units, one per digit</text>
+          </svg>
+        </div>
+        <figcaption>The network reading a 7, with most of its units left out. Every unit is connected to every unit in the next layer: over 47,000 connections in all. The bolder the line, the stronger the signal it carries.</figcaption>
+      </figure>
+      <p>
+        When the network reads a digit, each pixel's brightness goes into one input. Each hidden
+        unit adds up all 784 inputs, multiplied by the weights of its connections, and squashes
+        the total into a number between 0 and 1. A high number means it has found the pattern it
+        looks for. The output units do the same with the 60 hidden units' answers. Whichever output
+        ends up highest is the network's answer.
+      </p>
+      <p>
+        Nobody tells the hidden units what to look for. At the start, every weight is a small random
+        number, so the network's answers are no better than guesses. Everything it knows comes
+        from adjusting those thousands of weights during training.
+      </p>
+      <h3>A few terms</h3>
+      <dl class="facts">
+        <dt>Weight</dt><dd>A number on each connection that sets how strongly one unit affects the next. Learning means finding good weights.</dd>
+        <dt>Hidden layer</dt><dd>The units between the input and the output. They're "hidden" because nobody sets what they do; they find useful patterns on their own.</dd>
+        <dt>Sigmoid</dt><dd>The S-shaped function that squashes a unit's total into a number between 0 and 1.</dd>
+        <dt>Error, or cost</dt><dd>A single number for how wrong the network's answers are across all the examples. Training tries to make it as small as possible.</dd>
+        <dt>Epoch</dt><dd>One complete pass through all the training examples.</dd>
+        <dt>Learning rate</dt><dd>How big a step to take when adjusting the weights. Too big and it overshoots; too small and it takes forever.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section id="learning">
+    <div class="wrap">
+      <h2>How it learns</h2>
+      <p>
+        Training is a loop. The network is shown the training images, its answers are checked
+        against the right ones, and every weight is adjusted slightly in whichever direction
+        would have made the answers less wrong. Then it does it all again.
+      </p>
+      <figure class="diagram">
+        <div class="diagram-scroll">
+          <svg viewBox="0 0 960 225" role="img" aria-labelledby="loop-title loop-desc">
+            <title id="loop-title">The training loop</title>
+            <desc id="loop-desc">Four steps in a loop. One, guess: the network scores each digit for every training image; this is called forward propagation. Two, measure the error: how far the scores were from the right answers; this is the cost function. Three, trace the blame: work backwards through the network to find each weight's share of the error; this is backpropagation. Four, adjust: nudge every weight a little to reduce the error; this is gradient descent. Then back to step one. One pass is an epoch, and this network trained for 1,500 epochs.</desc>
+            <defs>
+              <marker id="loop-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path class="d-arrowhead" d="M0,0 L10,5 L0,10 z"/>
+              </marker>
+            </defs>
+
+            <rect class="d-box" x="20" y="20" width="200" height="110" rx="8"/>
+            <text class="d-head" x="36" y="48">1. Guess</text>
+            <text x="36" y="72">Score every digit for</text>
+            <text x="36" y="90">each training image</text>
+            <text class="d-small d-muted" x="36" y="116">Forward propagation</text>
+
+            <rect class="d-box" x="260" y="20" width="200" height="110" rx="8"/>
+            <text class="d-head" x="276" y="48">2. Measure the error</text>
+            <text x="276" y="72">How far were the scores</text>
+            <text x="276" y="90">from the right answers?</text>
+            <text class="d-small d-muted" x="276" y="116">Cost function</text>
+
+            <rect class="d-box" x="500" y="20" width="200" height="110" rx="8"/>
+            <text class="d-head" x="516" y="48">3. Trace the blame</text>
+            <text x="516" y="72">Work backwards to find</text>
+            <text x="516" y="90">each weight's share</text>
+            <text class="d-small d-muted" x="516" y="116">Backpropagation</text>
+
+            <rect class="d-box" x="740" y="20" width="200" height="110" rx="8"/>
+            <text class="d-head" x="756" y="48">4. Adjust</text>
+            <text x="756" y="72">Nudge every weight a</text>
+            <text x="756" y="90">little to reduce the error</text>
+            <text class="d-small d-muted" x="756" y="116">Gradient descent</text>
+
+            <line class="d-flow" x1="220" y1="75" x2="259" y2="75" marker-end="url(#loop-arrow)"/>
+            <line class="d-flow" x1="460" y1="75" x2="499" y2="75" marker-end="url(#loop-arrow)"/>
+            <line class="d-flow" x1="700" y1="75" x2="739" y2="75" marker-end="url(#loop-arrow)"/>
+            <path class="d-flow" d="M840,130 V175 H120 V131" marker-end="url(#loop-arrow)"/>
+            <text class="d-small" x="480" y="200" text-anchor="middle">Repeat. Each time round is an epoch; this network trained for 1,500.</text>
+          </svg>
+        </div>
+        <figcaption>The training loop, with the technical name for each step beneath it.</figcaption>
+      </figure>
+      <div class="analogy">
+        <p>
+          Step 3 is the clever part. Imagine standing on a hillside in thick fog, trying to get
+          down to the valley. You can't see the bottom, but you can feel which way the ground
+          slopes under your feet, so you take a step downhill and check again.
+        </p>
+        <p>
+          The error is the height of the hill, and the weights are your position on it.
+          Backpropagation works out which way is downhill for every one of the 47,000 weights at
+          once, and gradient descent takes the step. The learning rate is the length of your stride.
+        </p>
+      </div>
+      <figure class="screenshot natural">
+        <img src="assets/img/training-error.png" width="480" height="480" loading="lazy"
+             alt="A line graph of error against epoch, from 0 to 1,500. The error starts above 1.1, falls steeply below 0.2 within the first hundred epochs, then flattens out and creeps down to about 0.03.">
+        <figcaption>The error during a training run on all 60,000 training images. Most of the learning happens in the first hundred epochs; after that each pass makes smaller and smaller improvements.</figcaption>
+      </figure>
+      <h3>Working it out by hand</h3>
+      <p>
+        Before writing the code I worked through every step on a whiteboard, using a tiny network
+        with two inputs, two hidden units and one output. It's small enough to follow each number
+        through the forward pass, back again, and into the weight update, and to check the code
+        against. It learns how to solve XOR; the simplest non-linear function.
+      </p>
+      <figure class="screenshot">
+        <img src="assets/img/whiteboard.jpg" width="1219" height="804" loading="lazy"
+             alt="A whiteboard covered in handwritten maths: a diagram of a small network with two inputs, two hidden units and one output, its weights written on the connections; the equations for the forward pass, the error at each layer and the weight updates; and the full cost function with its regularisation term.">
+        <figcaption>The whiteboard I used to check my understanding of each step in training a neural network.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="overfitting">
+    <div class="wrap">
+      <h2>Learning, not memorising</h2>
+      <p>
+        A network can get very good at the images it trains on without getting any better at
+        reading digits in general. Given enough weights, it can simply remember the training
+        images and their answers. This is called <em>overfitting</em>, and it is one of the most
+        common pitfalls in machine learning.
+      </p>
+      <div class="analogy">
+        <p>
+          It's like a student who memorises the answers to last year's exam paper. They'll score
+          full marks if they're given the same paper again, but it says nothing about how they'll
+          do on a new one.
+        </p>
+      </div>
+      <p>
+        To catch it, some of the labelled images are held back and never used for training. The
+        network's error on these <em>cross-validation</em> images shows how well it copes with
+        handwriting it hasn't seen. If the error on the training images is low but the error on
+        the held-back images stays high, the network is memorising.
+      </p>
+      <h3>Reading the learning curves</h3>
+      <p>
+        A learning curve plots both errors as the network is given more and more training
+        examples. In the graphs below, the red line is the error on the held-back images and
+        the cyan line is the error on the training images. The smooth blue lines through each
+        are the trend.
+      </p>
+      <div class="screenshot-pair">
+        <figure class="screenshot" style="--ar: calc(720 / 423)">
+          <img src="assets/img/learning-curve-overfitting.png" width="720" height="423" loading="lazy"
+               alt="Learning curves titled 'Learning curves showing high variance (overfitting)', for training set sizes from 1 to 100. The training error stays near zero, rising only to about 0.15. The cross-validation error falls from about 0.6 to only about 0.37, leaving a wide gap between the two.">
+          <figcaption>Overfitting. The network is nearly perfect on its training images but much worse on new ones, and the gap is closing only slowly.</figcaption>
+        </figure>
+        <figure class="screenshot" style="--ar: calc(734 / 416)">
+          <img src="assets/img/learning-curve-balanced.png" width="734" height="416" loading="lazy"
+               alt="Learning curves titled 'Learning curves showing improvement in bias/variance tradeoff', for training set sizes from 1 to 200. The training error rises gently to about 0.08, while the cross-validation error falls steadily from about 0.55 to about 0.2.">
+          <figcaption>Better balanced. The error on new images keeps falling towards the training error as more examples are added.</figcaption>
+        </figure>
+      </div>
+      <p>
+        Plotting curves like these is how I tuned the network's settings, such as the number of
+        hidden units and the learning rate, and decided how much training data it needed. When
+        the two lines come together, the network has learned something it can use on handwriting
+        it has never seen.
+      </p>
+    </div>
+  </section>
+
+  <section id="results">
+    <div class="wrap">
+      <h2>Results</h2>
+      <p>
+        Once trained, the network was tested on images from the MNIST test set, written by people
+        whose handwriting it had never seen. It read 95% of them correctly.
+      </p>
+      <div class="stats">
+        <p class="stat primary">
+          <span class="value">95%</span>
+          <span class="label">The network, on digits it had never seen</span>
+        </p>
+        <p class="stat">
+          <span class="value">96%</span>
+          <span class="label">People, reading the same dataset</span>
+        </p>
+      </div>
+      <p>
+        That puts it within a point of a human reader. Some MNIST digits are hard for anyone to
+        read, such as a 4 that looks like a 9 or a 7 that could be a 1, and you can spot a few
+        in the hundred digits at the top of the page.
+      </p>
+    </div>
+  </section>
+
+  <section id="looking-back">
+    <div class="wrap">
+      <h2>Looking back</h2>
+      <p>
+        The network was deliberately kept simple so that every part of it could be written and
+        understood by hand. With hindsight, a few changes would make it faster and more accurate:
+      </p>
+      <ul>
+        <li>It learns from the whole training set at once before every adjustment. Adjusting after small batches of images instead learns much faster.</li>
+        <li>It measures error with the squared difference between its scores and the right answers. Cross-entropy, the cost function on the whiteboard, suits this kind of yes-or-no output better and speeds up learning.</li>
+        <li>The pixel values go in as they are, from 0 to 255. Scaling them to between 0 and 1 first keeps the hidden units out of the flat ends of the sigmoid, where they learn slowly.</li>
+        <li>A fully connected network treats the image as a flat list of numbers and doesn't know which pixels are next to each other. Convolutional networks, which look at small patches of the image at a time, read MNIST with over 99% accuracy.</li>
+      </ul>
+      <p>
+        Today, libraries like PyTorch build and train a network like this in a few lines. Writing it
+        from scratch first is what makes those lines make sense.
+      </p>
+    </div>
+  </section>
+
+  <section id="code">
+    <div class="wrap">
+      <h2>The code</h2>
+      <p>
+        Each step of the network is a short R function in its own file, with unit tests for the
+        pieces.
+      </p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>File</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td><code>digit_recogniser.R</code></td><td>Loads the data, sets up the network, trains it, and reports its accuracy on the training and test sets</td></tr>
+            <tr><td><code>load_mnist.R</code></td><td>Reads the images and labels from MNIST's binary files</td></tr>
+            <tr><td><code>randInitWeights.R</code></td><td>Sets every weight to a small random number to begin with</td></tr>
+            <tr><td><code>train.R</code></td><td>One forward pass to make the guesses, then backpropagation to work out each weight's share of the error</td></tr>
+            <tr><td><code>gradientDescent.R</code></td><td>The training loop: calls <code>train</code>, records the error, and adjusts the weights, once per epoch</td></tr>
+            <tr><td><code>cost.R</code></td><td>Measures how far the guesses were from the right answers</td></tr>
+            <tr><td><code>predict.R</code></td><td>Reads a single image with the trained weights</td></tr>
+            <tr><td><code>sigmoid.R</code></td><td>The squashing function and its slope, used in backpropagation</td></tr>
+            <tr><td><code>splitTheta.R</code></td><td>Unpacks the long list of weights into one table for each layer</td></tr>
+            <tr><td><code>tests/</code></td><td>RUnit tests that check each function returns results of the right shape, and that the cost function gives the right value for known examples</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Running it</h3>
+      <p>
+        Download the four MNIST files into <code>data/</code> as <code>train_images</code>,
+        <code>train_labels</code>, <code>test_images</code> and <code>test_labels</code>, and create
+        <code>weights/</code> and <code>img/</code> folders for the trained weights and the error graph.
+        Then, from the project folder in R:
+      </p>
+      <pre><code>source('digit_recogniser.R')
+digit_recogniser(Hidden = 60, epochs = 1500, alpha = 0.3,
+                 lambda = 1, epsilon = 0.12,
+                 training_set_size = 50000,
+                 cv_set_size = 10000,
+                 test_set_size = 10000)</code></pre>
+      <p>
+        The trained weights are saved to <code>weights/post_train_theta.csv</code>, the error graph to
+        <code>img/j.png</code>, and every prediction, with the overall accuracy, to
+        <code>train_predictions.txt</code> and <code>test_predictions.txt</code>. To run the tests:
+      </p>
+      <pre><code>Rscript tests/runTest.R</code></pre>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Neural Net Digit Reader by Craig Lomax · <a href="https://github.com/clomax/neuralnet-digit-reader">GitHub</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

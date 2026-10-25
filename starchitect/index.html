@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Starchitect</title>
+  <meta name="description" content="A multi-tenant project manager for architects and building surveyors. Site photos file themselves, every job follows the RIBA Plan of Work, and the client always has an up-to-date progress report. Built with Laravel, Vue and Flutter.">
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="assets/js/starchitect.js" defer></script>
+</head>
+<body>
+
+<!-- The logo, drawn once and reused: a five-pointed star as a Celtic knot -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="logo-fill" gradientUnits="userSpaceOnUse" x1="39.8" y1="37.6" x2="316.7" y2="299.2">
+      <stop class="logo-from" offset="0"/>
+      <stop class="logo-to" offset="1"/>
+    </linearGradient>
+    <symbol id="star" viewBox="0 0 316 300">
+      <path d="M 157 0.22 c 0 0.12-0.6 0.65-1.3 1.18-0.73 0.53-1.78 1.35-2.35 1.83-0.55 0.5-1.5 1.33-2.12 1.85-2.02 1.75-8.83 8.28-10.2 9.8-0.75 0.83-1.93 2.12-2.62 2.88-0.7 0.78-1.83 2.08-2.53 2.88-0.68 0.83-1.4 1.65-1.58 1.83-0.18 0.2-0.62 0.75-1 1.25-0.38 0.53-0.75 0.98-0.83 1.05-0.35 0.3-3.48 4.38-4.98 6.48-0.9 1.25-1.75 2.43-1.88 2.6-1 1.18-6.08 9.18-8.1 12.8-0.85 1.5-1.65 2.93-1.78 3.12-1.33 2.15-6.55 13.28-8.3 17.62-0.28 0.68-0.73 1.73-0.98 2.33-0.25 0.58-0.48 1.18-0.48 1.33 0 0.15-0.18 0.62-0.35 1.05-0.48 1.03-1.35 3.53-1.65 4.7-0.12 0.48-0.4 1.23-0.62 1.62-0.2 0.4-0.38 0.9-0.38 1.1 0 0.2-0.23 1.05-0.48 1.88-1.1 3.43-1.35 4.33-1.68 5.62-0.38 1.62-0.75 3.15-1.25 4.9-0.2 0.7-0.53 2.1-0.7 3.12-0.2 1.03-0.5 2.48-0.65 3.23-2.78 13.8-3.78 27.2-3.28 43.68 0.15 4.45 0.43 9.35 0.62 10.88 0.2 1.55 0.48 3.95 0.6 5.3 0.3 3.2 0.85 3.65 3.05 2.5 0.78-0.4 3.15-1.35 5-2.02 0.75-0.28 1.78-0.62 2.25-0.8 0.48-0.18 1.9-0.68 3.12-1.07 1.25-0.43 2.83-0.95 3.5-1.2 1.2-0.4 2.25-0.73 6.7-2.05 1.07-0.33 2.05-0.75 2.15-0.95 0.12-0.2 0.05-2.68-0.12-5.5-0.78-12.1-0.5-25.2 0.75-33.25 0.2-1.3 0.48-3.23 0.62-4.25 0.6-4.2 1.12-7.05 2.05-10.88 0.12-0.55 0.4-1.8 0.62-2.75 0.2-0.98 0.53-2.25 0.73-2.88 0.18-0.62 0.58-1.93 0.85-2.88 0.3-0.98 0.93-2.93 1.43-4.38 0.48-1.45 0.98-2.98 1.07-3.38 0.1-0.43 0.38-1.1 0.6-1.55 0.25-0.45 0.43-0.95 0.43-1.12 0.03-0.18 0.23-0.78 0.5-1.33 0.28-0.55 0.48-1.1 0.5-1.2 0-0.12 0.28-0.8 0.6-1.5 0.33-0.73 0.98-2.15 1.43-3.18 1.68-3.75 5.53-11.12 7.03-13.45 0.25-0.38 0.62-1.03 0.85-1.43 3.7-6.62 15.58-21 17-20.53 1.15 0.38 8.15 7.33 11.55 11.48 0.98 1.18 2.1 2.53 2.53 2.98 0.43 0.45 0.78 0.9 0.78 0.98 0 0.08 0.3 0.55 0.7 1.03 0.38 0.5 0.85 1.15 1.05 1.45 0.2 0.3 0.65 0.93 1 1.4 1.2 1.58 2.45 3.48 4.33 6.5 0.85 1.38 1.85 1.78 5.15 2.1 1.55 0.15 3.5 0.43 4.35 0.62 0.85 0.2 1.9 0.38 2.3 0.38 0.83 0 2.43 0.33 12.5 2.55 2.53 0.55 5.35 1.3 7.28 1.88 1.95 0.58 2.23 0.05 1.07-2.18-0.23-0.48-0.7-1.5-1.05-2.25-1.28-2.88-5.23-10.6-6.38-12.5-0.3-0.48-0.98-1.68-1.55-2.62-0.58-0.98-1.25-2.1-1.5-2.5-0.28-0.43-0.65-1.05-0.85-1.4-0.4-0.7-4.6-6.95-5.8-8.62-2.27-3.23-8.25-10.85-8.97-11.48-0.15-0.15-1.65-1.78-3.3-3.62-6.98-7.8-15.55-15.55-23.45-21.12-0.8-0.55-1.7-1.25-2.02-1.58-0.62-0.55-1.6-0.75-1.6-0.33 z M 80.05 83 c-2.5 0.23-5.73 0.73-9.55 1.5-1.3 0.28-2.7 0.5-3.1 0.5-0.43 0-1.55 0.2-2.5 0.48-0.98 0.25-2.9 0.7-4.28 1-2.4 0.55-4.12 1-7.62 2-3.58 1.05-5.43 1.6-6.25 1.93-0.48 0.18-2 0.73-3.38 1.2-1.38 0.45-3.05 1.07-3.75 1.35-0.68 0.28-1.65 0.65-2.12 0.83-0.83 0.28-5.2 2.1-6.88 2.85-1.4 0.62-11.62 5.75-12.83 6.43-0.65 0.38-1.4 0.78-1.68 0.93-0.28 0.15-0.95 0.55-1.5 0.9-0.55 0.33-1.4 0.85-1.88 1.12-1.05 0.6-1.1 0.62-4.6 2.95-2.55 1.7-4.5 3.1-6.83 4.85-0.5 0.4-1 0.7-1.1 0.7-0.43 0-0.23 1.5 0.28 2 0.28 0.28 0.5 0.73 0.5 1 0 0.28 0.23 0.98 0.48 1.55 0.25 0.6 0.73 1.7 1.03 2.45 1.48 3.7 5.18 11.12 7.88 15.83 2.88 5.03 2.6 4.55 3.73 6.3 0.53 0.83 1.23 1.9 1.53 2.38 1.58 2.45 1.95 3.03 3.18 4.78 7.25 10.38 17.35 21.62 26.7 29.68 1.85 1.6 3.43 2.98 3.5 3.05 0.15 0.2 3.9 3.18 5 4 0.48 0.35 1.35 1.03 1.98 1.53 0.62 0.48 1.95 1.43 2.9 2.1 0.98 0.68 2.43 1.7 3.25 2.27 0.83 0.6 2.27 1.55 3.2 2.15 0.95 0.6 2 1.28 2.38 1.5 0.38 0.25 1.07 0.68 1.55 0.95 0.48 0.28 1.33 0.78 1.88 1.1 0.55 0.33 1.28 0.78 1.62 0.95 0.35 0.2 1.05 0.6 1.58 0.9 0.5 0.3 1.35 0.8 1.88 1.1 0.5 0.28 2.18 1.18 3.68 1.95 1.53 0.78 2.98 1.53 3.25 1.68 0.28 0.12 1 0.48 1.62 0.75 0.62 0.3 2.15 1 3.38 1.58 2.85 1.35 3.95 1.83 5.5 2.45 1.95 0.78 4.42 1.8 5.3 2.2 0.43 0.2 0.9 0.35 1.07 0.35 0.15 0 0.8 0.2 1.45 0.45 2.1 0.85 6.08 2.2 8.8 3.05 1.03 0.33 2.4 0.78 3.05 1.03 0.65 0.28 1.43 0.48 1.73 0.48 0.3 0 1.3 0.23 2.2 0.48 2.15 0.65 4.9 1.38 7.4 2 1.93 0.48 3.05 0.7 6.62 1.4 0.9 0.18 2.05 0.4 2.55 0.5 1.25 0.25 1.35-0.2 0.93-4.42-0.18-1.88-0.33-7.38-0.38-12.58-0.03-5.1-0.12-9.45-0.23-9.68-0.1-0.25-0.55-0.5-1.07-0.58-1.12-0.18-4.33-0.98-6.58-1.62-0.9-0.28-1.8-0.5-2-0.5-0.38 0-3-0.78-5.1-1.5-0.68-0.25-1.7-0.55-2.25-0.7-1.12-0.28-2.33-0.7-3.62-1.23-0.48-0.23-1.38-0.53-2-0.7-0.62-0.18-1.75-0.58-2.5-0.88-0.75-0.3-1.83-0.73-2.38-0.9-0.55-0.2-1.4-0.55-1.88-0.78-0.48-0.2-1.2-0.55-1.62-0.73-7.15-3.08-14.25-6.6-17.88-8.85-0.2-0.15-0.8-0.5-1.35-0.8-3.78-2.2-14.1-9.33-15.15-10.45-0.08-0.08-0.58-0.45-1.1-0.85-3.83-2.85-10.83-9.6-16.65-16.05-1.03-1.1-5.55-6.8-6.48-8.08-1.15-1.65-4.3-6.33-4.67-7-0.2-0.35-0.62-1.1-0.95-1.65-0.33-0.55-1.2-2.15-1.9-3.58-1.53-2.93-1.5-3.38 0.18-4.3 0.53-0.28 1.4-0.78 1.95-1.1 2.43-1.4 9.65-4.9 10.15-4.9 0.12 0 0.65-0.23 1.15-0.5 0.53-0.28 1.1-0.5 1.3-0.5 0.18 0 0.8-0.2 1.38-0.48 1.3-0.58 3.25-1.28 5.65-2.02 1.03-0.3 2.48-0.78 3.2-1.03 0.75-0.28 1.58-0.48 1.88-0.48 0.45 0 3.25-0.78 4.55-1.25 0.33-0.12 0.93-1.05 1.6-2.4 2.4-4.93 3.35-6.83 4.42-8.72 0.62-1.1 1.35-2.45 1.6-3 0.28-0.55 0.7-1.3 0.95-1.68 0.23-0.35 1.12-1.88 2-3.38 0.88-1.48 2-3.35 2.5-4.12 0.5-0.8 1.48-2.3 2.12-3.33 0.68-1.03 1.15-1.98 1.05-2.12-0.18-0.28-1.07-0.28-4.58 0 z M 214.5 87.15 c-0.62 0.05-2.75 0.25-4.75 0.45-2 0.2-4.48 0.43-5.5 0.53-1 0.08-2.75 0.3-3.88 0.5-1.1 0.18-2.85 0.45-3.88 0.6-2.83 0.4-6.4 1.07-10.62 2.02-0.68 0.15-1.8 0.4-2.5 0.55-1.78 0.38-7.33 1.9-9.98 2.73-0.83 0.28-1.7 0.48-1.98 0.48-0.25 0-0.83 0.18-1.25 0.35-1.03 0.48-3.58 1.38-4.67 1.65-1.1 0.28-3.65 1.18-4.67 1.65-0.43 0.18-0.9 0.35-1.07 0.35-0.18 0-0.6 0.18-0.95 0.38-0.38 0.2-1.18 0.55-1.8 0.78-2.53 0.9-3.18 1.12-4 1.53-0.48 0.2-1.33 0.6-1.88 0.85-0.55 0.23-1.85 0.83-2.88 1.3-1.03 0.48-2.58 1.18-3.43 1.55-1.7 0.75-1.88 1.07-1.05 1.95 0.7 0.73 7.95 9.8 8.72 10.93 0.35 0.48 0.85 1.18 1.12 1.53 0.28 0.35 0.65 0.88 0.83 1.12 0.18 0.25 0.7 1.03 1.2 1.73 0.48 0.68 1.35 1.98 1.95 2.88 1.43 2.12 1.75 2.4 2.48 2.05 0.3-0.15 1.28-0.58 2.18-0.93 0.9-0.38 1.98-0.83 2.38-1.03 0.43-0.18 1.23-0.5 1.83-0.73 0.58-0.2 1.53-0.55 2.12-0.75 0.58-0.23 1.28-0.5 1.55-0.62 0.6-0.28 3.03-1.12 4.62-1.6 0.62-0.2 1.48-0.45 1.88-0.6 0.43-0.15 1.6-0.5 2.62-0.83 1.03-0.3 2.55-0.75 3.38-1 3.9-1.18 6.15-1.73 9.12-2.33 0.9-0.18 2.43-0.5 3.38-0.73 1.88-0.45 3.7-0.78 6.5-1.2 7.38-1.07 6.2-0.98 15.88-1.62 3.85-0.28 7.03-0.35 9.25-0.25 6 0.3 13.33 0.88 15.75 1.25 5.95 0.93 8.22 1.33 10.53 1.93 1.05 0.25 2.12 0.48 2.38 0.48 0.28 0 1.2 0.2 2.1 0.48 0.9 0.28 2.53 0.73 3.62 1.03 1.1 0.33 2.53 0.78 3.18 1.03 0.65 0.28 1.33 0.48 1.5 0.48 0.3 0 1.38 0.4 4.2 1.5 2.78 1.1 4.58 1.9 7.45 3.33 3.65 1.8 3.58 1.65 2.05 5.05-0.85 1.9-2.78 5.75-3.43 6.88-1.48 2.55-1.68 2.9-1.93 3.38-0.53 0.93-3.65 5.68-5.03 7.58-1.73 2.4-2.5 3.45-2.62 3.55-0.08 0.08-0.6 0.75-1.18 1.5-0.58 0.75-1.3 1.65-1.62 1.98-1.83 1.95-2.1 3.15-1.33 6.15 0.38 1.4 0.78 3.9 1.38 8.62 0.15 1.18 0.45 3.35 0.65 4.88 0.2 1.5 0.48 4.65 0.6 7 0.5 9 0.5 9.05 2.43 7.48 2.33-1.93 12.05-11.8 14.98-15.23 1.62-1.93 3.03-3.55 3.12-3.62 0.08-0.08 0.9-1.15 1.85-2.38 0.95-1.25 2.18-2.83 2.73-3.55 0.58-0.7 1.7-2.25 2.53-3.45 0.83-1.18 1.62-2.3 1.75-2.45 0.15-0.18 0.62-0.88 1.07-1.55 1.15-1.8 1.23-1.9 1.93-2.95 0.35-0.53 0.62-1.05 0.62-1.15 0-0.12 0.18-0.38 0.4-0.55 0.23-0.18 0.5-0.55 0.62-0.85 0.12-0.28 0.48-0.93 0.78-1.43 0.33-0.5 1.18-1.95 1.9-3.25 0.73-1.28 1.43-2.5 1.55-2.7 0.12-0.2 0.65-1.23 1.2-2.25 0.53-1.03 1.07-2.1 1.25-2.38 0.45-0.78 2.85-5.95 4.15-9 0.65-1.53 1.4-3.23 1.68-3.83 0.25-0.58 0.48-1.2 0.48-1.38 0.03-0.15 0.23-0.75 0.5-1.3 0.28-0.55 0.48-1.15 0.5-1.33 0-0.18 0.2-0.85 0.45-1.5 1.4-3.53 1.95-6.03 1.55-6.8-0.15-0.28-1.07-1.03-2.08-1.68-2.2-1.48-2-1.33-7.4-4.48-0.8-0.48-4.4-2.4-6.4-3.43-0.9-0.45-4.93-2.35-6-2.8-0.4-0.18-1.4-0.62-2.18-0.98-0.78-0.35-1.5-0.65-1.58-0.65-0.1 0-0.53-0.18-0.95-0.38-0.45-0.2-1.25-0.53-1.8-0.73-0.55-0.18-1.62-0.6-2.38-0.9-2.38-0.95-4.58-1.75-5.75-2.1-0.62-0.2-1.45-0.48-1.88-0.6-1.5-0.55-3.8-1.25-5.75-1.8-1.1-0.3-2.75-0.75-3.65-1.03-0.9-0.25-1.83-0.48-2.08-0.48-0.25 0-1.2-0.2-2.1-0.48-3.83-1.07-12.15-2.58-18.43-3.3-8.83-1-9.47-1.05-19.12-1.1-5.43-0.03-10.38-0.03-11 0.03 z M 208.75 134.8 c-0.35 0.58-0.88 1.4-1.18 1.88-0.33 0.48-0.58 0.9-0.58 0.95 0 0.15-4.73 7.15-5.9 8.75-0.62 0.83-2.3 3.08-3.73 4.98-1.45 1.93-2.62 3.7-2.62 3.98 0 0.4 1.9 2.9 2.9 3.8 0.7 0.62 6.7 8.33 9.05 11.62 1.28 1.78 5.3 7.78 5.3 7.88 0 0.08 0.43 0.75 0.95 1.55 1.07 1.68 1.03 1.58 3.1 5.18 1.7 2.98 1.98 3.48 3.73 6.98 1.55 3.08 2.78 5.7 3.58 7.68 0.38 0.9 0.9 2.05 1.18 2.55 0.25 0.5 0.48 1.07 0.48 1.25 0.03 0.18 0.23 0.78 0.5 1.33 0.28 0.55 0.48 1.15 0.5 1.33 0 0.18 0.18 0.68 0.43 1.12 0.23 0.45 0.5 1.12 0.6 1.55 0.1 0.4 0.6 1.93 1.07 3.38 1.7 5 1.9 5.62 1.9 6 0 0.2 0.2 1.1 0.48 2 0.78 2.6 2.38 10.23 2.78 13.12 0.15 1.1 0.38 2.78 0.5 3.75 0.62 4.67 1 10.23 1 14.88 0 7.85-0.98 17-1.88 17.75-0.98 0.8-11.93-0.8-17.48-2.53-0.83-0.28-1.73-0.48-2-0.48-0.55 0-2.88-0.73-4.95-1.55-0.65-0.25-1.38-0.45-1.62-0.45-0.25 0-0.75-0.15-1.12-0.35-0.35-0.2-1.07-0.48-1.58-0.65-0.5-0.18-1.23-0.45-1.58-0.65-0.38-0.2-0.83-0.35-1-0.35-0.18 0-0.75-0.23-1.3-0.5-1.35-0.7-2.62-0.6-4.12 0.25-0.68 0.4-1.98 1.1-2.88 1.58-0.9 0.48-1.95 1.05-2.38 1.28-1.65 0.88-9.12 4.4-9.38 4.4-0.15 0-0.7 0.2-1.2 0.48-1.4 0.7-3.25 1.5-7.18 3.08-0.68 0.28-1.73 0.73-2.33 0.98-0.58 0.25-1.25 0.48-1.5 0.48-1.05 0.03-1.2 0.45-0.43 1.25 0.4 0.4 0.83 0.75 0.93 0.75 0.12 0 1.78 0.88 3.65 1.93 1.88 1.07 3.93 2.18 4.55 2.48 0.62 0.3 2.53 1.2 4.25 2.02 1.73 0.85 4.25 2 5.62 2.58 1.38 0.58 2.93 1.25 3.43 1.53 0.5 0.25 1.07 0.48 1.25 0.48 0.18 0.03 0.78 0.23 1.33 0.5 0.55 0.28 1.18 0.5 1.38 0.5 0.2 0 0.83 0.23 1.38 0.5 0.55 0.28 1.15 0.48 1.33 0.5 0.2 0 0.7 0.15 1.12 0.35 0.8 0.38 3.28 1.2 6.55 2.18 0.98 0.3 2.35 0.75 3.08 1 0.75 0.28 1.6 0.48 1.93 0.48 0.3 0 1.05 0.18 1.65 0.38 1.28 0.45 3.53 1 8.85 2.12 2.33 0.48 6.28 1.18 10.88 1.88 1.45 0.23 4.48 0.53 6.75 0.65 2.27 0.15 4.7 0.38 5.38 0.53 0.7 0.15 3.4 0.33 6.03 0.38 4.4 0.1 4.78 0.05 5.18-0.38 0.45-0.48 1.68-3.75 1.68-4.42 0-0.2 0.23-1.2 0.48-2.2 0.88-3.3 1.55-6.3 1.53-6.93 0-0.35 0.23-1.75 0.48-3.12 0.83-4.17 1.38-9.45 1.9-17.88 0.48-7.68 0.48-9.38 0-17.25-0.43-6.9-1.12-13.33-1.9-17.53-0.25-1.45-0.48-2.88-0.48-3.2 0-0.3-0.23-1.6-0.5-2.85-0.28-1.28-0.75-3.38-1.03-4.67-0.28-1.3-0.73-3.1-1-4-0.28-0.9-0.48-1.78-0.48-1.98 0-0.4-0.83-3.23-1.53-5.23-0.28-0.75-0.48-1.6-0.48-1.88 0-0.3-0.18-0.88-0.38-1.28-0.23-0.4-0.5-1.15-0.62-1.62-0.12-0.5-0.58-1.85-1-3.03-0.43-1.18-0.88-2.48-1.03-2.93-0.12-0.45-0.4-1.12-0.6-1.5-0.2-0.38-0.38-0.85-0.38-1.03 0-0.15-0.23-0.73-0.5-1.23-0.28-0.53-0.5-1.1-0.5-1.28 0-0.2-0.18-0.65-0.35-1-0.2-0.38-1.15-2.48-2.12-4.67-1.58-3.58-3.8-8.15-5.55-11.38-0.9-1.62-4.53-7.9-5.03-8.7-0.25-0.38-0.7-1.1-1-1.65-0.93-1.58-2.45-3.88-4.2-6.35-0.4-0.58-0.75-1.12-0.75-1.2 0-0.08-0.33-0.55-0.7-1.05-0.4-0.5-1.88-2.45-3.25-4.33-3.65-4.9-9.18-11.65-12.28-14.95-1.45-1.55-2.75-2.98-2.85-3.18-0.43-0.75-1.53-0.4-2.18 0.7 z M 178.7 197.93 c-0.35 0.4-1.03 1.35-1.48 2.15-0.48 0.8-0.95 1.65-1.1 1.88-0.48 0.8-4.4 6.8-4.7 7.18-0.1 0.12-1.18 1.6-2.35 3.25-6.53 9.08-16.35 19.95-23.85 26.38-1.53 1.3-3.05 2.62-3.4 2.95-0.35 0.3-1.25 1.05-2.02 1.62-0.8 0.58-1.48 1.1-1.55 1.18-0.15 0.15-2.68 2.05-4.25 3.18-1.28 0.93-5.9 4.08-6.55 4.45-0.85 0.5-6.03 3.53-7.05 4.1-2.33 1.33-6.95 3.62-9.4 4.67-1.45 0.62-3.08 1.35-3.62 1.6-1.38 0.62-3.7 1.5-4 1.5-0.15 0.03-0.7 0.23-1.25 0.5-0.55 0.28-1.18 0.48-1.38 0.5-0.2 0-0.93 0.2-1.62 0.48-1.88 0.7-3.85 1.3-5.38 1.68-0.75 0.18-1.83 0.43-2.38 0.58-2.95 0.78-5.75 1.28-7.68 1.43-2.12 0.18-2.18 0.15-2.4-0.43-0.4-1-1.33-5.08-1.3-5.73 0-0.35-0.18-1.43-0.38-2.38-0.95-4.42-1.38-19.48-0.73-25.4 l 0.15-1.4-5.48-5.48 c-5.38-5.38-9.78-10.15-13.2-14.35-0.95-1.18-1.98-2.4-2.27-2.75-0.3-0.35-0.78-0.9-1.05-1.25-0.35-0.4-0.6-0.53-0.75-0.38-0.38 0.4-2.2 9-2.4 11.3-0.08 0.88-0.3 2.5-0.5 3.62-0.2 1.15-0.5 3.43-0.65 5.08-0.15 1.65-0.38 3.85-0.5 4.88-0.28 2.35-0.3 22.68 0 25.38 0.12 1.1 0.33 3.3 0.5 4.88 0.6 6.33 2.05 14.85 3.53 20.75 0.15 0.62 0.43 1.78 0.6 2.58 0.18 0.8 0.53 1.9 0.73 2.45 0.23 0.55 0.4 1.23 0.4 1.5 0 0.28 0.2 1.03 0.48 1.68 0.25 0.65 0.83 2.33 1.3 3.75 l 0.83 2.55 4.28 0 c 3.25 0 4.48-0.1 5.03-0.35 0.4-0.2 2.02-0.48 3.6-0.62 1.58-0.15 3.68-0.43 4.62-0.62 0.98-0.23 2.12-0.4 2.6-0.4 0.78 0 2.08-0.28 6.9-1.4 0.98-0.23 2.25-0.5 2.88-0.6 0.62-0.12 1.62-0.4 2.23-0.6 0.6-0.23 1.28-0.4 1.5-0.4 0.23 0 1.2-0.23 2.15-0.53 0.98-0.28 2.48-0.73 3.38-1 0.9-0.25 2.8-0.88 4.25-1.38 1.45-0.48 3.05-0.98 3.58-1.12 0.53-0.12 1.12-0.35 1.38-0.48 0.23-0.12 0.88-0.4 1.43-0.6 2.58-0.93 3.3-1.2 4-1.5 0.43-0.2 1.38-0.6 2.12-0.9 3.6-1.45 11.6-5.28 14.62-7 0.98-0.55 2.2-1.23 2.75-1.5 0.55-0.28 1.45-0.78 2-1.12 0.55-0.35 1.18-0.7 1.38-0.8 0.2-0.1 1.03-0.6 1.83-1.12 0.8-0.53 1.5-0.95 1.55-0.95 0.08 0 0.75-0.43 1.55-0.95 3.75-2.5 6.25-4.17 6.83-4.6 0.35-0.28 1.25-0.93 2-1.48 7.2-5.2 12.83-10.05 20.15-17.35 5.35-5.3 7.48-7.6 10.78-11.58 1.35-1.6 2.55-3.05 2.7-3.2 0.12-0.15 0.48-0.58 0.75-0.95 0.28-0.38 1.4-1.85 2.5-3.28 2.2-2.85 2.4-3.12 4.33-5.85 1.2-1.68 3.55-5.23 5.18-7.78 0.3-0.48 1-1.55 1.53-2.38 1.12-1.73 1.4-2.18 2.05-3.38 0.25-0.48 0.7-1.3 1-1.83 1.43-2.43 1.65-2.85 1.98-3.48 0.2-0.38 0.45-0.75 0.6-0.83 0.12-0.1 0.23-0.38 0.23-0.62 0-0.48-2.48-1.5-3.62-1.5-0.3 0-1.33-0.23-2.27-0.5-0.95-0.3-2.5-0.75-3.48-1.03-3.15-0.9-5.23-1.53-6.12-1.9-0.48-0.18-1.43-0.48-2.12-0.68-1.55-0.43-2.7-0.83-4.08-1.43-0.58-0.28-1.25-0.48-1.5-0.48-0.23 0-0.75-0.18-1.15-0.38-0.93-0.5-0.95-0.5-1.7 0.3 z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <svg class="logo" viewBox="0 0 316 300" aria-hidden="true" focusable="false"><use href="#star" fill="url(#logo-fill)"/></svg>
+      Starchitect
+    </a>
+    <nav aria-label="Sections">
+      <a href="#overview">Overview</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#report">Client report</a>
+      <a href="#app">Site app</a>
+      <a href="#build">Under the hood</a>
+      <a href="#limitations">Limitations</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Project manager for architects · in development</p>
+      <h1><svg class="logo logo-mono" viewBox="0 0 316 300" aria-hidden="true" focusable="false"><use href="#star"/></svg>Starchitect</h1>
+      <p class="lede">
+        A project manager for architects and building surveyors. Photos from site file
+        themselves, every job follows the RIBA Plan of Work, and the client always has an
+        up-to-date progress report.
+      </p>
+      <p class="actions">
+        <a class="button" href="#dashboard">How the dashboard works</a>
+        <a class="button secondary" href="#app">Try the site app</a>
+      </p>
+      <p class="status">Starchitect is still being built. The dashboard, client report and app on this page are working models of the design.</p>
+
+      <figure class="screenshot">
+        <div class="window">
+          <div class="window-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="url">hollinswebb.starchitect.app/projects/rowan-house</span></div>
+          <div class="app">
+            <nav class="side" aria-label="Example app navigation">
+              <span class="side-brand"><svg class="logo" viewBox="0 0 316 300" aria-hidden="true" focusable="false"><use href="#star" fill="url(#logo-fill)"/></svg>Starchitect</span>
+              <div class="side-nav">
+                <span class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/></svg>Projects</span>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6h11M9 12h11M9 18h11M4 6l1 1 2-2M4 12l1 1 2-2M4 18h.01"/></svg>Workflows</span>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>Files</span>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>Clients</span>
+              </div>
+              <div>
+                <p class="side-label">Active projects</p>
+                <div class="side-projects">
+                  <span class="on">Rowan House <em>Stage 5</em></span>
+                  <span>Mill Lane Barn <em>Stage 2</em></span>
+                  <span>2 Quay Street <em>Stage 6</em></span>
+                  <span>St Anne's Hall <em>Survey</em></span>
+                </div>
+              </div>
+            </nav>
+
+            <div class="app-main">
+              <div class="proj-head">
+                <div>
+                  <h3>Rowan House</h3>
+                  <p class="proj-meta">Rear extension and loft conversion · 14 Rowan Terrace, Bath · Client: Priya and Tom Marsh</p>
+                </div>
+                <div class="btn-row">
+                  <span class="btn">Invite to project</span>
+                  <a class="btn btn-primary" href="#report">View client report</a>
+                </div>
+              </div>
+
+              <ol class="rail" id="rail" aria-label="RIBA stages"></ol>
+
+              <div class="app-cols">
+                <div class="panel" aria-live="polite">
+                  <div class="panel-head">
+                    <h4 id="stage-title">Stage 5</h4>
+                    <span class="sub" id="stage-count"></span>
+                  </div>
+                  <p class="stage-desc" id="stage-desc"></p>
+                  <ul class="tasks" id="task-list"></ul>
+                </div>
+                <div class="stack">
+                  <div class="panel">
+                    <div class="panel-head">
+                      <h4>Latest from site</h4>
+                      <span class="sub" id="dash-photo-count">38 photos</span>
+                    </div>
+                    <div class="photo-grid" id="dash-photos"></div>
+                  </div>
+                  <div class="panel">
+                    <div class="panel-head">
+                      <h4>Client report</h4>
+                      <span class="pill">Live</span>
+                    </div>
+                    <dl class="report-rows">
+                      <div><dt>Shared with</dt><dd>Priya and Tom Marsh</dd></div>
+                      <div><dt>Last opened</dt><dd>Wed 22 Oct, 19:12</dd></div>
+                      <div><dt>Last updated</dt><dd id="dash-updated">Thu 23 Oct, 11:40</dd></div>
+                      <div><dt>Waiting on client</dt><dd id="dash-decision">Kitchen floor finish</dd></div>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <figcaption>A working model of the dashboard. Pick a stage to see its tasks, and tick tasks in stage 5 to move the client's report on.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="overview">
+    <div class="wrap">
+      <h2>Overview</h2>
+      <p>
+        Architects and building surveyors are experts in buildings, not software. Small
+        practices tend to run each job from an inbox, a phone's camera roll and a spreadsheet
+        of stages. None of those tools were made for the work, and every workaround asks for
+        technical knowledge the team doesn't have and shouldn't need. That lack of technical
+        know-how kept getting in their way, and it was the main source of frustration in their
+        day-to-day work.
+      </p>
+      <p>
+        Starchitect replaces that patchwork with one place for each project: the photos from
+        site, the stages of the RIBA Plan of Work, and a progress report for the client that
+        keeps itself up to date.
+      </p>
+
+      <h3>The 20 MB problem</h3>
+      <p>
+        One architect couldn't send his client the photos from a site visit, because his email
+        provider rejects anything over 20 MB. He didn't know what a megabyte was. With
+        Starchitect he never has to.
+      </p>
+      <figure class="screenshot">
+        <div class="mail" role="img" aria-label="An email bounce message: the 186 MB message was over the 20 MB limit">
+          <div class="mail-head">
+            <span><strong>Mail Delivery System</strong></span>
+            <span>Undeliverable: Rowan House, site visit photos</span>
+          </div>
+          <div class="mail-body">
+            <p>Your message to <strong>Priya Marsh</strong> couldn't be delivered because it's too large.</p>
+            <dl class="facts">
+              <dt>Message size</dt><dd class="over">186 MB</dd>
+              <dt>Limit</dt><dd>20 MB</dd>
+            </dl>
+            <div>
+              <div class="meter"><i></i><b></b></div>
+              <div class="meter-key"><span>0</span><span>20 MB limit</span><span>186 MB</span></div>
+            </div>
+            <p class="attach">47 attachments: IMG_3961.HEIC, IMG_3962.HEIC, IMG_3963.HEIC … IMG_4007.HEIC</p>
+          </div>
+        </div>
+        <figcaption>The kind of message that started the project: one site visit's photos, far over an email provider's limit.</figcaption>
+      </figure>
+
+      <h3>From site to client</h3>
+      <ol class="cards">
+        <li><strong>Capture</strong> On site, the architect takes photos as normal in the Starchitect app. Each one uploads at full size, filed under the right project and stage.</li>
+        <li><strong>Manage</strong> In the office, each project follows the RIBA Plan of Work. Tasks get ticked off and stages move on, with nothing left to memory.</li>
+        <li><strong>Share</strong> At home, the client opens one link to a living progress report that updates itself as the work happens.</li>
+      </ol>
+
+      <dl class="facts">
+        <dt>Backend</dt><dd>Laravel 8 on PHP 8, MySQL, Redis</dd>
+        <dt>Dashboard</dt><dd>Vue 2, Vuex and Tailwind CSS</dd>
+        <dt>Site app</dt><dd>Flutter, for Android and iOS</dd>
+        <dt>Tenancy</dt><dd>A subdomain and a database for each practice</dd>
+        <dt>Workflow</dt><dd>RIBA Plan of Work 2020, stored as an editable template</dd>
+        <dt>Storage</dt><dd>S3-compatible object storage, MinIO in development</dd>
+        <dt>Started</dt><dd>2021</dd>
+        <dt>Status</dt><dd>In development</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section id="dashboard">
+    <div class="wrap">
+      <h2>The dashboard</h2>
+      <p>
+        The dashboard is where the architect runs each project. Every practice works on its
+        own subdomain, such as <code>hollinswebb.starchitect.app</code>. A new project gets a
+        workflow copied from the practice's template, which starts out as the RIBA Plan of Work
+        2020: eight stages, each with its RIBA tasks. The architect ticks tasks off as they
+        happen, and photos from the site app arrive already filed against the project and
+        stage.
+      </p>
+      <p>
+        The working model in the hero opens on a house extension in stage 5, with building
+        work under way. Ticking a task there updates the client's report further down this page.
+      </p>
+
+      <h3>The RIBA stages</h3>
+      <p>
+        The template holds all 52 RIBA tasks. The client never sees RIBA's terms: each stage
+        also has a plain name, and that's what appears in the client's report.
+      </p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Stage</th><th>RIBA name</th><th>What the client sees</th><th>Tasks</th></tr>
+          </thead>
+          <tbody id="stage-table"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="report">
+    <div class="wrap">
+      <h2>The client report</h2>
+      <p>
+        Clients get one link in place of an email thread. The report is a living document: it
+        shows the current stage, the architect's latest note, new photos from site and
+        anything the client needs to decide. It changes as the architect works, so there's
+        nothing to put together or send.
+      </p>
+      <p>
+        The report is branded for the practice and lives on its subdomain. The client signs in
+        with a read-only role, so they can see everything about their own project and change
+        nothing except their answers to decisions.
+      </p>
+
+      <figure class="screenshot">
+        <div class="window">
+          <div class="window-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="url">hollinswebb.starchitect.app/report/rowan-house</span></div>
+          <article class="doc">
+            <div class="doc-brand">
+              <span class="practice"><span class="monogram">HW</span>Hollins &amp; Webb Architects</span>
+              <span class="pill" id="portal-updated">Updated Thu 23 Oct, 11:40</span>
+            </div>
+
+            <div class="doc-title">
+              <h3>Rowan House</h3>
+              <p>Progress report for Priya and Tom Marsh · Rear extension and loft conversion</p>
+            </div>
+
+            <div>
+              <h4>Where we are</h4>
+              <div class="where-now"><b id="portal-stage-name">Building work</b><span id="portal-stage-count"></span></div>
+              <div class="segs" id="segs"></div>
+            </div>
+
+            <div>
+              <h4>Latest note</h4>
+              <div class="note">
+                <span class="avatar">EW</span>
+                <div>
+                  <p class="note-who"><b>Ellen Webb</b>, your architect · Thu 23 Oct</p>
+                  <p>A good week. The steel beam over the new rear opening went in on Tuesday and building control were happy with it. The loft floor joists are all in too.</p>
+                  <p>The roofers start on the extension on Monday, so expect some noise from 8am.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="decision">
+              <div class="decision-top"><span class="flag">Your decision needed</span><span>by Fri 6 Nov</span></div>
+              <h5>Kitchen floor finish</h5>
+              <p>Choose one so the screed can be ordered in time. Samples of both are in the site office.</p>
+              <div class="btn-row">
+                <button type="button" class="btn choice" id="choice-concrete" aria-pressed="false" data-choice="polished concrete">Polished concrete</button>
+                <button type="button" class="btn choice" id="choice-oak" aria-pressed="false" data-choice="oak boards">Oak boards</button>
+              </div>
+              <p class="decision-status" id="decision-status" role="status"></p>
+            </div>
+
+            <div>
+              <h4>This week on site</h4>
+              <div class="photo-grid" id="portal-photos"></div>
+            </div>
+
+            <div>
+              <h4>Coming up</h4>
+              <ul class="dated">
+                <li><time>w/c 2 Nov</time><span>Extension roof goes on</span></li>
+                <li><time>Fri 6 Nov</time><span>Your choice of kitchen floor finish</span></li>
+                <li><time>Thu 12 Nov</time><span>Building control inspection of the roof structure</span></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4>Earlier</h4>
+              <ol class="dated ruled">
+                <li><time>Tue 21 Oct</time><span>Steel beam fitted over the new rear opening and signed off by building control.</span></li>
+                <li><time>Fri 17 Oct</time><span>Loft floor joists in. Scaffold up at the back of the house.</span></li>
+                <li><time>Mon 6 Oct</time><span>Builders started on site.<em>Building work began</em></span></li>
+                <li><time>Fri 5 Sep</time><span>Building regulations approval received.<em>Construction drawings finished</em></span></li>
+                <li><time>Tue 2 Jun</time><span>Planning permission granted.<em>Detailed designs finished</em></span></li>
+              </ol>
+            </div>
+
+            <p class="doc-foot">This report updates by itself as work goes on. Questions? Reply to any update from Ellen, or call the studio.</p>
+          </article>
+        </div>
+        <figcaption>A working model of the client's report for the same project. Pick a floor finish to answer the architect, or take a photo with the site app below and watch it arrive here.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="app">
+    <div class="wrap">
+      <h2>The site app</h2>
+      <div class="media-layout">
+        <div>
+          <p>
+            The site app, built with Flutter, does one job. The architect picks the project
+            when they arrive on site, and every photo after that uploads at full resolution,
+            tagged with the project, the current RIBA stage and the time. There's no file size
+            to think about anywhere.
+          </p>
+          <dl class="facts">
+            <dt>No signal</dt><dd>Photos wait on the phone and upload when the site has coverage again</dd>
+            <dt>Filing</dt><dd>Project and stage come from the dashboard, so nothing needs sorting later</dd>
+            <dt>Sign-in</dt><dd>The practice's own subdomain, with OAuth tokens from Laravel Passport</dd>
+            <dt>Platforms</dt><dd>Android and iOS from one Dart codebase</dd>
+          </dl>
+          <div class="log">
+            <div class="log-head"><strong>Sync log</strong><span>Press the shutter on the phone</span></div>
+            <ol id="log" aria-live="polite">
+              <li><time>Thu 23 Oct 11:40</time><span>IMG_4093 → <strong>Rowan House › Stage 5</strong><span class="ok">Added to the dashboard and the client report</span></span></li>
+              <li><time>Tue 21 Oct 10:18</time><span>IMG_4091 → <strong>Rowan House › Stage 5</strong><span class="ok">Added to the dashboard and the client report</span></span></li>
+              <li><time>Tue 21 Oct 10:16</time><span>IMG_4088 → <strong>Rowan House › Stage 5</strong><span class="ok">Added to the dashboard and the client report</span></span></li>
+            </ol>
+          </div>
+        </div>
+
+        <figure class="phone">
+          <div class="phone-frame">
+            <div class="screen">
+              <div class="status-bar" aria-hidden="true">
+                <span id="phone-clock">14:02</span>
+                <span class="notch"></span>
+                <span class="bars"><i style="height:30%"></i><i style="height:55%"></i><i style="height:80%"></i><i style="height:100%"></i></span>
+              </div>
+              <div class="proj-pick"><span>Rowan House<small>Stage 5 · Building work</small></span><span aria-hidden="true">▾</span></div>
+              <div class="viewfinder ph" id="viewfinder" data-k="roof" role="img" aria-label="Camera viewfinder">
+                <div class="vf-tags"><span id="vf-label">Extension roof</span><span>Auto-filed</span></div>
+                <div class="flash" id="flash"></div>
+              </div>
+              <div class="queue">
+                <div class="queue-status"><b id="queue-text">All photos synced</b><span>Wi-Fi or 4G</span></div>
+                <div class="queue-row" id="queue"></div>
+              </div>
+              <div class="shutter-row">
+                <span>Photo</span>
+                <button type="button" class="shutter" id="shutter" aria-label="Take a photo"></button>
+                <span>Note</span>
+              </div>
+            </div>
+          </div>
+          <figcaption>A working model of the site app. Press the shutter: the photo uploads and appears in the dashboard and the client report above.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="build">
+    <div class="wrap">
+      <h2>Under the hood</h2>
+      <p>
+        Starchitect is a multi-tenant Laravel application. Each practice gets its own subdomain
+        and its own database, so one practice's projects, clients and photos never share tables
+        with another's. The dashboard, the client report and the site app all talk to the same
+        API.
+      </p>
+
+      <figure class="diagram">
+        <div class="diagram-scroll">
+          <svg viewBox="0 0 960 448" role="img" aria-labelledby="arch-title arch-desc">
+            <title id="arch-title">How Starchitect is put together</title>
+            <desc id="arch-desc">The dashboard, client report and site app call the Laravel API over HTTPS on the practice's subdomain, using OAuth2 bearer tokens. The API picks the practice from the subdomain and switches to that practice's database. It also uses a central database of practices, domains and workflow templates, and S3-compatible object storage for photos.</desc>
+            <defs>
+              <marker id="arch-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path class="d-arrowhead" d="M0,0 L10,5 L0,10 z"/>
+              </marker>
+            </defs>
+
+            <!-- Clients -->
+            <rect class="d-box" x="20" y="20" width="280" height="68" rx="8"/>
+            <text class="d-head" x="40" y="46">Dashboard</text>
+            <text class="d-muted" x="40" y="68">Vue 2, Vuex, Tailwind CSS</text>
+
+            <rect class="d-box" x="340" y="20" width="280" height="68" rx="8"/>
+            <text class="d-head" x="360" y="46">Client report</text>
+            <text class="d-muted" x="360" y="68">Read-only view for the client role</text>
+
+            <rect class="d-box" x="660" y="20" width="280" height="68" rx="8"/>
+            <text class="d-head" x="680" y="46">Site app</text>
+            <text class="d-muted" x="680" y="68">Flutter, offline upload queue</text>
+
+            <line class="d-flow" x1="160" y1="88" x2="160" y2="149" marker-end="url(#arch-arrow)"/>
+            <line class="d-flow" x1="480" y1="88" x2="480" y2="149" marker-end="url(#arch-arrow)"/>
+            <line class="d-flow" x1="800" y1="88" x2="800" y2="149" marker-end="url(#arch-arrow)"/>
+            <text class="d-small d-mono" x="172" y="124">HTTPS to {practice}.starchitect.app</text>
+            <text class="d-small d-mono" x="492" y="124">OAuth2 bearer tokens</text>
+
+            <!-- API -->
+            <rect class="d-box d-box-accent" x="20" y="150" width="920" height="104" rx="8"/>
+            <text class="d-head" x="40" y="178">Laravel 8 API</text>
+            <text x="40" y="202">The subdomain picks the practice, and the database connection switches to it before any controller runs.</text>
+            <text class="d-small d-muted" x="40" y="230">Single-purpose actions · Roles and permissions · Queued jobs · Mail and notifications · Redis cache and sessions</text>
+
+            <line class="d-flow" x1="160" y1="254" x2="160" y2="319" marker-end="url(#arch-arrow)"/>
+            <line class="d-flow" x1="480" y1="254" x2="480" y2="319" marker-end="url(#arch-arrow)"/>
+            <line class="d-flow" x1="800" y1="254" x2="800" y2="319" marker-end="url(#arch-arrow)"/>
+
+            <!-- Storage -->
+            <rect class="d-box" x="20" y="320" width="280" height="96" rx="8"/>
+            <text class="d-head" x="40" y="346">Central database</text>
+            <text class="d-muted" x="40" y="370">Practices and their domains,</text>
+            <text class="d-muted" x="40" y="388">and the central workflow templates</text>
+
+            <rect class="d-box" x="352" y="332" width="280" height="96" rx="8"/>
+            <rect class="d-box" x="346" y="326" width="280" height="96" rx="8"/>
+            <rect class="d-box" x="340" y="320" width="280" height="96" rx="8"/>
+            <text class="d-head" x="360" y="346">Practice databases</text>
+            <text class="d-muted" x="360" y="370">One per practice: users, roles,</text>
+            <text class="d-muted" x="360" y="388">projects, workflows, stages, tasks</text>
+
+            <rect class="d-box" x="660" y="320" width="280" height="96" rx="8"/>
+            <text class="d-head" x="680" y="346">Object storage</text>
+            <text class="d-muted" x="680" y="370">S3, with MinIO in development.</text>
+            <text class="d-muted" x="680" y="388">Photos sent through CloudFront</text>
+            <text class="d-muted" x="680" y="406">with signed URLs</text>
+          </svg>
+        </div>
+        <figcaption>Every request carries the practice in its subdomain, so the API always works inside one practice's database.</figcaption>
+      </figure>
+
+      <h3>Tenancy</h3>
+      <p>
+        Tenancy is handled by <code>stancl/tenancy</code>. Registering a practice queues jobs
+        that create its database, its subdomain, its first admin user and an OAuth client for
+        the site app.
+      </p>
+
+      <h3>The RIBA plan as data</h3>
+      <p>
+        The Plan of Work 2020 is stored centrally as a template of stages and tasks. A practice
+        can copy and edit it into templates of its own, such as a shorter one for measured
+        surveys, and each project gets its own workflow that can change without touching the
+        template.
+      </p>
+<pre><code><span class="c">// database/seeders/RIBA2020Seeder.php</span>
+$template = [
+    <span class="s">"title"</span> =&gt; <span class="s">"RIBA Plan of Work 2020"</span>,
+    <span class="s">"stages"</span> =&gt; [
+        [
+            <span class="s">"title"</span> =&gt; <span class="s">"Strategic Definition"</span>,
+            <span class="s">"description"</span> =&gt; <span class="s">"Determine the best means of achieving the client's requirements."</span>,
+            <span class="s">"tasks"</span> =&gt; [
+                [<span class="s">"title"</span> =&gt; <span class="s">"Prepare client requirements"</span>],
+                [<span class="s">"title"</span> =&gt; <span class="s">"Review project risks"</span>],
+                <span class="c">// …</span>
+            ],
+        ],
+        <span class="c">// … seven more stages, 52 tasks in all</span>
+    ],
+];</code></pre>
+
+      <h3>Roles and permissions</h3>
+      <p>
+        Permissions use <code>spatie/laravel-permission</code> behind a thin wrapper. On login
+        the dashboard asks the API for the user's permissions and only shows what they can do,
+        so a client can read a report but never edit a stage.
+      </p>
+
+      <h3>Small actions, thin controllers</h3>
+      <p>
+        Business logic lives in invokable action classes such as <code>CreateProject</code>,
+        <code>UpdateStage</code> and <code>InviteUsers</code>. Controllers stay thin and hand
+        over to them, so the same logic can be used from the API, from queued jobs and from
+        tests.
+      </p>
+<pre><code><span class="c">// app/Actions/UpdateTask.php</span>
+<span class="k">class</span> UpdateTask
+{
+    <span class="k">public function</span> __invoke(<span class="k">array</span> $data): Task
+    {
+        $task = Task::findOrFail($data[<span class="s">'id'</span>]);
+        $task-&gt;fill($data)-&gt;save();
+        <span class="k">return</span> $task;
+    }
+}</code></pre>
+
+      <h3>Testing and local development</h3>
+      <p>
+        Each API resource (projects, stages, tasks, roles, permissions, users and workflow
+        templates) has PHPUnit feature tests covering its endpoints, run by GitHub Actions on
+        pushes and pull requests. Locally, Docker Compose runs nginx, PHP, MySQL, Redis, MinIO
+        for S3-compatible storage, and Mailhog to catch invite and verification emails.
+      </p>
+    </div>
+  </section>
+
+  <section id="limitations">
+    <div class="wrap">
+      <h2>Limitations</h2>
+      <p>
+        Starchitect is still being built. The foundations are in place, and the parts that
+        architects and clients would use day to day are designed but not finished:
+      </p>
+      <ul>
+        <li>The stage dashboard, the client report and the site app on this page are working models of the design, not the finished product.</li>
+        <li>Photos don't upload yet. The pipeline for uploads, thumbnails and signed delivery is still to be built.</li>
+        <li>The plain names for each stage are part of the design and aren't stored in the workflow templates yet.</li>
+        <li>There's no billing, so practices can't subscribe yet.</li>
+      </ul>
+
+      <h3>What's built</h3>
+      <ul>
+        <li>Practice sign-up, with a subdomain and a database created for each one.</li>
+        <li>Login, email verification, password reset and invitations to join a practice.</li>
+        <li>Roles and permissions, with an endpoint for the current user's permissions.</li>
+        <li>A REST API for projects, workflows, stages, tasks and workflow templates.</li>
+        <li>The RIBA Plan of Work 2020 as a seeded template.</li>
+        <li>A project list in the Vue dashboard, with each project's progress and paging.</li>
+        <li>A feature test suite that runs in CI.</li>
+      </ul>
+
+      <h3>Next steps</h3>
+      <ul>
+        <li>The stage dashboard and task tracking, as in the working model.</li>
+        <li>The client's living progress report, with decisions the client can answer.</li>
+        <li>The Flutter site app, with its offline upload queue.</li>
+        <li>Notifications for clients when the report changes, so they don't need to check it.</li>
+        <li>Subscription billing for practices.</li>
+      </ul>
+      <p>The practice, people and project in the working models are made up.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Starchitect by Craig Lomax</p>
+  </div>
+</footer>
+
+</body>
+</html>

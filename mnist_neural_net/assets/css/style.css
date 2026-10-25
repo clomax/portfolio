@@ -1,0 +1,316 @@
+/* Neural net digit reader project site */
+
+/* Colours are taken from the dataset and from handwriting: the black background
+   and white strokes of the MNIST digits, and the blue of ballpoint ink. */
+
+:root {
+  --bg: #f4f6fb;
+  --surface: #ffffff;
+  --text: #0e1430;
+  --muted: #4e5674;
+  --border: #d6dbea;
+  --accent: #2446c7;
+  --accent-text: #ffffff;
+  --code-bg: #e6eaf5;
+  --paper: #000000;
+  --stroke: #ffffff;
+  --signal: #0e1430;
+  --right: #1d8a4c;
+  --wrong: #c93838;
+  --hero-from: #22348f;
+  --hero-to: #0b1030;
+  --hero-text: #ffffff;
+  --hero-muted: #d3dafa;
+  --max: 64rem;
+  --gutter: 1rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0a0d1a;
+    --surface: #111632;
+    --text: #e6e9f6;
+    --muted: #9aa3c4;
+    --border: #232b52;
+    --accent: #8aa4ff;
+    --accent-text: #0a0d1a;
+    --code-bg: #161c3d;
+    --signal: #ffffff;
+    --right: #4fd18b;
+    --wrong: #ff7070;
+    --hero-from: #1a2670;
+    --hero-to: #070a1c;
+    --hero-text: #f2f4fd;
+    --hero-muted: #bcc6ee;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 4rem; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 1rem/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+a { color: var(--accent); }
+
+code, pre {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+code { background: var(--code-bg); padding: 0.1em 0.3em; border-radius: 3px; }
+pre {
+  background: var(--code-bg);
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+pre code { background: none; padding: 0; }
+
+/* Header */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.site-header .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+.brand { font-weight: 700; color: var(--text); text-decoration: none; }
+/* A single square pixel */
+.brand::before {
+  content: "";
+  display: inline-block;
+  width: 0.6em;
+  height: 0.6em;
+  margin-right: 0.45em;
+  border-radius: 1px;
+  background: var(--accent);
+  vertical-align: 0.05em;
+}
+.site-header nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; }
+.site-header nav a { color: var(--muted); text-decoration: none; font-size: 0.95rem; }
+.site-header nav a:hover { color: var(--text); }
+
+/* Sections */
+
+section { padding: 3rem 0; border-bottom: 1px solid var(--border); }
+section:last-of-type { border-bottom: none; }
+
+h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); line-height: 1.15; margin: 0.25rem 0 1rem; }
+h2 { font-size: 1.6rem; margin: 0 0 1rem; }
+h3 { font-size: 1.15rem; margin: 2rem 0 0.75rem; }
+h4 { font-size: 1rem; margin: 1.5rem 0 0.5rem; color: var(--muted); }
+
+.eyebrow {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.lede { font-size: 1.15rem; color: var(--muted); max-width: 44rem; }
+
+/* Hero: ink blue fading to the black of the dataset's images */
+
+.hero {
+  background: linear-gradient(160deg, var(--hero-from), var(--hero-to));
+  color: var(--hero-text);
+  border-bottom: none;
+}
+.hero .eyebrow,
+.hero .lede { color: var(--hero-muted); }
+.hero .button { background: var(--hero-text); color: var(--hero-to); }
+.hero .button.secondary {
+  background: transparent;
+  color: var(--hero-text);
+  border-color: var(--hero-text);
+}
+.hero .screenshot figcaption { color: var(--hero-muted); }
+.hero .screenshot img { border-color: rgba(255, 255, 255, 0.2); }
+
+/* Text beside the sample of digits on wide screens */
+.hero-layout { display: grid; gap: 0 2.5rem; align-items: center; }
+.hero-layout .screenshot { max-width: 24rem; }
+@media (min-width: 52rem) {
+  .hero-layout { grid-template-columns: minmax(0, 1fr) 22rem; }
+  .hero-layout .screenshot { margin: 0; }
+}
+
+.actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.5rem 0; }
+.button {
+  display: inline-block;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  background: var(--accent);
+  color: var(--accent-text);
+  text-decoration: none;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+.button.secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+/* Step cards */
+
+.cards {
+  list-style: none;
+  counter-reset: card;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 1rem;
+}
+.cards li {
+  counter-increment: card;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: 1rem;
+}
+.cards li strong { display: block; margin-bottom: 0.25rem; }
+.cards li strong::before { content: counter(card) ". "; color: var(--muted); }
+
+/* Key facts, and the glossary of terms */
+
+.facts {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.4rem 1.5rem;
+}
+.facts dt { font-weight: 600; }
+.facts dd { margin: 0; color: var(--muted); }
+
+@media (max-width: 30rem) {
+  .facts { grid-template-columns: 1fr; }
+  .facts dd { margin-bottom: 0.5rem; }
+}
+
+/* An aside that explains an idea in everyday terms */
+
+.analogy {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+}
+.analogy p { margin: 0; }
+.analogy p + p { margin-top: 0.5rem; }
+
+/* Headline results */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.stat {
+  margin: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top-width: 3px;
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+.stat .value {
+  display: block;
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.stat .label { display: block; margin-top: 0.25rem; color: var(--muted); }
+.stat.primary { border-top-color: var(--accent); }
+
+/* Tables */
+
+.table-scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; background: var(--surface); }
+th, td { text-align: left; padding: 0.5rem 0.75rem; border: 1px solid var(--border); vertical-align: top; }
+th { background: var(--code-bg); }
+
+/* Screenshots */
+
+.screenshot { margin: 1.5rem 0; }
+.screenshot img {
+  display: block;
+  width: 100%;
+  max-width: 1024px;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.screenshot figcaption { margin-top: 0.5rem; color: var(--muted); font-size: 0.9rem; }
+
+/* Images that are small to begin with are not blown up past their own size */
+.screenshot.natural img { width: auto; max-width: 100%; }
+
+/* Side by side, each figure grows in proportion to its image's aspect ratio
+   (--ar, set on the figure) so both images come out the same height */
+.screenshot-pair { display: grid; gap: 0 1.5rem; }
+@media (min-width: 52rem) {
+  .screenshot-pair { display: flex; align-items: flex-start; }
+  .screenshot-pair > .screenshot { flex: var(--ar, 1) 1 0; min-width: 0; }
+}
+
+/* Diagrams: inline SVG, coloured from the theme tokens */
+
+.diagram { margin: 1.5rem 0; }
+.diagram-scroll { overflow-x: auto; }
+.diagram svg { display: block; width: 100%; min-width: 720px; height: auto; }
+.diagram figcaption { margin-top: 0.5rem; color: var(--muted); font-size: 0.9rem; }
+
+.diagram text { fill: var(--text); font-size: 13px; }
+.diagram .d-title { font-size: 15px; font-weight: 700; }
+.diagram .d-head { font-size: 14px; font-weight: 600; }
+.diagram .d-small { font-size: 12px; }
+.diagram .d-muted { fill: var(--muted); font-weight: 400; }
+.diagram .d-dots { font-size: 22px; fill: var(--muted); }
+
+.diagram .d-box { fill: var(--surface); stroke: var(--border); stroke-width: 1.5; }
+.diagram .d-flow { stroke: var(--accent); stroke-width: 2; fill: none; }
+.diagram .d-arrowhead { fill: var(--accent); }
+
+/* The digit, drawn as it is stored: white strokes on black */
+.diagram .d-paper { fill: var(--paper); }
+.diagram .d-ink { fill: var(--stroke); }
+
+/* Each connection sets its own width and opacity for the strength of its signal.
+   White lines on the dark theme; dark ink on the light one, where white wouldn't show. */
+.diagram .d-wire { stroke: var(--signal); stroke-linecap: round; }
+.diagram .d-node { fill: var(--surface); stroke: var(--muted); stroke-width: 1.5; }
+.diagram .d-node-top { fill: var(--accent); stroke: var(--accent); }
+/* The sigmoid curve inside each hidden unit */
+.diagram .d-sigmoid { fill: none; stroke: var(--accent); stroke-width: 1.75; stroke-linecap: round; }
+.diagram .d-on-accent { fill: var(--accent-text); }
+.diagram .d-bar { fill: var(--muted); }
+.diagram .d-bar-top { fill: var(--accent); }
+
+/* Footer */
+
+.site-footer { padding: 2rem 0; color: var(--muted); font-size: 0.9rem; }

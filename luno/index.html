@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Luno</title>
+  <meta name="description" content="A moon tracking app for planning night photography. Scrub through time to see where the moon will be, how much of it will be lit, and what the sky will look like around it. Built with Flutter.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300&amp;display=swap">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="assets/js/luno-toy.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <svg class="logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="logo-sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#31318e"/>
+            <stop offset="100%" stop-color="#413490"/>
+          </linearGradient>
+        </defs>
+        <rect width="24" height="24" rx="5.5" fill="url(#logo-sky)"/>
+        <circle class="logo-disc" cx="12.5" cy="12" r="7.5"/>
+        <path class="logo-lit" d="M12.5,4.5 A7.5,7.5 0 0 0 12.5,19.5 A4.6,7.5 0 0 1 12.5,4.5 Z" transform="rotate(-17 12.5 12)"/>
+      </svg>
+      <span class="wordmark">Luno</span>
+    </a>
+    <nav aria-label="Sections">
+      <a href="#overview">Overview</a>
+      <a href="#scene">Scene</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#maths">Moon</a>
+      <a href="#limitations">Limitations</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Moon tracking app · in development</p>
+        <h1 class="wordmark">Luno</h1>
+        <p class="pronunciation">/ˈluːnəʊ/ · LOO-noh</p>
+        <p class="lede">
+          A moon tracker for planning night photography. Pick a place, then drag through time
+          to see where the moon will be, how much of it will be lit, and what the sky will look
+          like around it.
+        </p>
+        <!-- TODO: when Luno is published, add each store's href and remove aria-disabled -->
+        <p class="actions">
+          <a class="button store" aria-disabled="true"><small>Coming soon to</small> Google Play</a>
+          <a class="button store" aria-disabled="true"><small>Coming soon to the</small> App Store</a>
+        </p>
+        <p class="status">Luno is still being worked on and isn't available to download yet.</p>
+      </div>
+      <figure class="screenshot phone toy-figure">
+        <div class="phone-frame">
+          <canvas class="toy" data-luno-toy="interactive" width="360" height="800" tabindex="0" role="slider"
+                  aria-label="Time, in a working model of the Luno app"
+                  aria-valuemin="-5040" aria-valuemax="5040" aria-valuenow="0">
+            A working model of the Luno app's main screen, showing the moon over London.
+          </canvas>
+        </div>
+        <noscript><p class="toy-noscript">The working model of the app needs JavaScript.</p></noscript>
+        <figcaption>A working model of the app, running its calculations for London. Drag across it to move through time, tap the graph to jump, or tap the arrow to reset the time.</figcaption>
+      </figure>
+    </div>
+    <svg class="hills" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <path class="hill hill-back" d="M0,120 L0,49.3 C50.0,49.3 50.0,35.5 100.0,35.5 C150.0,35.5 150.0,43.4 200.0,43.4 C250.0,43.4 250.0,32.8 300.0,32.8 C350.0,32.8 350.0,31.8 400.0,31.8 C450.0,31.8 450.0,57.1 500.0,57.1 C550.0,57.1 550.0,59.4 600.0,59.4 C650.0,59.4 650.0,22.3 700.0,22.3 C750.0,22.3 750.0,48.3 800.0,48.3 C850.0,48.3 850.0,49.5 900.0,49.5 C950.0,49.5 950.0,15.2 1000.0,15.2 C1050.0,15.2 1050.0,38.8 1100.0,38.8 C1150.0,38.8 1150.0,22.4 1200.0,22.4 L1200,120 Z"/>
+      <path class="hill hill-mid" d="M0,120 L0,72.1 C50.0,72.1 50.0,46.3 100.0,46.3 C150.0,46.3 150.0,75.6 200.0,75.6 C250.0,75.6 250.0,55.3 300.0,55.3 C350.0,55.3 350.0,77.0 400.0,77.0 C450.0,77.0 450.0,71.3 500.0,71.3 C550.0,71.3 550.0,45.0 600.0,45.0 C650.0,45.0 650.0,72.7 700.0,72.7 C750.0,72.7 750.0,57.5 800.0,57.5 C850.0,57.5 850.0,63.9 900.0,63.9 C950.0,63.9 950.0,64.1 1000.0,64.1 C1050.0,64.1 1050.0,62.7 1100.0,62.7 C1150.0,62.7 1150.0,73.3 1200.0,73.3 L1200,120 Z"/>
+      <path class="hill hill-front" d="M0,120 L0,96.6 C50.0,96.6 50.0,78.8 100.0,78.8 C150.0,78.8 150.0,80.9 200.0,80.9 C250.0,80.9 250.0,93.6 300.0,93.6 C350.0,93.6 350.0,87.6 400.0,87.6 C450.0,87.6 450.0,88.8 500.0,88.8 C550.0,88.8 550.0,83.7 600.0,83.7 C650.0,83.7 650.0,80.3 700.0,80.3 C750.0,80.3 750.0,97.7 800.0,97.7 C850.0,97.7 850.0,99.3 900.0,99.3 C950.0,99.3 950.0,79.1 1000.0,79.1 C1050.0,79.1 1050.0,89.2 1100.0,89.2 C1150.0,89.2 1150.0,80.9 1200.0,80.9 L1200,120 Z"/>
+    </svg>
+  </section>
+
+  <section id="overview">
+    <div class="wrap">
+      <h2>Overview</h2>
+      <p>
+        Luno was born out of a conversation with a graphic illustrator, who had created the
+        design for the app and asked whether I could make it a real one. It was originally a
+        concept for a tool to help plan night photography: to know ahead of time where the moon
+        will rise, how high it will climb, and what phase it will be in.
+      </p>
+      <p>
+        The app shows a live scene of the sky in the moon's direction for a chosen place, and a
+        timeline that can be dragged to any moment in the coming days.
+      </p>
+      <figure class="video">
+        <div class="video-frame">
+          <iframe src="https://www.youtube-nocookie.com/embed/5LGJL6fiaAo" title="Luno - Promotional Video"
+                  loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+        </div>
+        <figcaption>The promotional video for Luno, by Michael Lomax.</figcaption>
+      </figure>
+      <h3>What's on screen</h3>
+      <ol class="cards">
+        <li><strong>The moon</strong> Shown where it is in the sky, in its current phase, with its lit side towards the sun.</li>
+        <li><strong>The sky</strong> Changes colour with the sun, from daylight through sunset and twilight to night.</li>
+        <li><strong>The landscape</strong> Hills that turn to follow the moon as it moves round the sky.</li>
+        <li><strong>The timeline</strong> How high the moon will be over the next two days, and when it rises and sets. Drag it to change the time.</li>
+      </ol>
+      <dl class="facts">
+        <dt>Framework</dt><dd>Flutter & Dart</dd>
+        <dt>Storage</dt><dd>SQLite for cached results</dd>
+        <dt>Platforms</dt><dd>Android and iOS</dd>
+        <dt>Astronomy</dt><dd>Jean Meeus' <em>Astronomical Algorithms</em> and the suncalc library</dd>
+        <dt>Locations</dt><dd>19 cities, from Honolulu to Auckland</dd>
+        <!-- TODO: credit the illustrator by name, with a link to their work -->
+        <dt>Design</dt><dd>From an illustrator's original concept</dd>
+        <dt>Status</dt><dd>In development, not yet released</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section id="scene">
+    <div class="wrap">
+      <h2>The scene</h2>
+      <p>
+        The main screen shows the sky in the moon's direction, as if you'd turned to face it. As the
+        moon moves round the sky, the stars and hills pass by behind it.
+      </p>
+
+      <h3>The sky</h3>
+      <p>
+        The sky's colours follow the sun rather than the clock: daytime blue gives way to an orange
+        glow at the horizon, then twilight purples, then night, and the stars come out as it darkens.
+      </p>
+      <figure class="diagram">
+        <div class="diagram-scroll">
+          <svg viewBox="0 0 972 290" role="img" aria-labelledby="sky-title sky-desc">
+            <title id="sky-title">The sky through an evening</title>
+            <desc id="sky-desc">Twelve columns of sky, each a gradient from the top of the screen to the horizon, for sun altitudes from 10° above the horizon to 18° below. At +10° the sky is blue with an orange horizon. By 0° the top has turned deep purple over an orange horizon. The orange fades through wine and plum to purple by −6°, and the sky darkens to near black indigo by −18°. Stars appear from +5° and are at full brightness by −6°.</desc>
+            <defs>
+              <linearGradient id="sky0" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1565C0"/><stop offset="50%" stop-color="#1E88E5"/><stop offset="100%" stop-color="#FF9040"/></linearGradient>
+              <linearGradient id="sky1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#183A7E"/><stop offset="50%" stop-color="#2552AA"/><stop offset="100%" stop-color="#F47935"/></linearGradient>
+              <linearGradient id="sky2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#191F56"/><stop offset="50%" stop-color="#293186"/><stop offset="100%" stop-color="#ED6B2E"/></linearGradient>
+              <linearGradient id="sky3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1A0E3C"/><stop offset="50%" stop-color="#2C1B6E"/><stop offset="100%" stop-color="#E8622A"/></linearGradient>
+              <linearGradient id="sky4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1A0E3C"/><stop offset="50%" stop-color="#2C1B6E"/><stop offset="100%" stop-color="#B9503B"/></linearGradient>
+              <linearGradient id="sky5" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1A0E3C"/><stop offset="50%" stop-color="#2C1B6E"/><stop offset="100%" stop-color="#8A3E4C"/></linearGradient>
+              <linearGradient id="sky6" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1A0E3C"/><stop offset="50%" stop-color="#2C1B6E"/><stop offset="100%" stop-color="#5B2D5D"/></linearGradient>
+              <linearGradient id="sky7" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1A0E3C"/><stop offset="50%" stop-color="#2C1B6E"/><stop offset="100%" stop-color="#2C1B6E"/></linearGradient>
+              <linearGradient id="sky8" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#140E32"/><stop offset="100%" stop-color="#211455"/></linearGradient>
+              <linearGradient id="sky9" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0D0F27"/><stop offset="100%" stop-color="#160C3C"/></linearGradient>
+              <linearGradient id="sky10" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#090A1C"/><stop offset="100%" stop-color="#120E32"/></linearGradient>
+              <linearGradient id="sky11" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#050510"/><stop offset="100%" stop-color="#0D0F27"/></linearGradient>
+            </defs>
+
+            <rect x="20" y="20" width="74" height="200" rx="4" fill="url(#sky0)"/>
+            <text class="d-small" x="57" y="240" text-anchor="middle">+10°</text>
+
+            <rect x="98" y="20" width="74" height="200" rx="4" fill="url(#sky1)"/>
+            <g fill="#ffffff">
+              <circle cx="142.6" cy="134.8" r="1.2" opacity="0.03"/>
+              <circle cx="105.8" cy="95.0" r="1.2" opacity="0.05"/>
+              <circle cx="159.9" cy="44.3" r="1.2" opacity="0.07"/>
+              <circle cx="133.1" cy="63.5" r="1.2" opacity="0.06"/>
+              <circle cx="104.8" cy="59.2" r="1.2" opacity="0.06"/>
+            </g>
+            <text class="d-small" x="135" y="240" text-anchor="middle">+5°</text>
+
+            <rect x="176" y="20" width="74" height="200" rx="4" fill="url(#sky2)"/>
+            <g fill="#ffffff">
+              <circle cx="220.6" cy="134.8" r="1.2" opacity="0.17"/>
+              <circle cx="231.3" cy="163.7" r="1.2" opacity="0.13"/>
+              <circle cx="183.8" cy="95.0" r="1.2" opacity="0.22"/>
+              <circle cx="240.5" cy="121.5" r="1.2" opacity="0.18"/>
+              <circle cx="237.9" cy="44.3" r="1.2" opacity="0.28"/>
+              <circle cx="211.1" cy="63.5" r="1.2" opacity="0.26"/>
+              <circle cx="182.8" cy="59.2" r="1.2" opacity="0.26"/>
+            </g>
+            <text class="d-small" x="213" y="240" text-anchor="middle">+2°</text>
+
+            <rect x="254" y="20" width="74" height="200" rx="4" fill="url(#sky3)"/>
+            <g fill="#ffffff">
+              <circle cx="298.6" cy="134.8" r="1.2" opacity="0.30"/>
+              <circle cx="309.3" cy="163.7" r="1.2" opacity="0.26"/>
+              <circle cx="261.8" cy="95.0" r="1.2" opacity="0.36"/>
+              <circle cx="318.5" cy="121.5" r="1.2" opacity="0.32"/>
+              <circle cx="315.9" cy="44.3" r="1.2" opacity="0.43"/>
+              <circle cx="289.1" cy="63.5" r="1.2" opacity="0.40"/>
+              <circle cx="293.7" cy="110.6" r="1.2" opacity="0.33"/>
+              <circle cx="260.8" cy="59.2" r="1.2" opacity="0.41"/>
+            </g>
+            <text class="d-small" x="291" y="240" text-anchor="middle">0°</text>
+
+            <rect x="332" y="20" width="74" height="200" rx="4" fill="url(#sky4)"/>
+            <g fill="#ffffff">
+              <circle cx="376.6" cy="134.8" r="1.2" opacity="0.42"/>
+              <circle cx="387.3" cy="163.7" r="1.2" opacity="0.38"/>
+              <circle cx="383.9" cy="160.8" r="1.2" opacity="0.39"/>
+              <circle cx="339.8" cy="95.0" r="1.2" opacity="0.47"/>
+              <circle cx="396.5" cy="121.5" r="1.2" opacity="0.44"/>
+              <circle cx="393.9" cy="44.3" r="1.2" opacity="0.54"/>
+              <circle cx="367.1" cy="63.5" r="1.2" opacity="0.52"/>
+              <circle cx="371.7" cy="110.6" r="1.2" opacity="0.45"/>
+              <circle cx="338.8" cy="59.2" r="1.2" opacity="0.52"/>
+            </g>
+            <text class="d-small" x="369" y="240" text-anchor="middle">−1.5°</text>
+
+            <rect x="410" y="20" width="74" height="200" rx="4" fill="url(#sky5)"/>
+            <g fill="#ffffff">
+              <circle cx="454.6" cy="134.8" r="1.2" opacity="0.56"/>
+              <circle cx="465.3" cy="163.7" r="1.2" opacity="0.53"/>
+              <circle cx="461.9" cy="160.8" r="1.2" opacity="0.53"/>
+              <circle cx="417.8" cy="95.0" r="1.2" opacity="0.60"/>
+              <circle cx="474.5" cy="121.5" r="1.2" opacity="0.58"/>
+              <circle cx="471.9" cy="44.3" r="1.2" opacity="0.66"/>
+              <circle cx="445.1" cy="63.5" r="1.2" opacity="0.64"/>
+              <circle cx="449.7" cy="110.6" r="1.2" opacity="0.59"/>
+              <circle cx="416.8" cy="59.2" r="1.2" opacity="0.64"/>
+            </g>
+            <text class="d-small" x="447" y="240" text-anchor="middle">−3°</text>
+
+            <rect x="488" y="20" width="74" height="200" rx="4" fill="url(#sky6)"/>
+            <g fill="#ffffff">
+              <circle cx="532.6" cy="134.8" r="1.2" opacity="0.72"/>
+              <circle cx="543.3" cy="163.7" r="1.2" opacity="0.70"/>
+              <circle cx="539.9" cy="160.8" r="1.2" opacity="0.71"/>
+              <circle cx="495.8" cy="95.0" r="1.2" opacity="0.75"/>
+              <circle cx="552.5" cy="121.5" r="1.2" opacity="0.73"/>
+              <circle cx="549.9" cy="44.3" r="1.2" opacity="0.78"/>
+              <circle cx="523.1" cy="63.5" r="1.2" opacity="0.77"/>
+              <circle cx="527.7" cy="110.6" r="1.2" opacity="0.74"/>
+              <circle cx="494.8" cy="59.2" r="1.2" opacity="0.77"/>
+            </g>
+            <text class="d-small" x="525" y="240" text-anchor="middle">−4.5°</text>
+
+            <rect x="566" y="20" width="74" height="200" rx="4" fill="url(#sky7)"/>
+            <g fill="#ffffff" opacity="0.9">
+              <circle cx="610.6" cy="134.8" r="1.2"/>
+              <circle cx="621.3" cy="163.7" r="1.2"/>
+              <circle cx="617.9" cy="160.8" r="1.2"/>
+              <circle cx="573.8" cy="95.0" r="1.2"/>
+              <circle cx="630.5" cy="121.5" r="1.2"/>
+              <circle cx="627.9" cy="44.3" r="1.2"/>
+              <circle cx="601.1" cy="63.5" r="1.2"/>
+              <circle cx="605.7" cy="110.6" r="1.2"/>
+              <circle cx="572.8" cy="59.2" r="1.2"/>
+            </g>
+            <text class="d-small" x="603" y="240" text-anchor="middle">−6°</text>
+
+            <rect x="644" y="20" width="74" height="200" rx="4" fill="url(#sky8)"/>
+            <g fill="#ffffff" opacity="0.9">
+              <circle cx="688.6" cy="134.8" r="1.2"/>
+              <circle cx="699.3" cy="163.7" r="1.2"/>
+              <circle cx="695.9" cy="160.8" r="1.2"/>
+              <circle cx="651.8" cy="95.0" r="1.2"/>
+              <circle cx="708.5" cy="121.5" r="1.2"/>
+              <circle cx="705.9" cy="44.3" r="1.2"/>
+              <circle cx="679.1" cy="63.5" r="1.2"/>
+              <circle cx="683.7" cy="110.6" r="1.2"/>
+              <circle cx="650.8" cy="59.2" r="1.2"/>
+            </g>
+            <text class="d-small" x="681" y="240" text-anchor="middle">−9°</text>
+
+            <rect x="722" y="20" width="74" height="200" rx="4" fill="url(#sky9)"/>
+            <g fill="#ffffff" opacity="0.9">
+              <circle cx="766.6" cy="134.8" r="1.2"/>
+              <circle cx="777.3" cy="163.7" r="1.2"/>
+              <circle cx="773.9" cy="160.8" r="1.2"/>
+              <circle cx="729.8" cy="95.0" r="1.2"/>
+              <circle cx="786.5" cy="121.5" r="1.2"/>
+              <circle cx="783.9" cy="44.3" r="1.2"/>
+              <circle cx="757.1" cy="63.5" r="1.2"/>
+              <circle cx="761.7" cy="110.6" r="1.2"/>
+              <circle cx="728.8" cy="59.2" r="1.2"/>
+            </g>
+            <text class="d-small" x="759" y="240" text-anchor="middle">−12°</text>
+
+            <rect x="800" y="20" width="74" height="200" rx="4" fill="url(#sky10)"/>
+            <g fill="#ffffff" opacity="0.9">
+              <circle cx="844.6" cy="134.8" r="1.2"/>
+              <circle cx="855.3" cy="163.7" r="1.2"/>
+              <circle cx="851.9" cy="160.8" r="1.2"/>
+              <circle cx="807.8" cy="95.0" r="1.2"/>
+              <circle cx="864.5" cy="121.5" r="1.2"/>
+              <circle cx="861.9" cy="44.3" r="1.2"/>
+              <circle cx="835.1" cy="63.5" r="1.2"/>
+              <circle cx="839.7" cy="110.6" r="1.2"/>
+              <circle cx="806.8" cy="59.2" r="1.2"/>
+            </g>
+            <text class="d-small" x="837" y="240" text-anchor="middle">−15°</text>
+
+            <rect x="878" y="20" width="74" height="200" rx="4" fill="url(#sky11)"/>
+            <g fill="#ffffff" opacity="0.9">
+              <circle cx="922.6" cy="134.8" r="1.2"/>
+              <circle cx="933.3" cy="163.7" r="1.2"/>
+              <circle cx="929.9" cy="160.8" r="1.2"/>
+              <circle cx="885.8" cy="95.0" r="1.2"/>
+              <circle cx="942.5" cy="121.5" r="1.2"/>
+              <circle cx="939.9" cy="44.3" r="1.2"/>
+              <circle cx="913.1" cy="63.5" r="1.2"/>
+              <circle cx="917.7" cy="110.6" r="1.2"/>
+              <circle cx="884.8" cy="59.2" r="1.2"/>
+            </g>
+            <text class="d-small" x="915" y="240" text-anchor="middle">−18°</text>
+
+            <!-- Bands -->
+            <path class="d-bracket" d="M22,252 V258 H248 V252"/>
+            <text class="d-small d-muted" x="135" y="276" text-anchor="middle">Golden hour</text>
+            <path class="d-bracket" d="M256,252 V258 H560 V252"/>
+            <text class="d-small d-muted" x="408" y="276" text-anchor="middle">Civil twilight</text>
+            <path class="d-bracket" d="M568,252 V258 H716 V252"/>
+            <text class="d-small d-muted" x="642" y="276" text-anchor="middle">Nautical</text>
+            <path class="d-bracket" d="M724,252 V258 H872 V252"/>
+            <text class="d-small d-muted" x="798" y="276" text-anchor="middle">Astronomical</text>
+            <path class="d-bracket" d="M880,252 V258 H950 V252"/>
+            <text class="d-small d-muted" x="915" y="276" text-anchor="middle">Night</text>
+          </svg>
+        </div>
+        <figcaption>The sky from the top of the screen down to the horizon, at sun altitudes through an evening. Stars are drawn brighter here than in the app so that they show up.</figcaption>
+      </figure>
+      <p>
+        Because it follows the sun, the sky changes with the seasons and from place to place. On a
+        June night in London it never gets fully dark, and in Reykjavik it barely gets dark at all.
+      </p>
+
+      <h3>The landscape</h3>
+      <p>
+        Layered hills wrap all the way round and turn with the moon. As the moon climbs, the horizon
+        drops away, as if you were tilting your head back to follow it. In London, the Houses of
+        Parliament and the London Eye stand on the skyline to the south.
+      </p>
+
+      <h3>The moon</h3>
+      <p>
+        The moon is drawn in its current phase and turned so its lit side faces the sun, as it does
+        in the sky. Beside it are the phase name and how much of it is lit. How this is worked out
+        is explained <a href="#maths">further down</a>.
+      </p>
+
+      <div class="gallery">
+        <figure class="screenshot phone">
+          <img src="assets/img/dusk.png" width="1080" height="2270" loading="lazy"
+               alt="Luno at 17:40 in London. A nearly full moon sits 8.87° above the hills to the east, under a purple sky with an orange glow at the horizon and the first faint stars. It is labelled Full Moon, 97.0% lit.">
+          <figcaption>A nearly full moon rising in the east at dusk.</figcaption>
+        </figure>
+        <figure class="screenshot phone">
+          <img src="assets/img/london-morning.png" width="1080" height="2270" loading="lazy"
+               alt="Luno at 08:34 in London. A waning crescent, 30.2% lit, stands 59.62° up in a blue morning sky, due south above the silhouettes of the Houses of Parliament and the London Eye.">
+          <figcaption>A waning crescent over London in the morning, above the Houses of Parliament and the London Eye.</figcaption>
+        </figure>
+        <figure class="screenshot phone">
+          <img src="assets/img/full-moon-night.png" width="1080" height="2270" loading="lazy"
+               alt="Luno at 00:32 in London. A full moon, 99.9% lit, shines 43.94° up in the south against a dark, starry sky, with faint outlines along the hills.">
+          <figcaption>A full moon high in the south, just after midnight.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="timeline">
+    <div class="wrap">
+      <h2>Scrubbing through time</h2>
+      <div class="media-layout">
+        <div>
+          <p>
+            The graph at the bottom of the screen shows how high the moon will be over two days,
+            and when it rises and sets. Drag along it and the whole scene moves with you.
+          </p>
+          <dl class="facts">
+            <dt>Drag the ring</dt><dd>Move through time</dd>
+            <dt>Drag the graph</dt><dd>Pan across a seven-day window</dd>
+            <dt>Tap the graph</dt><dd>Glide to the time you tapped</dd>
+            <dt>Reset</dt><dd>Glide back to now</dd>
+            <dt>Tap the clock</dt><dd>Jump to any date and time</dd>
+          </dl>
+        </div>
+        <figure class="screenshot phone toy-figure">
+          <div class="phone-frame">
+            <canvas class="toy toy-demo" data-luno-toy="demo" width="360" height="800" role="img"
+                    aria-label="The working model of the app scrubbing through time over London: from one night, through the day, to the next night and back again. The sky brightens and darkens, the moon rises, crosses the sky and sets, and the graph slides along beneath.">
+            </canvas>
+          </div>
+          <figcaption>Scrubbing from one night, through the day, to the next night and back.</figcaption>
+        </figure>
+      </div>
+
+      <h3>Keeping it smooth</h3>
+      <p>
+        Scrubbing has to keep up with your finger, which is too fast to run the orbital maths on
+        every frame. Instead, Luno works out the days around the chosen time in advance, with a quick
+        rough pass so the graph appears straight away and then a finer one. As you drag, it reads the
+        scene from those results. They're saved on the phone, so going back to a place and time
+        you've already looked at is instant.
+      </p>
+
+      <h3>Planning ahead</h3>
+      <div class="media-layout">
+        <div>
+          <p>
+            A calendar sheet shows a month at a time. Picking a day gives that day's moonrise and
+            moonset at the current location, and an event, with a title and a place, can be added
+            to it to plan a shoot.
+          </p>
+        </div>
+        <figure class="screenshot phone">
+          <img src="assets/img/calendar.png" width="409" height="655" loading="lazy"
+               alt="The Luno calendar for May 2018, with Thursday 24 May selected. Below the month, the moon sets at 03:28 and rises at 15:19 that day, and the events list shows a Total Lunar Eclipse on 24-05-18.">
+          <figcaption>The event calendar, with the selected day's moonset and moonrise, and an event planned for it.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="maths">
+    <div class="wrap">
+      <h2>Where the moon is</h2>
+      <p>
+        Luno works out the moon's position and phase from just the date and time and the observer's
+        latitude and longitude. The calculator is a self-contained Dart version of the formulas
+        used by the suncalc library, which come from Jean Meeus' <em>Astronomical Algorithms</em>
+        and the simplified orbital models at <a href="https://aa.quae.nl/en/reken/hemelpositie.html">aa.quae.nl</a>.
+      </p>
+      <figure class="diagram">
+        <div class="diagram-scroll">
+          <svg viewBox="0 0 960 560" role="img" aria-labelledby="calc-title calc-desc">
+            <title id="calc-title">How the moon's position and phase are calculated</title>
+            <desc id="calc-desc">The date and time give d, the number of days since noon on 1 January 2000. From d come the sun's equatorial coordinates, the moon's ecliptic and then equatorial coordinates and distance, and the observer's local sidereal time, which also uses their longitude. The sun's and moon's coordinates together give the elongation, phase angle, lit fraction and bright-limb angle. The moon's coordinates and the observer's latitude and sidereal time give the hour angle, altitude, azimuth and parallactic angle. Both feed the scene on screen: altitude sets the moon's height, azimuth pans the landscape, phase sets the shape, and the bright-limb angle minus the parallactic angle turns the disc.</desc>
+            <defs>
+              <marker id="calc-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path class="d-arrowhead" d="M0,0 L10,5 L0,10 z"/>
+              </marker>
+            </defs>
+
+            <!-- Time -->
+            <rect class="d-box" x="300" y="20" width="360" height="64" rx="8"/>
+            <text class="d-head" x="480" y="46" text-anchor="middle">Date and time</text>
+            <text class="d-small" x="480" y="68" text-anchor="middle"><tspan class="d-mono">d</tspan> = days since noon, 1 January 2000</text>
+
+            <path class="d-flow" d="M340,84 V106 H160 V129" marker-end="url(#calc-arrow)"/>
+            <line class="d-flow" x1="480" y1="84" x2="480" y2="129" marker-end="url(#calc-arrow)"/>
+            <path class="d-flow" d="M620,84 V106 H800 V129" marker-end="url(#calc-arrow)"/>
+
+            <!-- Sun -->
+            <rect class="d-box" x="20" y="130" width="280" height="104" rx="8"/>
+            <text class="d-head" x="40" y="156">Sun</text>
+            <text x="40" y="180">Mean anomaly → ecliptic longitude</text>
+            <text x="40" y="198">Equatorial: α☉, δ☉</text>
+            <text class="d-muted" x="40" y="220">Distance fixed at 1 AU</text>
+
+            <!-- Moon -->
+            <rect class="d-box d-box-accent" x="340" y="130" width="280" height="104" rx="8"/>
+            <text class="d-head" x="360" y="156">Moon</text>
+            <text x="360" y="180">Mean elements L, M, F</text>
+            <text x="360" y="198">Ecliptic: λ, β and distance Δ</text>
+            <text x="360" y="216">Equatorial: α, δ</text>
+
+            <!-- Observer -->
+            <rect class="d-box" x="660" y="130" width="280" height="104" rx="8"/>
+            <text class="d-head" x="680" y="156">Observer</text>
+            <text x="680" y="180">Latitude φ and longitude</text>
+            <text x="680" y="198">Local sidereal time θ</text>
+            <text class="d-muted" x="680" y="220">From the chosen location</text>
+
+            <line class="d-flow" x1="160" y1="234" x2="160" y2="289" marker-end="url(#calc-arrow)"/>
+            <text class="d-small" x="168" y="266">α☉, δ☉</text>
+            <line class="d-flow" x1="400" y1="234" x2="400" y2="289" marker-end="url(#calc-arrow)"/>
+            <text class="d-small" x="408" y="266">α, δ, Δ</text>
+            <line class="d-flow" x1="560" y1="234" x2="560" y2="289" marker-end="url(#calc-arrow)"/>
+            <text class="d-small" x="568" y="266">α, δ</text>
+            <line class="d-flow" x1="800" y1="234" x2="800" y2="289" marker-end="url(#calc-arrow)"/>
+            <text class="d-small" x="808" y="266">φ, θ</text>
+
+            <!-- Illumination -->
+            <rect class="d-box" x="20" y="290" width="420" height="120" rx="8"/>
+            <text class="d-head" x="40" y="316">Phase and illumination</text>
+            <text x="40" y="340">Elongation ψ: the angle between sun and moon</text>
+            <text x="40" y="358">Phase angle i → lit fraction k = (1 + cos i) / 2</text>
+            <text x="40" y="376">Bright-limb angle χ, and whether it's waxing</text>
+            <text class="d-muted" x="40" y="398">The same for everyone on Earth</text>
+
+            <!-- Horizon -->
+            <rect class="d-box" x="520" y="290" width="420" height="120" rx="8"/>
+            <text class="d-head" x="540" y="316">Position in the observer's sky</text>
+            <text x="540" y="340">Hour angle H = θ − α</text>
+            <text x="540" y="358">Altitude h, plus refraction, and azimuth A</text>
+            <text x="540" y="376">Parallactic angle q</text>
+            <text class="d-muted" x="540" y="398">Depends on where you stand</text>
+
+            <line class="d-flow" x1="230" y1="410" x2="230" y2="459" marker-end="url(#calc-arrow)"/>
+            <text class="d-small" x="238" y="440">k, phase, χ</text>
+            <line class="d-flow" x1="730" y1="410" x2="730" y2="459" marker-end="url(#calc-arrow)"/>
+            <text class="d-small" x="738" y="440">h, A, q</text>
+
+            <!-- On screen -->
+            <rect class="d-box" x="20" y="460" width="920" height="80" rx="8"/>
+            <text class="d-head" x="40" y="486">On screen</text>
+            <text x="40" y="510">Altitude sets the moon's height above the landscape · azimuth pans the landscape and stars</text>
+            <text x="40" y="528">Phase sets the shape of the lit part · χ − q turns the disc so its lit side faces the sun</text>
+          </svg>
+        </div>
+        <figcaption>Phase depends only on where the sun and moon are; position in the sky also depends on the observer. ☉ marks the sun.</figcaption>
+      </figure>
+
+      <h3>1. Time</h3>
+      <p>
+        Every formula is a function of <em>d</em>, the number of days since the J2000.0 epoch,
+        noon on 1 January 2000. It comes from the Julian date, a continuous count of days used in astronomy.
+      </p>
+      <pre><code>JD = t / 86 400 000 + 2 440 587.5        t = milliseconds since 1 January 1970, UTC
+d  = JD − 2 451 545</code></pre>
+
+      <h3>2. The moon's place among the stars</h3>
+      <p>
+        The moon's orbit is described by three angles that grow steadily with time: its mean
+        longitude <em>L</em>; its mean anomaly <em>M</em>, how far it has travelled round its
+        elliptical orbit since perigee; and <em>F</em>, its distance from the point where its
+        orbit crosses the plane of the Earth's. The largest correction for the ellipse gives the
+        moon's ecliptic longitude <em>λ</em>, the 5° tilt of its orbit gives its ecliptic latitude
+        <em>β</em>, and the anomaly also gives its distance <em>Δ</em>.
+      </p>
+      <pre><code>L = 218.316° + 13.176396° × d
+M = 134.963° + 13.064993° × d
+F =  93.272° + 13.229350° × d
+
+λ = L + 6.289° × sin M
+β = 5.128° × sin F
+Δ = 385 001 − 20 905 × cos M km</code></pre>
+
+      <h3>3. From the ecliptic to the equator</h3>
+      <p>
+        Ecliptic coordinates are measured against the plane of the Earth's orbit. Tilting them by
+        the angle of the Earth's axis, <em>ε</em> = 23.4397°, gives the right ascension
+        <em>α</em> and declination <em>δ</em>, which are measured against the celestial equator,
+        like longitude and latitude projected onto the sky.
+      </p>
+      <pre><code>α = atan2(sin λ cos ε − tan β sin ε, cos λ)
+δ = asin(sin β cos ε + cos β sin ε sin λ)</code></pre>
+
+      <h3>4. Bringing in the observer</h3>
+      <p>
+        Right ascension and declination are the same for everyone on Earth. The observer comes
+        in through local sidereal time <em>θ</em>, the right ascension crossing their meridian at
+        that moment, which depends on the time and their longitude. Subtracting the moon's right
+        ascension gives the hour angle <em>H</em>: how far the moon has moved past the observer's
+        meridian.
+      </p>
+      <pre><code>θ = 280.16° + 360.9856235° × d + longitude     longitude east positive
+H = θ − α</code></pre>
+
+      <h3>5. Altitude and azimuth</h3>
+      <p>
+        With the observer's latitude <em>φ</em>, the hour angle and declination give the moon's
+        altitude <em>h</em> above the horizon and its azimuth <em>A</em>.
+      </p>
+      <pre><code>h = asin(sin φ sin δ + cos φ cos δ cos H)
+A = atan2(sin H, cos H sin φ − tan δ cos φ)</code></pre>
+      <p>
+        <em>A</em> is measured from due south, so the app adds 180° to turn it into a compass
+        bearing. Near the horizon the atmosphere bends moonlight, so the moon looks higher than it
+        is. Sæmundsson's refraction formula (Meeus, formula 16.4) is added to the altitude, which
+        lifts the moon by about half a degree at the horizon and much less above it:
+      </p>
+      <pre><code>R = 0.0002967 / tan(h + 0.00312536 / (h + 0.08901179))     radians</code></pre>
+      <p>
+        Last, the parallactic angle <em>q</em> (Meeus, formula 14.1) is the angle, at the moon,
+        between the direction of the celestial pole and the observer's zenith. It's needed in
+        step 7 to turn the disc the right way up.
+      </p>
+      <pre><code>q = atan2(sin H, tan φ cos δ − sin δ cos H)</code></pre>
+
+      <h3>6. Phase and illumination</h3>
+      <p>
+        Phase depends only on where the sun and moon are relative to each other, so it's the same
+        for everyone on Earth at a given moment. The sun's position comes from the same kind of
+        model, its mean anomaly plus the correction for the Earth's elliptical orbit, and is
+        converted to <em>α</em>☉ and <em>δ</em>☉ in the same way as the moon's, with <em>β</em> = 0.
+      </p>
+      <pre><code>M☉ = 357.5291° + 0.98560028° × d
+C  = 1.9148° sin M☉ + 0.02° sin 2M☉ + 0.0003° sin 3M☉
+λ☉ = M☉ + C + 102.9372° + 180°           102.9372° is the longitude of the Earth's perihelion</code></pre>
+      <p>
+        The elongation <em>ψ</em> is the angle between the sun and moon as seen from Earth. With
+        the two distances, it gives the phase angle <em>i</em>, the angle between the sun and the
+        Earth as seen from the moon. A phase angle of 0° is a full moon and 180° is a new moon,
+        and the lit fraction <em>k</em> follows from it.
+      </p>
+      <pre><code>cos ψ = sin δ☉ sin δ + cos δ☉ cos δ cos(α☉ − α)
+i     = atan2(R☉ sin ψ, Δ − R☉ cos ψ)     R☉ = 149 598 000 km
+k     = (1 + cos i) / 2</code></pre>
+      <p>
+        The position angle <em>χ</em> of the bright limb, measured eastwards from north, says which
+        side of the disc is lit, and so whether the moon is waxing (<em>χ</em> &lt; 0) or waning.
+        Together with <em>i</em> it gives a phase that runs from 0 at new moon, through 0.5 at full
+        moon, and back to 1 (Meeus, chapter 48).
+      </p>
+      <pre><code>χ     = atan2(cos δ☉ sin(α☉ − α), sin δ☉ cos δ − cos δ☉ sin δ cos(α☉ − α))
+phase = 0.5 + 0.5 × sign(χ) × i / π</code></pre>
+      <p>
+        The app rescales the phase to run from −1 to +1, so full moon is at 0 and new moon at
+        both ends, where the animations wrap round. The phase names cover equal ranges.
+      </p>
+      <figure class="diagram">
+        <div class="diagram-scroll">
+          <svg viewBox="0 0 960 175" role="img" aria-labelledby="phase-title phase-desc">
+            <title id="phase-title">The app's phase scale</title>
+            <desc id="phase-desc">Nine moons on a night sky for phase values from −1 to +1 in steps of a quarter. −1 is new, −0.75 waxing crescent lit on the right, −0.5 waxing half, −0.25 waxing gibbous, 0 full, +0.25 waning gibbous lit on the left, +0.5 waning half, +0.75 waning crescent, and +1 new again.</desc>
+            <rect class="d-night" x="0.5" y="0.5" width="959" height="99" rx="8"/>
+
+            <circle class="d-moon-dark" cx="60" cy="50" r="26"/>
+            <circle class="d-moon-dark" cx="165" cy="50" r="26"/>
+            <path class="d-moon-lit" d="M165,24 A26,26 0 0 1 165,76 A18.38,26 0 0 0 165,24 Z"/>
+            <circle class="d-moon-dark" cx="270" cy="50" r="26"/>
+            <path class="d-moon-lit" d="M270,24 A26,26 0 0 1 270,76 A0,26 0 0 1 270,24 Z"/>
+            <circle class="d-moon-dark" cx="375" cy="50" r="26"/>
+            <path class="d-moon-lit" d="M375,24 A26,26 0 0 1 375,76 A18.38,26 0 0 1 375,24 Z"/>
+            <circle class="d-moon-lit" cx="480" cy="50" r="26"/>
+            <circle class="d-moon-dark" cx="585" cy="50" r="26"/>
+            <path class="d-moon-lit" d="M585,24 A26,26 0 0 0 585,76 A18.38,26 0 0 0 585,24 Z"/>
+            <circle class="d-moon-dark" cx="690" cy="50" r="26"/>
+            <path class="d-moon-lit" d="M690,24 A26,26 0 0 0 690,76 A0,26 0 0 0 690,24 Z"/>
+            <circle class="d-moon-dark" cx="795" cy="50" r="26"/>
+            <path class="d-moon-lit" d="M795,24 A26,26 0 0 0 795,76 A18.38,26 0 0 1 795,24 Z"/>
+            <circle class="d-moon-dark" cx="900" cy="50" r="26"/>
+
+            <g class="d-mono" text-anchor="middle">
+              <text x="60" y="125">−1</text>
+              <text x="165" y="125">−0.75</text>
+              <text x="270" y="125">−0.5</text>
+              <text x="375" y="125">−0.25</text>
+              <text x="480" y="125">0</text>
+              <text x="585" y="125">+0.25</text>
+              <text x="690" y="125">+0.5</text>
+              <text x="795" y="125">+0.75</text>
+              <text x="900" y="125">+1</text>
+            </g>
+            <g class="d-small d-muted" text-anchor="middle">
+              <text x="60" y="145">New</text>
+              <text x="165" y="145">Waxing</text><text x="165" y="161">crescent</text>
+              <text x="270" y="145">Waxing</text><text x="270" y="161">half</text>
+              <text x="375" y="145">Waxing</text><text x="375" y="161">gibbous</text>
+              <text x="480" y="145">Full</text>
+              <text x="585" y="145">Waning</text><text x="585" y="161">gibbous</text>
+              <text x="690" y="145">Waning</text><text x="690" y="161">half</text>
+              <text x="795" y="145">Waning</text><text x="795" y="161">crescent</text>
+              <text x="900" y="145">New</text>
+            </g>
+          </svg>
+        </div>
+        <figcaption>The phase scale used by the app, with the name shown for each range. Shapes are drawn as seen from the northern hemisphere, before the disc is turned.</figcaption>
+      </figure>
+
+      <h3>7. Turning the disc</h3>
+      <p>
+        The bright-limb angle <em>χ</em> is measured from celestial north, but the observer sees
+        the moon against their own horizon. Taking away the parallactic angle <em>q</em> gives the
+        direction of the lit side relative to straight up for that observer. This is why a
+        crescent moon tilts differently in London and lies almost on its back in Quito, near the
+        equator. The lit part is drawn on the right of an upright disc while the moon is
+        waxing and on the left while it is waning, giving the impression of a rotating spherical object.
+      </p>
+
+      <h3>8. Moonrise and moonset</h3>
+      <p>
+        The moon's rise and set times are found by searching. Starting at
+        midnight the altitude is calculated every hour and where it crosses 0° the
+        moon either rises
+        or sets.
+      </p>
+    </div>
+  </section>
+
+  <section id="limitations">
+    <div class="wrap">
+      <h2>Limitations and improvements</h2>
+      <p>
+        Luno is still being built. These are the things it doesn't do yet, or only does roughly:
+      </p>
+      <ul>
+        <li>It doesn't yet include eclipse dates, which are some of the events most worth planning a shoot around.</li>
+        <li>Luno uses a simplified model of the moon's orbit, so its position can be out by a degree or two. That's good enough to see roughly where it will be, but not to line it up behind a building.</li>
+        <li>Locations are a fixed list of 19 cities. There's no way yet to use the phone's location or to search for a place.</li>
+        <li>The hills don't match the real horizon, and the stars aren't a real star map. Landmarks are only drawn for London.</li>
+        <li>Events are only stored on the phone and aren't synced with a calendar.</li>
+      </ul>
+
+      <h3>Ideas for further work</h3>
+      <ul>
+        <li>Eclipse dates in the calendar and on the timeline, with the times each eclipse starts, peaks and ends at the chosen location.</li>
+        <li>Using the phone's location, and searching for any place.</li>
+        <li>A real horizon built from elevation data, and landmarks for more cities.</li>
+        <li>Finding when the moon will be at a given bearing and altitude, such as rising behind a particular landmark.</li>
+        <li>Showing golden hour and twilight on the timeline, which the app already calculates, so the light on the land can be planned together with the moon.</li>
+        <li>Syncing events with Google Calendar or iCal.</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Luno by Craig Lomax · Promotional video by Michael Lomax</p>
+  </div>
+</footer>
+
+</body>
+</html>
