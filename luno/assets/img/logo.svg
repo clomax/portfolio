@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <!-- The app's logo, as in the page header: a crescent on a disc a shade darker than the sky behind it -->
+  <defs>
+    <linearGradient id="logo-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#31318e"/>
+      <stop offset="100%" stop-color="#413490"/>
+    </linearGradient>
+  </defs>
+  <rect width="24" height="24" rx="5.5" fill="url(#logo-sky)"/>
+  <circle cx="12.5" cy="12" r="7.5" fill="#2d2874"/>
+  <path d="M12.5,4.5 A7.5,7.5 0 0 0 12.5,19.5 A4.6,7.5 0 0 1 12.5,4.5 Z" transform="rotate(-17 12.5 12)" fill="#fdfaf6"/>
+</svg>

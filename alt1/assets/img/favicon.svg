@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <!-- A dot in the site's accent colour, light and dark as in the stylesheet -->
+  <style>
+    circle { fill: #1f6feb; }
+    @media (prefers-color-scheme: dark) {
+      circle { fill: #4c8dff; }
+    }
+  </style>
+  <circle cx="8" cy="8" r="8"/>
+</svg>
